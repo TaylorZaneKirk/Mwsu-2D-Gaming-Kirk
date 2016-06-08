@@ -4,7 +4,7 @@ var mainState = {
     //state functions
     preload: function () {
         //load assets; first executed
-        game.load.image('logo', 'logo.png');
+        game.load.image('logo', 'images/Plogo.png');
     },
     create: function () {
         //after preload; set up game assets
