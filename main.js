@@ -1,25 +1,18 @@
-// JavaScript source code
-
 var mainState = {
-    //state functions
-    preload: function () {
-        //load assets; first executed
+    preload: function() {
         game.load.image('logo', 'images/Plogo.png');
     },
-    create: function () {
-        //after preload; set up game assets
-        this.spite = game.add.sprite(200, 150, 'logo');
-    },
-    update: function () {
-        //called 60 times/s
-        this.sprite.angle += 1;
-    },
-    render: function () {
 
-    }
+    create: function() { 
+		game.stage.backgroundColor = '#3498db';
+        this.sprite = game.add.sprite(200, 150, 'logo');
+    },
+
+    update: function() {
+        this.sprite.angle += 1;
+    } 
 };
 
-var game = new Phaaser.Game(400, 300, Phaser.Auto, 'gameDiv');
-
+var game = new Phaser.Game(400, 300, Phaser.AUTO, 'gameDiv');
 game.state.add('main', mainState);
-game.state.state('main');
+game.state.start('main');
