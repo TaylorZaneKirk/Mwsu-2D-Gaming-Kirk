@@ -65,7 +65,7 @@ var mainState = {
             this.playerDie();
         }
         
-        game.physics.arcade.overlap(this.player, this.coin, this.takeCoin, null, this);
+        game.physics.arcade.overlap(this.player, this.diamond, this.takeDiamond, null, this);
 	},
     
     movePlayer: function () {
@@ -124,7 +124,7 @@ var mainState = {
         this.score += 5;
         this.scoreLabel.text = 'score: ' + this.score;
         // Change the diamond position
-        this.updateCoinPosition();
+        this.updateDiamondPosition();
     },
     
     updateDiamondPosition: function () {
