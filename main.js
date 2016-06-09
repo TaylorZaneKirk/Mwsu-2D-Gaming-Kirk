@@ -7,7 +7,6 @@ var mainState = {
 	},
 
 	create: function () {
-        
         //background color
 		game.stage.backgroundColor = '#3498db';
         
@@ -55,7 +54,6 @@ var mainState = {
 	},
 
 	update: function () {
-        
         // Tell Phaser that the player and the walls should collide
         game.physics.arcade.collide(this.player, this.walls);
         
@@ -69,33 +67,31 @@ var mainState = {
 	},
     
     movePlayer: function () {
-        
-      // If the left arrow key is pressed
+        // If the left arrow key is pressed
         if (this.cursor.left.isDown) {
-        // Move the player to the left
-        // The velocity is in pixels per second
+            // Move the player to the left
+            // The velocity is in pixels per second
             this.player.body.velocity.x = -200;
         }
-      // If the right arrow key is pressed
-            else if (this.cursor.right.isDown) {
+        // If the right arrow key is pressed
+        else if (this.cursor.right.isDown) {
         // Move the player to the right
             this.player.body.velocity.x = 200;
         }
-        
-      // If neither the right or left arrow key is pressed
-            else {
+        // If neither the right or left arrow key is pressed
+        else {
             // Stop the player
-                this.player.body.velocity.x = 0;
-            }
-      // If the up arrow key is pressed and the player is on the ground
+            this.player.body.velocity.x = 0;
+        }
+        
+        // If the up arrow key is pressed and the player is on the ground
         if (this.cursor.up.isDown && this.player.body.touching.down) {
-        // Move the player upward (jump)
+            // Move the player upward (jump)
             this.player.body.velocity.y = -320;
         }
     },
     
     createWorld: function () {
-        
         // Create our group with Arcade physics
         this.walls = game.add.group();
         this.walls.enableBody = true;
@@ -128,7 +124,6 @@ var mainState = {
     },
     
     updateDiamondPosition: function () {
-        
         // Store all the possible diamond positions in an array
         var diamondPosition = [
             {x: 140, y: 60}, {x: 360, y: 60}, // Top row
@@ -146,6 +141,7 @@ var mainState = {
         
         // Randomly select a position from the array with 'game.rnd.pick'
         var newPosition = game.rnd.pick(diamondPosition);
+        
         // Set the new position of the diamond
         this.diamond.reset(newPosition.x, newPosition.y);
     },
