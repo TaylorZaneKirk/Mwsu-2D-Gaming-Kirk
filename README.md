@@ -5,6 +5,6 @@ Summer I
 
 * Taylor Kirk
 
-* taylorzanekirk@gmail.com
+* Email me: taylorzanekirk@gmail.com
 
-* taylorzanekirk.github.io
+* Website: http://taylorzanekirk.github.io
