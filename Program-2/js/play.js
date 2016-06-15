@@ -77,6 +77,7 @@ var playState = {
         //Enemy Stuff------------------------------------------------
         // Make the enemies and walls collide
         game.physics.arcade.collide(this.enemies, this.walls);
+        game.physics.arcade.collide(this.enemies, this.enemies);
 
         // Call the 'playerDie' function when the player and an enemy overlap
         game.physics.arcade.overlap(this.player, this.enemies, this.playerDie, null, this);
@@ -164,31 +165,32 @@ var playState = {
     
     addEnemy: function() {
       // Get the first dead enemy of the group
-      var enemy = this.enemies.getFirstDead();
-      // If there isn't any dead enemy, do nothing
-      if (!enemy) {
+        var enemy = this.enemies.getFirstDead();
+        
+        // If there isn't any dead enemy, do nothing
+        if (!enemy) {
           return;
-      }
+        }
       // Initialize the enemy
 
       // Set the anchor point centered at the bottom
-      enemy.anchor.setTo(0.5, 1);
+        enemy.anchor.setTo(0.5, 1);
 
       // Put the enemy above the top hole
-      enemy.reset(game.width/2, 0);
+        enemy.reset(game.width/2, 0);
 
       // Add gravity to see it fall
-      enemy.body.gravity.y = 500;
+        enemy.body.gravity.y = 500;
 
       //Randomly choose to move left or right when dropped into the game
-      enemy.body.velocity.x = 100 * game.rnd.pick([-1, 1]);
+        enemy.body.velocity.x = 100 * game.rnd.pick([-1, 1]);
 
       //Turning on bounce makes the enemies change direction when they hit a wall
-      enemy.body.bounce.x = 1;
+        enemy.body.bounce.x = 1;
 
       //Kill the sprite when it's no longer in the world
-      enemy.checkWorldBounds = true;
-      enemy.outOfBoundsKill = true;
+        enemy.checkWorldBounds = true;
+        enemy.outOfBoundsKill = true;
     },
     
     createWorld: function () {
@@ -249,17 +251,61 @@ var playState = {
         
         // Call 'addEnemy' every 2.2 seconds
         game.time.events.loop(2200, this.addEnemy, this);
+        
+        //Enemy Behavior check timer
+        game.time.events.loop(250, this.updateEnemies, this);
+    },
+    
+    updateEnemies: function() {
+        //Enemy behavior controller
+        this.enemies.forEachAlive(function(enemy){
+            //Use bitwise OR operator to trim the decimal points
+            if(Math.abs((this.player.y | 0) - enemy.y) <= 25){
+                
+                //Player and Enemy share a y-value, enemy sees player
+                if (Math.abs((this.player.x | 0) - enemy.x) <= 75){
+    
+                    // Enemy is close to the player; jump
+                    if (enemy.body.touching.down){
+                        
+                        // Move the enemy upward (jump)
+                        enemy.body.velocity.y = -300;
+
+                        //play sounds
+                        this.jumpSound.play();
+                    }
+                }
+                else if (Math.abs((this.player.x | 0) - enemy.x) <= 100){
+                    //Not close enough to jump, boost speed for 1 second
+                    if(this.player.x - enemy.x < 0){
+                        enemy.body.velocity.x = -200;
+                        game.time.events.add(1000, function(){
+                            enemy.body.velocity.x = -100;
+                        }, this); 
+                    }
+                    else{
+                        enemy.body.velocity.x = 200;
+                        game.time.events.add(1000, function(){
+                            enemy.body.velocity.x = 100;
+                         }, this);  
+                    }
+                }
+            }
+        }, this);
     },
     
     startMenu: function() {
         game.state.start('menu');
     },
 
-    playerDie: function() {
+    playerDie: function(victim, killer) {
+        
         //If the player just died -- within half of a second -- do not
         //  acknowledge deaths
-        if (this.playerTakeDamage == false)
+        if (killer != null && this.playerTakeDamage == false && killer.key == 'clown'){
+            this.deathTimer.start;
             return;
+        }
         
         // Flash the color white for 300ms
         game.camera.flash(0xffffff, 300);
@@ -290,7 +336,7 @@ var playState = {
         //  make it easier to find after respawn
         this.player.tint = 0xFF0000;
         this.playerTakeDamage = false;
-        this.deathTimer = game.time.events.add(500, function(){
+        this.deathTimer = game.time.events.add(1250, function(){
             this.player.tint = 0xFFFFFF;
             this.playerTakeDamage = true;
          }, this);
