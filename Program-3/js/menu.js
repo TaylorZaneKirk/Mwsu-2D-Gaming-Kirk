@@ -22,6 +22,12 @@ var menuState = {
         
         // Show the score at the center of the screen
         var text = 'score: ' + game.global.score + '\nbest score: ' + localStorage.getItem('bestScore');
+        if (game.device.desktop) {
+            text = 'press the up arrow key to start';
+        }
+        else {
+            text = 'touch the screen to start';
+        }
         var scoreLabel = game.add.text(game.width/2, game.height/2, text, { font: '25px Arial', fill: '#FFFFFF', align: 'center' });
         scoreLabel.anchor.setTo(0.5, 0.5);
         
@@ -31,6 +37,13 @@ var menuState = {
             { font: '25px Arial', fill: '#FFFFFF' });
         startLabel.anchor.setTo(0.5, 0.5);
         
+        var difficultyLabel = game.add.text(game.width/2, game.height-25,
+            "press to change difficulty: EASY",
+            { font: '20px Arial', fill: '#FFFFFF' });
+        difficultyLabel.anchor.setTo(0.5, 0.5);
+        difficultyLabel.inputEnabled = true;
+        difficultyLabel.events.onInputUp.add(this.toggleDifficulty, this);
+        
         // Add the button that calls the 'toggleSound' function when pressed
         this.muteButton = game.add.button(20, 20, 'mute', this.toggleSound,this);
         
@@ -38,11 +51,39 @@ var menuState = {
         // When pressed, call the 'start' function once
         var upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
         upKey.onDown.add(this.start, this);
+        
+        if (!game.device.desktop) {
+            game.input.onDown.add(this.start, this);
+        }
     },
     
     start: function() {
         // Start the actual game
+        // If we tap in the top left corner of the game on mobile
+        if (!game.device.desktop && (game.input.y < 50 && game.input.x < 60) || game.input.y > 400) {
+            // It means we want to mute the game, so we don't start the game
+            return;
+        }
+        
         game.state.start('play');
+    },
+    
+    toggleDifficulty: function(difLabel) {
+        if (game.global.difficulty == 1000){
+            difLabel.text = "press to change difficulty: NORMAL"
+            game.global.difficulty = 500;
+            return;
+        }
+        else if (game.global.difficulty == 500){
+            difLabel.text = "press to change difficulty: HARD"
+            game.global.difficulty = 250;
+            return;
+        }
+        else if (game.global.difficulty == 250){
+            difLabel.text = "press to change difficulty: EASY"
+            game.global.difficulty = 1000;
+            return;
+        }
     },
     
     // Function called when the 'muteButton' is pressed
