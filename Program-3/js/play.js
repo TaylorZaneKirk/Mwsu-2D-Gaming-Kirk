@@ -105,9 +105,9 @@ var playState = {
     
     addMobileInputs: function() {
         // Add the jump button (no changes)
-        var jumpButton = game.add.sprite(450, 240, 'jumpButton');
+        var jumpButton = game.add.sprite(400, 240, 'jumpButton');
         jumpButton.inputEnabled = true;
-        jumpButton.alpha = 0.5;
+        jumpButton.alpha = 0.6;
         jumpButton.events.onInputDown.add(this.jumpPlayer, this);
 
         // Movement variables
