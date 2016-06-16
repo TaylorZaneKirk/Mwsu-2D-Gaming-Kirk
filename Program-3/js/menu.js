@@ -22,12 +22,6 @@ var menuState = {
         
         // Show the score at the center of the screen
         var text = 'score: ' + game.global.score + '\nbest score: ' + localStorage.getItem('bestScore');
-        if (game.device.desktop) {
-            text = 'press the up arrow key to start';
-        }
-        else {
-            text = 'touch the screen to start';
-        }
         var scoreLabel = game.add.text(game.width/2, game.height/2, text, { font: '25px Arial', fill: '#FFFFFF', align: 'center' });
         scoreLabel.anchor.setTo(0.5, 0.5);
         
@@ -36,6 +30,12 @@ var menuState = {
             'press the up arrow key to start',
             { font: '25px Arial', fill: '#FFFFFF' });
         startLabel.anchor.setTo(0.5, 0.5);
+        if (game.device.desktop) {
+            startLabel.text = 'press the up arrow key to start';
+        }
+        else {
+            startLabel.text = 'touch the screen to start';
+        }
         
         var difficultyLabel = game.add.text(game.width/2, game.height-25,
             "press to change difficulty: EASY",

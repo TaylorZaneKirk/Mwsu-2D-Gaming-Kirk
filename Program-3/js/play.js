@@ -59,6 +59,8 @@ var playState = {
         this.player.animations.add('right', [1, 2], 8, true);
         // Create the 'left' animation by looping the frames 3 and 4
         this.player.animations.add('left', [3, 4], 8, true);
+        
+        yoyoEffect = game.add.tween(this.player.scale).to({x: 1.3, y: 1.3}, 100).yoyo(true);
 
         // Create the emitter with 15 particles. We don't need to set the x y
         // Since we don't know where to do the explosion yet
@@ -227,12 +229,12 @@ var playState = {
         this.diamondSound.play();
 
         //YoYo Player
-        game.add.tween(this.player.scale).to({x: 1.3, y: 1.3}, 100).yoyo(true).start();
+        yoyoEffect.start();
     },
     
     updateDiamondPosition: function () {
         // Randomly select a position from the spawnPoints group
-        var newPosition = this.spawnPoints.getRandom(0, (this.spawnPoints.length - 1));
+        var newPosition = this.spawnPoints.getRandom();
         
         // Set the new position of the diamond
         this.diamond.reset(newPosition.x, newPosition.y);
