@@ -60,7 +60,7 @@ var menuState = {
     start: function() {
         // Start the actual game
         // If we tap in the top left corner of the game on mobile
-        if (!game.device.desktop && (game.input.y < 50 && game.input.x < 60) || game.input.y > 400) {
+        if (!game.device.desktop && ((game.input.y < 50 && game.input.x < 60) || game.input.y > 300)) {
             // It means we want to mute the game, so we don't start the game
             return;
         }
