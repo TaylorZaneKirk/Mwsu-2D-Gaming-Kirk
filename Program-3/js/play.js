@@ -28,7 +28,7 @@ var playState = {
             this.orientationChange();
             this.addMobileInputs();
         }
-        
+        //this.addMobileInputs();
         //Arrow-Key input
         this.cursor = game.input.keyboard.createCursorKeys();
         game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN, Phaser.Keyboard.LEFT, Phaser.Keyboard.RIGHT]);
@@ -124,7 +124,7 @@ var playState = {
         leftButton.events.onInputUp.add(this.setLeftFalse, this);
 
         // Add the move right button
-        var rightButton = game.add.sprite(25, 440, 'rightButton');
+        var rightButton = game.add.sprite(25, 100, 'rightButton');
         rightButton.inputEnabled = true;
         rightButton.alpha = 0.5;
         rightButton.events.onInputOver.add(this.setRightTrue, this);
