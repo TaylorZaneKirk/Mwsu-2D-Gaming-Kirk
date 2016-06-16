@@ -6,7 +6,7 @@ game.global = {
     score: 0,
     
     //Difficulty settings: 1000 = easy / 500 = normal / 250 = hard
-    difficulty: 1000
+    difficulty: 500
 };
 
 // Add all the states

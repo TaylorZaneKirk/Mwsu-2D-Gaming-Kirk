@@ -38,7 +38,7 @@ var menuState = {
         }
         
         var difficultyLabel = game.add.text(game.width/2, game.height-25,
-            "press to change difficulty: EASY",
+            "press to change difficulty: NORMAL",
             { font: '20px Arial', fill: '#FFFFFF' });
         difficultyLabel.anchor.setTo(0.5, 0.5);
         difficultyLabel.inputEnabled = true;

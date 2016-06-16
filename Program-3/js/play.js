@@ -227,14 +227,18 @@ var playState = {
         
         //play sound
         this.diamondSound.play();
-
+        
         //YoYo Player
         yoyoEffect.start();
     },
     
     updateDiamondPosition: function () {
         // Randomly select a position from the spawnPoints group
+        //var oldPosition = this.diamond;
         var newPosition = this.spawnPoints.getRandom();
+        while (this.diamond.x == newPosition.x && this.diamond.y == newPosition.y){
+            newPosition = this.spawnPoints.getRandom();
+        }
         
         // Set the new position of the diamond
         this.diamond.reset(newPosition.x, newPosition.y);
@@ -297,9 +301,6 @@ var playState = {
         // Display the diamond
         this.spawnPoints = game.add.group();
         this.map.createFromObjects('DiamondSpawns', 2, '', 0, true, false, this.spawnPoints);
-        this.spawnPoints.forEach(function(loc){
-            console.log(loc.x + "," + loc.y);
-        }, this);
         
         var spawn = this.spawnPoints.getFirstExists();
         this.diamond = game.add.sprite(spawn.x, spawn.y, 'diamond');
@@ -353,7 +354,7 @@ var playState = {
                 if (Math.abs((this.player.x | 0) - enemy.x) <= 75){
 
                     // Enemy is close to the player; jump
-                    if (enemy.body.touching.down){
+                    if (enemy.body.onFloor()){
 
                         // Move the enemy upward (jump)
                         enemy.body.velocity.y = -300;
@@ -391,7 +392,6 @@ var playState = {
         //  cause of death was an enemy, do not acknowledge deaths.
         //  Deaths by falling will still count.       
         if (killer != null && this.playerTakeDamage == false && killer.key == 'clown'){
-            console.log(deathTimer.delay);
             this.player.tint = 0xFF0000;
             this.playerTakeDamage = false;
             timer.stop(false);  //Stop the deathTimer
@@ -433,7 +433,6 @@ var playState = {
         deathTimer = timer.add(1250, function(){
             this.player.tint = 0xFFFFFF;
             this.playerTakeDamage = true;
-            console.log("ded");
         }, this);
 
         //respawn player in random preset location
