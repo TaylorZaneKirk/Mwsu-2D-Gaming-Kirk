@@ -23,6 +23,10 @@ var loadState = {
         game.load.image('diamond', 'assets/diamond.png');
         game.load.image('pixel', 'assets/pixel.png');
         
+        game.load.image('jumpButton', 'assets/jumpButton.png');
+        game.load.image('rightButton', 'assets/rightButton.png');
+        game.load.image('leftButton', 'assets/leftButton.png');
+        
         // Load a new asset that we will use in the menu state
         game.load.image('background', 'assets/background.png');
         

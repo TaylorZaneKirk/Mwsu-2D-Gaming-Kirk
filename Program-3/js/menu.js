@@ -68,6 +68,8 @@ var menuState = {
         game.state.start('play');
     },
     
+    //Cycle through difficulties. Controls the offset between
+    //  enemy spawns and behavior checks
     toggleDifficulty: function(difLabel) {
         if (game.global.difficulty == 1000){
             difLabel.text = "press to change difficulty: NORMAL"
