@@ -17,10 +17,14 @@ SpaceHipster.Preload.prototype = {
         //load game assets
         this.load.image('space', 'assets/images/space.png');
         this.load.image('rock', 'assets/images/rock.png');
+        this.load.image('asteroid1', 'assets/images/asteroid1.png');
+        this.load.image('asteroid2', 'assets/images/asteroid2.png');
+        this.load.image('asteroid3', 'assets/images/asteroid3.png');
         //this.load.spritesheet('playership', 'assets/images/player.png', 12, 12);
         this.load.image('playership', 'assets/images/player.png');
         this.load.spritesheet('power', 'assets/images/power.png', 12, 12);
         this.load.image('playerParticle', 'assets/images/player-particle.png');
+        this.game.load.image('bullet', 'assets/images/bullet.png');
         this.load.audio('collect', 'assets/audio/collect.ogg');
         this.load.audio('explosion', 'assets/audio/explosion.ogg');
     },
