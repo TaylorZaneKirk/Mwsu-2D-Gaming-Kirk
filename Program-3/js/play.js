@@ -234,7 +234,6 @@ var playState = {
     
     updateDiamondPosition: function () {
         // Randomly select a position from the spawnPoints group
-        //var oldPosition = this.diamond;
         var newPosition = this.spawnPoints.getRandom();
         while (this.diamond.x == newPosition.x && this.diamond.y == newPosition.y){
             newPosition = this.spawnPoints.getRandom();
@@ -385,9 +384,9 @@ var playState = {
             }
         }, this);
     },
-
+    
     playerDie: function(victim, killer) {
-
+        
         //If the player just died -- within half of a second -- and the
         //  cause of death was an enemy, do not acknowledge deaths.
         //  Deaths by falling will still count.       
@@ -398,27 +397,27 @@ var playState = {
             timer.start(250);   //Restart DeathTimer w/ 250ms delay
             return;
         }
-
+        
         // Flash the color white for 300ms
         game.camera.flash(0xFFFFFF, 300);
-
+        
         // Shake for 300ms with an intensity of 0.02
         game.camera.shake(0.02, 300);
-
+        
         // Set the position of the emitter on top of the player
         this.emitter.x = this.player.x;
         this.emitter.y = this.player.y;
-
+        
         // Start the emitter by exploding 15 particles that will live 800ms
         this.emitter.start(true, 800, null, 15);
-
+        
         //Play sound on death
         this.deadSound.play();
-
+        
         //triggered when player collides with enemy
         this.deaths += 1;
         this.deathsLabel.text = 'deaths: ' + this.deaths;
-
+        
         //5 second penalty on death
         this.time -= 4;
         this.updateTime();
