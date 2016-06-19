@@ -169,6 +169,7 @@ SpaceHipster.Game.prototype = {
     },
     
     generateAsteriods: function() {
+        var asteriod;
         var lastMade = {};
         this.asteroids = this.game.add.physicsGroup(Phaser.Physics.ARCADE);
         
@@ -178,19 +179,29 @@ SpaceHipster.Game.prototype = {
         //phaser's random number generator
         var numAsteroidsSmall = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.y) / 2.5
         var numAsteroidsLarge = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.x) / 3
-        var asteriod;
         
+        //generate some number of 'small' scale asteroids
         for (var i = 0; i < numAsteroidsSmall; i++) {
             this.generateAsteroid(this.game.global.skillLevel.y);
             lastMade = this.asteroids.getTop();
             lastMade.name = "asteroid" + i;
         }
+        //generate some number of 'large' scale asteroids
         for (var i = 0; i < numAsteroidsLarge; i++) {
             this.generateAsteroid(this.game.global.skillLevel.x);
             lastMade = this.asteroids.getTop();
             lastMade.name = "asteroid" + (i + (numAsteroidsSmall | 0));
         }
         
+        //Add a new asteroid every 5 seconds
+        //  scalar will be picked at random to pass
+        //  to the same generate singular asteroid function
+        this.game.time.events.loop(this.game.rnd.integerInRange(5000, 10000), 
+            function(){
+                var whichScalar = this.game.rnd.pick([this.game.global.skillLevel.x,
+                                                        this.game.global.skillLevel.y]);
+                this.generateAsteroid(whichScalar);
+            }, this);
     },
     
     //Create and add one asteroid to the asteroids group.
@@ -246,7 +257,7 @@ SpaceHipster.Game.prototype = {
         
         //Allow each asteroid to have a unique RPM value
         rotationSpeed = this.game.rnd.integerInRange((1500 + scalar), (scalar * scalar));
-        this.game.add.tween(asteroid).to({angle: 359}, rotationSpeed, Phaser.Easing.Linear.None, true, 0, Infinity);
+        this.game.add.tween(asteroid).to({angle: (this.game.rnd.pick([-1, 1]) * 359)}, rotationSpeed, Phaser.Easing.Linear.None, true, 0, Infinity);
     },
     
     collideAsteroids: function(asteroid1, asteroid2){
