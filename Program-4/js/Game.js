@@ -101,11 +101,7 @@ SpaceHipster.Game.prototype = {
         
         //clean-up bounding boxes after sprite has been killed
         //  (mostly useful for debugging?)
-        this.asteroids.forEachDead(function(asteroid){asteroid.destroy();});
-<<<<<<< HEAD
-        this.bullets.forEachDead(function(bullet){bullet.destroy();});
-=======
->>>>>>> b83d18d3db24518c6b4b7c10038bbabd879e2a70
+        //this.asteroids.forEachDead(function(asteroid){asteroid.destroy();});
     },
     
     fireBullet: function () {
