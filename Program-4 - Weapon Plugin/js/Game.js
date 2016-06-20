@@ -26,6 +26,16 @@ SpaceHipster.Game.prototype = {
 
         //the camera will follow the player in the world
         this.game.camera.follow(this.player);
+        
+        //form buffs
+        this.playerShield = this.game.add.sprite(this.player.x, this.player.y, 'shield');
+        this.playerShield.maxHealth = 3;
+        this.playerShield.setHealth(3);
+        this.playerShield.scale.setTo(2);
+        this.playerShield.alpha = 0.5;
+        this.playerShield.anchor.setTo(0.5, 0.5);
+        this.game.physics.arcade.enable(this.playerShield);
+        this.playerShield.enableBody = true;
 
         //generate game elements
         this.generateCollectables();
@@ -89,8 +99,13 @@ SpaceHipster.Game.prototype = {
             this.weapons[this.currentWeapon].fire(this.player);
         }
         
+        //update shield location
+        this.playerShield.x = this.player.x;
+        this.playerShield.y = this.player.y;
+        
         //collision between player and asteroids
         this.game.physics.arcade.collide(this.player, this.asteroids, this.hitAsteroid, null, this);
+        this.game.physics.arcade.collide(this.playerShield, this.asteroids, this.bumpAsteroid, null, this);
         this.game.physics.arcade.collide(this.weapons[this.currentWeapon], this.asteroids, this.destoryAsteroid, null, this);
         this.game.physics.arcade.collide(this.asteroids, this.asteroids, this.collideAsteroids, null, this);
         
@@ -147,6 +162,13 @@ SpaceHipster.Game.prototype = {
             collectable.animations.add('fly', [0, 1, 2, 3], 5, true);
             collectable.animations.play('fly');
         }
+    },
+    
+    bumpAsteroid: function(shield, asteroid){
+        //Hit an asteroid while shields up; damage shield
+        shield.damage(1);
+        this.explodeThing(shield, true);
+        shield.alpha -= 0.10;
     },
     
     //Controls the initial creation of asteroids
@@ -363,9 +385,11 @@ SpaceHipster.Game.prototype = {
     },
 
     hitAsteroid: function(player, asteroid) {
-        this.explodeThing(player);
-        player.kill();
-        this.game.time.events.add(800, this.gameOver, this);
+        if (!this.playerShield.alive){
+            this.explodeThing(player);
+            player.kill();
+            this.game.time.events.add(800, this.gameOver, this);
+        }
     },
 
     destoryAsteroid: function(bullet, asteroid){
@@ -394,6 +418,11 @@ SpaceHipster.Game.prototype = {
         //update score
         this.playerScore++;
         this.scoreLabel.text = this.playerScore;
+        
+        //heal shield
+        this.playerShield.heal(1);
+        if (this.playerShield.alpha < 0.5)
+            this.playerShield.alpha += 0.1;
 
         //remove sprite
         collectable.destroy();
@@ -409,8 +438,9 @@ SpaceHipster.Game.prototype = {
 
     render: function(){
         //Debugging stuff
-        //Show bounding-boxes for the player and all asteroids
+        //Show bounding-boxes for the player/asteroids/bullets/shield
         //this.game.debug.body(this.player);
+        //this.game.debug.body(this.playerShield);
         //this.weapons[this.currentWeapon].forEach(function(bullet){this.game.debug.body(bullet);}, this);
         //this.asteroids.forEach(function(asteroid){this.game.debug.body(asteroid);}, this);
     }
