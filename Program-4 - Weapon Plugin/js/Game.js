@@ -2,7 +2,6 @@ var SpaceHipster = SpaceHipster || {};
 
 //title screen
 SpaceHipster.Game = function(){};
-SpaceHipster
 
 SpaceHipster.Game.prototype = {
     create: function() {
@@ -87,7 +86,7 @@ SpaceHipster.Game.prototype = {
         }
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
-            this.weapons[this.currentWeapon].fire(this.player)
+            this.weapons[this.currentWeapon].fire(this.player);
         }
         
         //collision between player and asteroids
@@ -139,7 +138,7 @@ SpaceHipster.Game.prototype = {
         this.collectables.physicsBodyType = Phaser.Physics.ARCADE;
 
         //phaser's random number generator
-        var numCollectables = this.game.rnd.integerInRange(100, 150)
+        var numCollectables = this.game.rnd.integerInRange(100, 150);
         var collectable;
 
         for (var i = 0; i < numCollectables; i++) {
@@ -160,10 +159,10 @@ SpaceHipster.Game.prototype = {
         this.asteroids.enableBody = true;
 
         //how many 'small' scale asteroids?
-        var numAsteroidsSmall = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.y) / 2.5
+        var numAsteroidsSmall = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.y) / 2.5;
         
         //how many 'large' scale asteroids?
-        var numAsteroidsLarge = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.x) / 3
+        var numAsteroidsLarge = this.game.rnd.integerInRange(this.game.global.asteroidSize, this.game.global.skillLevel.x) / 3;
 
         //generate some number of 'small' scale asteroids
         for (var i = 0; i < numAsteroidsSmall; i++) {
@@ -172,7 +171,7 @@ SpaceHipster.Game.prototype = {
             lastMade.name = "asteroid" + i;
         }
         //generate some number of 'large' scale asteroids
-        for (var i = 0; i < numAsteroidsLarge; i++) {
+        for (i = 0; i < numAsteroidsLarge; i++) {
             this.generateAsteroid(this.game.global.skillLevel.x);
             lastMade = this.asteroids.getTop();
             lastMade.name = "asteroid" + (i + (numAsteroidsSmall | 0));
@@ -185,7 +184,8 @@ SpaceHipster.Game.prototype = {
     generateAsteroid: function(scalar){
         var asteroid;
         var asteroidScale;  //size of the asteroid to be created
-        var asteroidVeloc;  //speed of asteroid
+        var asteroidVeloc_x;  //speed of asteroid
+        var asteroidVeloc_y;
         var difScale;   //used in Scale and Velocity calculations. Changes with global skill level
         var rotationSpeed;  //optional, asteroids should rotate, not slide
         var whichImage; //not all asteroids look alike
@@ -208,8 +208,8 @@ SpaceHipster.Game.prototype = {
                                                         this.game.global.skillLevel.y) / scalar) * (5.5 * difScale)));
 
         //If asteroid is too small, force it scale scale between .75 and 0.99
-        if (asteroidScale < .75)
-            asteroidScale = this.game.rnd.integerInRange(.75, .99);
+        if (asteroidScale < 0.75)
+            asteroidScale = this.game.rnd.integerInRange(0.75, 0.99);
 
         //scale the asteroid to its unique size
         asteroid.scale.setTo(asteroidScale);
@@ -223,10 +223,10 @@ SpaceHipster.Game.prototype = {
 
         //Bounding box stuff, more forgiving collision boxes
         asteroid.body.setSize(
-            asteroid.body.width * .8,
-            asteroid.body.height * .8,
-            asteroid.body.width * .025,
-            asteroid.body.height * .025
+            asteroid.body.width * 0.8,
+            asteroid.body.height * 0.8,
+            asteroid.body.width * 0.025,
+            asteroid.body.height * 0.025
         );
 
         //Health that scales with size
@@ -262,7 +262,7 @@ SpaceHipster.Game.prototype = {
         );
 
         //set anchor to avoid weird rotations on spawn
-        asteroid.anchor.setTo(.5, .5);
+        asteroid.anchor.setTo(0.5, 0.5);
 
         //collide border & bounce
         asteroid.body.collideWorldBounds = true;
@@ -277,6 +277,7 @@ SpaceHipster.Game.prototype = {
 
         var bigAsteroid = {};
         var smallAsteroid = {};
+        var overage;
 
         //Which one is the big asteroid?
         if(asteroid1.body.mass > asteroid2.body.mass){
@@ -309,18 +310,18 @@ SpaceHipster.Game.prototype = {
 
         //Find the velocity to augment the velocity of the big asteroid
         if (bigAsteroid.body.velocity.x < smallAsteroid.body.velocity.x){
-            var overage = (smallAsteroid.body.velocity.x - bigAsteroid.body.velocity.x) / 2
+            overage = (smallAsteroid.body.velocity.x - bigAsteroid.body.velocity.x) / 2;
             bigAsteroid.body.velocity.x += overage;
         }
         if (bigAsteroid.body.velocity.y < smallAsteroid.body.velocity.y){
-            var overage = (smallAsteroid.body.velocity.y - bigAsteroid.body.velocity.y) / 2
+            overage = (smallAsteroid.body.velocity.y - bigAsteroid.body.velocity.y) / 2;
             bigAsteroid.body.velocity.y += overage;
         }
 
         //Animate the size increase
         this.game.add.tween(bigAsteroid.scale).to(
-            {x: bigAsteroid.scale.x + (smallAsteroid.scale.x % .5), 
-             y: bigAsteroid.scale.y + (smallAsteroid.scale.y % .5)}, 300).start();
+            {x: bigAsteroid.scale.x + (smallAsteroid.scale.x % 0.5), 
+             y: bigAsteroid.scale.y + (smallAsteroid.scale.y % 0.5)}, 300).start();
 
         //Give more mass
         bigAsteroid.body.mass++;
@@ -348,7 +349,7 @@ SpaceHipster.Game.prototype = {
         emitter.maxParticleSpeed.setTo(200, 200);
 
         //Force particles to travel the same direction as thing
-        if (doConserveVelocity == true){
+        if (doConserveVelocity === true){
             emitter.width = 100;
             emitter.setXSpeed(-200, (2 * thing.body.velocity.x));
             emitter.setYSpeed(-200, (2 * thing.body.velocity.y));
@@ -357,7 +358,7 @@ SpaceHipster.Game.prototype = {
         emitter.gravity = 0;
         emitter.start(true, 1000, null, 100);
 
-        if(oneShot == true)
+        if(oneShot === true)
             thing.damage(thing.health);
     },
 

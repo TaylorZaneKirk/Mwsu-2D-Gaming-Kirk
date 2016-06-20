@@ -4,8 +4,8 @@ var SpaceHipster = SpaceHipster || {};
 SpaceHipster.MainMenu = function(){};
 
 SpaceHipster.MainMenu.prototype = {
-  init: function(score) {
-    var score = score || 0;
+  init: function(ascore) {
+    var score = ascore || 0;
     this.highestScore = this.highestScore || 0;
 
     this.highestScore = Math.max(score, this.highestScore);
