@@ -4,7 +4,7 @@ SpaceHipster.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phase
 
 SpaceHipster.game.global = {
     skillLevel: {x: 50, y: 150}, //difficulty
-    asteroidSize: 50 //small-to-large asteroid ratio
+    asteroidSize: 50 //small-to-large asteroid ratiol
 };
 
 SpaceHipster.game.state.add('Boot', SpaceHipster.Boot);

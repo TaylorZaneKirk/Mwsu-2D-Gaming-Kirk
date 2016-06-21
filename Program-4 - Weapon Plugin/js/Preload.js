@@ -25,6 +25,7 @@ SpaceHipster.Preload.prototype = {
         this.load.image('playerParticle', 'assets/images/player-particle.png');
         this.load.image('bullet', 'assets/images/bullet.png');
         this.load.image('shield', 'assets/images/shield.png');
+        this.load.image('powerupShield', 'assets/images/power_shield.png');
         this.load.audio('collect', 'assets/audio/collect.ogg');
         this.load.audio('explosion', 'assets/audio/explosion.ogg');
     },
