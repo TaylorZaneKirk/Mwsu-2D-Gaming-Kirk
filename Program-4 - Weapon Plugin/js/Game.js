@@ -261,12 +261,12 @@ SpaceHipster.Game.prototype = {
             asteroid.body.mass = (asteroidScale| 0);
 
         //Bounding box stuff, more forgiving collision boxes
-        /*asteroid.body.setSize(
+        asteroid.body.setSize(
             asteroid.body.width * 0.8,
             asteroid.body.height * 0.8,
             asteroid.body.width * 0.025,
             asteroid.body.height * 0.025
-        );*/
+        );
 
         //Health that scales with size
         asteroid.maxHealth = 5; //maximum of 5 hits to destroy
