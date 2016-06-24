@@ -1,6 +1,7 @@
 //Stuff to handle weapons and bullets
 /////////////////////////////////////
 var aBullet = aBullet || {};
+var gamePlayer = gamePlayer || {};
 
 //Bullet Class for Weapon plugin
 //constructor
@@ -8,7 +9,6 @@ var aBullet = function (game, key) {
 
     //what image?
     Phaser.Sprite.call(this, game, 0, 0, key);
-    console.log(gamePlayer.x);
     this.texture.baseTexture.scaleMode = PIXI.scaleModes.NEAREST;
 
     this.anchor.set(0.5);
@@ -77,7 +77,7 @@ Weapon.formShield = function (game) {
     Phaser.Group.call(this, game, game.world, 'Basic Shield', false, true, Phaser.Physics.ARCADE);
     this.nextFire = 0;  //how long until we can shoot?
     this.bulletSpeed = 0;
-    this.fireRate = 1500; //delay between shots
+    this.fireRate = 5001; //delay between shots
     this.bulletDuration = 5000;
     this.bulletScale = 3;
     this.alpha = 0.5;
@@ -110,8 +110,8 @@ Weapon.formShield.prototype.fire = function (source) {
 };
 
 Weapon.formShield.prototype.update = function (){
-    if(this.alive == true){
-        shield = this.getFirstExists();
+    if(this.alive){
+        var shield = this.getFirstExists();
         if(shield){
             shield.x = gamePlayer.x;
             shield.y = gamePlayer.y;
