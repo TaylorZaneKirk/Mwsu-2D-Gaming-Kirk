@@ -14,10 +14,8 @@ var mapData;
 var map;
 var layer;
 var layer2;
-var easystar;
 
-// the ascii display, as a 2d array of characters
-var asciidisplay;
+var easystar;   //pathfinder
 
 //map steps for generation
 var numberOfSteps = 4; //How many times will we pass over the map
@@ -37,11 +35,14 @@ function preload() {
     game.load.image('tileset', 'assets/tileset.png');
     game.load.image('player', 'assets/images/phaser-dude.png');
     game.load.image('clown', 'assets/images/clown.png');
-    mapData = generateMap();
-    easystar = new EasyStar.js();
+    mapData = generateMap();    //random map generation
+    easystar = new EasyStar.js();   //start the pathfinder
 }
 
 function create() {
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //Maps and layers
     map = game.add.tilemap();
     walls = game.add.group();
     tiles = map.addTilesetImage('tileset', null, 20, 20);
@@ -50,21 +51,11 @@ function create() {
     layer2.properties = {'collision' : true};
     layer.resizeWorld();
 
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    // init keyboard commands
-    //game.input.keyboard.addCallbacks(null, null, onKeyUp);
-
-    //create empty map and load tiles
-
+    //player
     actors = game.add.group();
-
-    enemies = game.add.group();
     player = actors.create(0, 0, 'player', null, false);
-    enemies.createMultiple(3, 'clown');
-    actors.add(enemies);
-
     player.anchor.setTo(0.5)
+    //player physics
     game.physics.arcade.enable(player);
     player.enableBody = true;
     player.body.collideWorldBounds = true;
@@ -74,7 +65,12 @@ function create() {
         player.body.width * 0.1,
         player.body.height * 0.5
     );
-    //player physics
+
+    //enemy group
+    enemies = game.add.group();
+    enemies.createMultiple(3, 'clown');
+    actors.add(enemies);
+    //enemy physics
     enemies.forEach(function(actor){
         actor.anchor.setTo(0.5)
         game.physics.arcade.enable(actor);
@@ -86,96 +82,23 @@ function create() {
             actor.body.width * 0.1,
             actor.body.height * 0.5
         );
+        actor.data = {
+            nextStep: null,
+            enemyPath: []
+        };
     });
 
-
-    //player.scale = 0;
-    //random generation!!
-    //generateMap();
+    //Draw the map first, then generate player/enemies
     drawMap(function(){generateActors();});
 
-    /*easystar.setGrid(map.layers[0].data);
-    easystar.setAcceptableTiles(map.tiles);*/
+    //EasyStar stuff; makes calculations using the raw
+    //  2D boolean array to determine paths. This is then
+    //  used to interact with tilemap
     easystar.setGrid(mapData);
     easystar.setAcceptableTiles([false]);
 }
 
-function drawPath(path){
-    var i = 0;
-    game.time.events.loop(Phaser.Timer.SECOND/25, function(){
-        if(path === null){
-            console.log("no path found");
-        }
-        else if(i < path.length){
-            map.putTile(1, path[i].x, path[i].y, 'level1')
-            i++;
-        }
-    })
-}
-
-function update() {
-    game.physics.arcade.collide(player, layer2);
-
-    player.body.velocity.x = 0;
-    player.body.velocity.y = 0;
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-        player.body.velocity.x -= 100;
-    } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-        player.body.velocity.x += 100;
-    }
-
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-        player.body.velocity.y -= 100;
-    } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-        player.body.velocity.y += 100;
-    }
-
-
-    enemies.forEachAlive(function(enemy) {
-        // Define a line that connects the person to the ball
-        // This isn't drawn on screen. This is just mathematical representation
-        // of a line to make our calculations easier. Unless you want to do a lot
-        // of math, make sure you choose an engine that has things like line intersection
-        // tests built in, like Phaser does.
-        var ray = new Phaser.Line(enemy.x, enemy.y, player.x, player.y);
-        var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
-        if(enemyTile && playerTile){
-            // Test if any walls intersect the ray
-            var intersect = getWallIntersection(ray);
-
-            if (intersect) {
-                // A wall is blocking this persons vision so change them back to their default color
-                enemy.tint = 0xffffff;
-            } else {
-                // This enemy can see the player so change their color
-                enemy.tint = 0xff0000;
-                easystar.findPath(enemyTile.x, enemyTile.y, playerTile.x, playerTile.y, drawPath);
-                easystar.calculate();
-            }
-        }
-    });
-
-}
-
-function getWallIntersection(ray) {
-    var blockingWalls = layer.getRayCastTiles(ray)
-    var hidden = false;
-    if (ray.length > 100)
-        return true;
-    else{
-        blockingWalls.forEach(function(thisTile){
-            if (thisTile.index == 0){
-                hidden = true;
-            }
-        });
-        return hidden;
-    }
-}
-
 function generateMap() {
-
     //Create a new map
     var cellmap = [];
 
@@ -209,31 +132,6 @@ function initialiseMap(mymap) {
         }
     }
     return mymap;
-}
-
-function countAliveNeighbours(map, x, y) {
-    //Retrieve the number of living neighbours in relation to a cell
-    var count = 0;
-
-    for (var i = -1; i < 2; i++) {
-
-        for(var j = -1; j < 2; j++) {
-            var neighbour_x = x+i;
-            var neighbour_y = y+j;
-
-            //If we're looking at the middle point
-            if(i === 0 && j === 0) {
-                //Do nothing, we don't want to add ourselves in!
-            }
-            //In case the index we're looking at it off the edge of the map
-            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
-                count = count + 1;
-            } else if(map[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
-                count = count + 1;
-            }
-        }
-    }
-    return count;
 }
 
 function doSimulationStep(oldMap) {
@@ -275,6 +173,31 @@ function doSimulationStep(oldMap) {
     return newMap;
 }
 
+function countAliveNeighbours(map, x, y) {
+    //Retrieve the number of living neighbours in relation to a cell
+    var count = 0;
+
+    for (var i = -1; i < 2; i++) {
+
+        for(var j = -1; j < 2; j++) {
+            var neighbour_x = x+i;
+            var neighbour_y = y+j;
+
+            //If we're looking at the middle point
+            if(i === 0 && j === 0) {
+                //Do nothing, we don't want to add ourselves in!
+            }
+            //In case the index we're looking at it off the edge of the map
+            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
+                count = count + 1;
+            } else if(map[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
+                count = count + 1;
+            }
+        }
+    }
+    return count;
+}
+
 function drawMap(callback) {   //and player
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
@@ -294,68 +217,201 @@ function drawMap(callback) {   //and player
 }
 
 function generateActors() {
-    //player sprite
-    var playerLoc = findSpawn(); //find player spawn loc
+    /*var playerLoc = findSpawn(); //find player spawn loc
     var actorLoc;
-
-    //player = actors.create(playerLoc.x, playerLoc.y, 'player');
-    /*player = game.add.sprite(playerLoc.x, playerLoc.y, 'player');
-    enemies = game.add.sprite(actorLoc.x, actorLoc.y, 'clown');*/
-
 
     player.reset(playerLoc.x, playerLoc.y);
 
     enemies.forEachDead(function(enemy){
         actorLoc = findSpawn();
         enemy.reset(actorLoc.x, actorLoc.y);
+    });*/
+
+    findSpawn(player);
+    enemies.forEachDead(function(enemy){
+        findSpawn(enemy);
     });
 }
 
-function findSpawn() {
+function updateEnemies(enemy) {
+
+    var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
+    var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
+    if(enemyTile && playerTile){
+
+        easystar.findPath(enemyTile.x, enemyTile.y, playerTile.x, playerTile.y, function(path){
+            enemy.enemyPath = path;
+            if (path.length > 0){
+                if(enemyTile.x > path[0].x && enemyTile.y == path[0].y)
+                    enemy.nextStep = 'L';
+                else if (enemyTile.x < path[0].x && enemyTile.y == path[0].y)
+                    enemy.nextStep = 'R';
+                else if (enemyTile.x == path[0].x && enemyTile.y > path[0].y)
+                    enemy.nextStep = 'D';
+                else if (enemyTile.x == path[0].x && enemyTile.y < path[0].y)
+                    enemy.nextStep = 'U';
+            }
+        });
+        easystar.calculate();
+    }
+}
+
+function findSpawn(actor) {
     //find a valid location on the map to spawn the plater
     var found = false;
     var tooClose;
     var spawnTile;
     for (var i = 0; i < ROWS*COLS; i++) {   //still looking...
         if (found === false){
-            tooClose = false;
-
             //grab random coordintes
             var x = game.rnd.integerInRange(0, COLS - 1) | 0;
             var y = game.rnd.integerInRange(0, ROWS - 1) | 0;
             var thatTile;
             var nbs;
-            thatTile = map.getTile(x, y, 'collisions');
+
+            tooClose = false;   //Assume we're not too close
+            thatTile = map.getTile(x, y, 'collisions'); //get tile we're looking at
 
             if (thatTile === null) {  //is tile walkable?
                 thatTile = map.getTile(x, y, 'level1'); //change layers
-                if (game.physics.arcade.distanceBetween(player, thatTile) < 30){
+
+                //If not placing the player, check if the enemy would be place too close
+                if (actor !== player && game.physics.arcade.distanceBetween(player, thatTile) < 200){
                     tooClose = true;
                 }
 
                 //make sure we're not too close to another thing
                 enemies.forEachAlive(function(actor){
-                    if (game.physics.arcade.distanceBetween(actor, thatTile) < 15)
+                    if (game.physics.arcade.distanceBetween(actor, thatTile) < 30)
                         tooClose = true;
                 });
-
 
                 //make sure that it is surrounded by other walkable tiles
                 nbs = countAliveNeighbours(mapData, thatTile.x, thatTile.y);
 
+                //If all qualifications met, stop looking and mark location
                 if (nbs === 0 && tooClose === false) {
                     found = true;
                     spawnTile = {x: thatTile.worldX, y: thatTile.worldY}
                 }
-
             }
         }
     }
 
     if (found === true)
-        return spawnTile;
-    else
-        console.log("no valid location found");
+        actor.reset(spawnTile.x, spawnTile.y)
+        else
+            console.log("no valid location found");
+}
+
+function getWallIntersection(ray) {
+    //Form array of all tiles that are intersected by the ray
+    var blockingWalls = layer2.getRayCastTiles(ray)
+
+    var hidden = false; //assume sighted until proven otherwise
+
+    if (ray.length > 150)   //too far away
+        return true;
+    else{
+        blockingWalls.forEach(function(thisTile){
+            console.log(thisTile);
+            if (thisTile.index == 0){
+                //wall in the way
+                hidden = true;
+            }
+        });
+
+        //Did enemy see player?
+        return hidden;
+    }
+}
+
+function update() {
+    game.physics.arcade.collide(player, layer2);
+    game.physics.arcade.collide(enemies, layer2);
+    game.physics.arcade.collide(enemies, player);
+    game.physics.arcade.collide(enemies);
+
+    player.body.velocity.x = 0;
+    player.body.velocity.y = 0;
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+        player.body.velocity.x -= 100;
+    } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+        player.body.velocity.x += 100;
+    }
+
+    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
+        player.body.velocity.y -= 100;
+    } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
+        player.body.velocity.y += 100;
+    }
+
+    //Move the enemies
+    enemies.forEachAlive(function(enemy){
+        // Define a line that connects the person to the ball
+        // This isn't drawn on screen. This is just mathematical representation
+        // of a line to make our calculations easier. Unless you want to do a lot
+        // of math, make sure you choose an engine that has things like line intersection
+        // tests built in, like Phaser does.
+        var ray = new Phaser.Line(enemy.x, enemy.y, player.x, player.y);
+        var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
+
+        //stop moving; await orders
+        enemy.body.velocity.x = 0;
+        enemy.body.velocity.y = 0;
+
+        if (enemy.nextStep == 'R')  //move right
+            enemy.body.velocity.x += 75;
+        if (enemy.nextStep == 'L')  //move left
+            enemy.body.velocity.x -= 75;
+        if (enemy.nextStep == 'D')  //move down
+            enemy.body.velocity.y -= 75;
+        if (enemy.nextStep == 'U')  //move up
+            enemy.body.velocity.y += 75;
+
+        //path controller
+        if(enemyTile && playerTile){
+            //First check if the enemy can see the player
+            //  then get next step data
+
+            // Test if any walls intersect the ray
+            var intersect = getWallIntersection(ray);
+
+            if (intersect) {
+                // A wall is blocking this persons vision so change them back to their default color
+                enemy.tint = 0xffffff;
+            } else {
+                // This enemy can see the player so change their color
+                //  and update their path
+                enemy.tint = 0xff0000;
+                updateEnemies(enemy);
+
+            }
+
+            //get enemies next move
+            if(enemy.enemyPath){
+                //where is enemy on the path?
+                for (var i = 0; i < enemy.enemyPath.length; i++){
+                    if (enemyTile.x == enemy.enemyPath[i].x &&
+                        enemyTile.y == enemy.enemyPath[i].y)
+                    {
+                        if (i == (enemy.enemyPath.length - 1))
+                            enemy.nextStep = null;  //End of trail; wait
+                        else if(enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y == enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'L';   //Gonna move left next
+                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y == enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'R';   //Gonna move right next
+                        else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'D';   //Gonna move down next
+                        else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'U';   //Gonna move up next
+                    }
+                }
+            }
+        }
+    });
 }
 
 function render() {
