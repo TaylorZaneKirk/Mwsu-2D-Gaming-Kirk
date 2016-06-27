@@ -7,6 +7,7 @@ var COLS = 40;
 
 var player;
 var enemies;
+var enemySpeed;
 var actors;
 
 // the structure of the map
@@ -59,10 +60,11 @@ function create() {
     game.physics.arcade.enable(player);
     player.enableBody = true;
     player.body.collideWorldBounds = true;
+    player.body.immovable = true;
     player.body.setSize(
-        player.body.width * 0.8,
+        player.body.width * 0.6,
         player.body.height * 0.5,
-        player.body.width * 0.1,
+        player.body.width * 0.2,
         player.body.height * 0.5
     );
 
@@ -71,15 +73,17 @@ function create() {
     enemies.createMultiple(3, 'clown');
     actors.add(enemies);
     //enemy physics
+    enemySpeed = 50;
     enemies.forEach(function(actor){
         actor.anchor.setTo(0.5)
         game.physics.arcade.enable(actor);
         actor.enableBody = true;
         actor.body.collideWorldBounds = true;
+        actor.body.immovable = true;
         actor.body.setSize(
             actor.body.width * 0.8,
             actor.body.height * 0.5,
-            actor.body.width * 0.1,
+            actor.body.width * 0.2,
             actor.body.height * 0.5
         );
         actor.data = {
@@ -96,6 +100,7 @@ function create() {
     //  used to interact with tilemap
     easystar.setGrid(mapData);
     easystar.setAcceptableTiles([false]);
+    easystar.enableDiagonals();
 }
 
 function generateMap() {
@@ -217,43 +222,11 @@ function drawMap(callback) {   //and player
 }
 
 function generateActors() {
-    /*var playerLoc = findSpawn(); //find player spawn loc
-    var actorLoc;
-
-    player.reset(playerLoc.x, playerLoc.y);
-
-    enemies.forEachDead(function(enemy){
-        actorLoc = findSpawn();
-        enemy.reset(actorLoc.x, actorLoc.y);
-    });*/
 
     findSpawn(player);
     enemies.forEachDead(function(enemy){
         findSpawn(enemy);
     });
-}
-
-function updateEnemies(enemy) {
-
-    var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
-    var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
-    if(enemyTile && playerTile){
-
-        easystar.findPath(enemyTile.x, enemyTile.y, playerTile.x, playerTile.y, function(path){
-            enemy.enemyPath = path;
-            if (path.length > 0){
-                if(enemyTile.x > path[0].x && enemyTile.y == path[0].y)
-                    enemy.nextStep = 'L';
-                else if (enemyTile.x < path[0].x && enemyTile.y == path[0].y)
-                    enemy.nextStep = 'R';
-                else if (enemyTile.x == path[0].x && enemyTile.y > path[0].y)
-                    enemy.nextStep = 'D';
-                else if (enemyTile.x == path[0].x && enemyTile.y < path[0].y)
-                    enemy.nextStep = 'U';
-            }
-        });
-        easystar.calculate();
-    }
 }
 
 function findSpawn(actor) {
@@ -314,7 +287,6 @@ function getWallIntersection(ray) {
         return true;
     else{
         blockingWalls.forEach(function(thisTile){
-            console.log(thisTile);
             if (thisTile.index == 0){
                 //wall in the way
                 hidden = true;
@@ -323,6 +295,41 @@ function getWallIntersection(ray) {
 
         //Did enemy see player?
         return hidden;
+    }
+}
+
+function updateEnemies(enemy) {
+    //Get new path for the enemy
+
+    var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
+    var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
+    if(enemyTile && playerTile){
+
+        easystar.findPath(enemyTile.x, enemyTile.y, playerTile.x, playerTile.y, function(path){
+            enemy.enemyPath = path;
+            if (path.length){
+
+                if(enemyTile.x > path[0].x && enemyTile.y == path[0].y)
+                    enemy.nextStep = 'L';
+                else if (enemyTile.x < path[0].x && enemyTile.y == path[0].y)
+                    enemy.nextStep = 'R';
+                else if (enemyTile.x < path[0].x && enemyTile.y > path[0].y)
+                    enemy.nextStep = 'RD';   //Gonna move right&down next
+                else if (enemyTile.x > path[0].x && enemyTile.y > path[0].y)
+                    enemy.nextStep = 'LD';   //Gonna move left&down next
+                else if (enemyTile.x < path[0].x && enemyTile.y < path[0].y)
+                    enemy.nextStep = 'RU';   //Gonna move right&up next
+                else if (enemyTile.x > path[0].x && enemyTile.y < path[0].y)
+                    enemy.nextStep = 'LU';   //Gonna move left&up next
+                else if (enemyTile.x == path[0].x && enemyTile.y > path[0].y)
+                    enemy.nextStep = 'D';
+                else if (enemyTile.x == path[0].x && enemyTile.y < path[0].y)
+                    enemy.nextStep = 'U';
+            }
+            else
+                enemy.nextStep = null;
+        });
+        easystar.calculate();
     }
 }
 
@@ -363,13 +370,29 @@ function update() {
         enemy.body.velocity.y = 0;
 
         if (enemy.nextStep == 'R')  //move right
-            enemy.body.velocity.x += 75;
+            enemy.body.velocity.x += enemySpeed;
         if (enemy.nextStep == 'L')  //move left
-            enemy.body.velocity.x -= 75;
+            enemy.body.velocity.x -= enemySpeed;
+        if (enemy.nextStep == 'LD'){  //move left&down
+            enemy.body.velocity.x -= enemySpeed;
+            enemy.body.velocity.y -= enemySpeed;
+        }
+        if (enemy.nextStep == 'RD'){  //move right&down
+            enemy.body.velocity.x += enemySpeed;
+            enemy.body.velocity.y -= enemySpeed;
+        }
+        if (enemy.nextStep == 'LU'){  //move left&up
+            enemy.body.velocity.x -= enemySpeed;
+            enemy.body.velocity.y += enemySpeed;
+        }
+        if (enemy.nextStep == 'RU'){  //move right&up
+            enemy.body.velocity.x += enemySpeed;
+            enemy.body.velocity.y += enemySpeed;
+        }
         if (enemy.nextStep == 'D')  //move down
-            enemy.body.velocity.y -= 75;
+            enemy.body.velocity.y -= enemySpeed;
         if (enemy.nextStep == 'U')  //move up
-            enemy.body.velocity.y += 75;
+            enemy.body.velocity.y += enemySpeed;
 
         //path controller
         if(enemyTile && playerTile){
@@ -403,6 +426,14 @@ function update() {
                             enemy.nextStep = 'L';   //Gonna move left next
                         else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y == enemy.enemyPath[i + 1].y)
                             enemy.nextStep = 'R';   //Gonna move right next
+                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'RD';   //Gonna move right&down next
+                        else if (enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'LD';   //Gonna move left&down next
+                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'RU';   //Gonna move right&up next
+                        else if (enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
+                            enemy.nextStep = 'LU';   //Gonna move left&up next
                         else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
                             enemy.nextStep = 'D';   //Gonna move down next
                         else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
