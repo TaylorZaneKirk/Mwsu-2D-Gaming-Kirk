@@ -26,5 +26,7 @@ eurecaServer.onConnect(function (conn) {
 eurecaServer.onDisconnect(function (conn) {
     console.log('Client disconnected ', conn.id);
 });
+
+console.log('Eureca.io tchat server listening on port 8000')
  
 server.listen(8000);
