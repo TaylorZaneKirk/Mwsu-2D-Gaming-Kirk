@@ -42,6 +42,7 @@ var aPlayer = function(index, game, player){
 aPlayer.prototype.updatePlayer = function (){
     for (var i in this.input) this.cursor[i] = this.input[i];
 
+    console.log(this.cursor.left);
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
