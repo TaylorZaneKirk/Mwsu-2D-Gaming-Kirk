@@ -362,12 +362,14 @@ function update() {
 
     for (var i in playerList)
     {
-        console.log("oh/?");
+
         if (!playerList[i]) continue;
 
         var curPlayer = playerList[i];
-        if (curPlayer.alive)
+        if (curPlayer.alive){
+            console.log("oh/?");
             curPlayer.update();
+        }
     }
 
     //Move the enemies
