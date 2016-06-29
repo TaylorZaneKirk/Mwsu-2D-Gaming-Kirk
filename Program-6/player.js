@@ -21,7 +21,7 @@ var aPlayer = function(index, game, player){
     this.game = game;
 
     //player
-    this.player = game.add.sprite(x, y, 'player', null, 'actors');
+    this.player = game.add.sprite(x, y, 'player');
     this.player.anchor.setTo(0.5)
     //player physics
     game.physics.arcade.enable(this.player);
