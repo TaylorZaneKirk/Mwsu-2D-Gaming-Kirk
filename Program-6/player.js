@@ -37,7 +37,7 @@ var aPlayer = function(index, game, player){
     );
     this.player.id = index;
     this.alive = true;
-}
+};
 
 aPlayer.prototype.update = function (){
     console.log("hi");
