@@ -236,6 +236,7 @@ function drawMap(callback) {   //and player
 
 function generateActors() {
 
+    isReady = true;
     findSpawn(player);
     enemies.forEachDead(function(enemy){
         findSpawn(enemy);
@@ -347,7 +348,7 @@ function updateEnemies(enemy) {
 }
 
 function update() {
-    if(!ready)
+    if(!ready || !isReady)
         return;
     game.physics.arcade.collide(player, layer2);
     game.physics.arcade.collide(enemies, layer2);
