@@ -1,13 +1,7 @@
 var express = require('express')
   , app = express(app)
   , server = require('http').createServer(app);
- 
 
-
-//serve index.html as default static file
-app.get('/', function (req, res, next) {
-    res.sendfile('index.html');
-});
 
 //get EurecaServer class
 var Eureca = require('eureca.io');
@@ -17,6 +11,11 @@ var eurecaServer = new Eureca.Server();
  
 //attach eureca.io to our http server
 eurecaServer.attach(server);
+
+//serve index.html as default static file
+app.get('/', function (req, res, next) {
+    res.sendfile('index.html');
+});
 
 //detect client connection
 eurecaServer.onConnect(function (conn) {
