@@ -76,9 +76,9 @@ function create() {
 
     //player
     actors = game.add.group();
-    character = new aPlayer(0, game, player);
+    character = new aPlayer(game.rnd.integerInRange(0, 64000), game, player);
     player = character.player;
-    playerList[0] = character;
+    playerList.push(character);
     player.inputEnabled = true;
 
     //enemy group
