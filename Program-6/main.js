@@ -37,6 +37,8 @@ var layer2;
 
 var easystar;   //pathfinder
 
+var cursors;
+
 //map steps for generation
 var numberOfSteps = 4; //How many times will we pass over the map
 var deathLimit = 3; //Least number of neighbours required to live
@@ -76,6 +78,7 @@ function create() {
     character = new aPlayer(0, game, player);
     player = character.player;
     playerList[0] = player;
+    cursors = game.input.keyboard.createCursorKeys();
 
 
     //enemy group
