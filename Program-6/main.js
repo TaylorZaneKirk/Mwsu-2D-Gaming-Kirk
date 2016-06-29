@@ -351,6 +351,8 @@ function updateEnemies(enemy) {
 }
 
 function update() {
+    if(!ready)
+        return;
     game.physics.arcade.collide(player, layer2);
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
