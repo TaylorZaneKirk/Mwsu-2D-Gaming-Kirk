@@ -23,6 +23,8 @@ var ROWS = 30;
 var COLS = 40;
 
 var player;
+var character;
+var playerList = {};
 var enemies;
 var enemySpeed;
 var actors;
@@ -71,19 +73,10 @@ function create() {
 
     //player
     actors = game.add.group();
-    player = actors.create(0, 0, 'player', null, false);
-    player.anchor.setTo(0.5)
-    //player physics
-    game.physics.arcade.enable(player);
-    player.enableBody = true;
-    player.body.collideWorldBounds = true;
-    player.body.immovable = true;
-    player.body.setSize(
-        player.body.width * 0.6,
-        player.body.height * 0.5,
-        player.body.width * 0.2,
-        player.body.height * 0.5
-    );
+    character = new aPlayer(0, game, player);
+    player = character.player;
+    playerList[0] = player;
+
 
     //enemy group
     enemies = game.add.group();
@@ -358,19 +351,18 @@ function update() {
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    player.body.velocity.x = 0;
-    player.body.velocity.y = 0;
+    player.input.left = cursors.left.isDown;
+    player.input.right = cursors.right.isDown;
+    player.input.up = cursors.up.isDown;
+    player.input.down = cursors.down.isDown;
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-        player.body.velocity.x -= 100;
-    } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-        player.body.velocity.x += 100;
-    }
+    for (var i in playerList)
+    {
+        if (!playerList[i]) continue;
 
-    if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-        player.body.velocity.y -= 100;
-    } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-        player.body.velocity.y += 100;
+        var curPlayer = playerList[i];
+        if (curPlayer.alive)
+            curPlayer.update();
     }
 
     //Move the enemies
