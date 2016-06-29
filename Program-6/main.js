@@ -63,6 +63,7 @@ function preload() {
 
 function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
+    cursors = game.input.keyboard.createCursorKeys();
 
     //Maps and layers
     map = game.add.tilemap();
@@ -78,7 +79,6 @@ function create() {
     character = new aPlayer(0, game, player);
     player = character.player;
     playerList[0] = player;
-    cursors = game.input.keyboard.createCursorKeys();
 
 
     //enemy group
@@ -354,10 +354,10 @@ function update() {
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    /*player.input.left = cursors.left.isDown;
+    player.input.left = cursors.left.isDown;
     player.input.right = cursors.right.isDown;
     player.input.up = cursors.up.isDown;
-    player.input.down = cursors.down.isDown;*/
+    player.input.down = cursors.down.isDown;
 
     for (var i in playerList)
     {
