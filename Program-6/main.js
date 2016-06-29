@@ -365,11 +365,8 @@ function update() {
 
         if (!playerList[i]) continue;
 
-        var curPlayer = playerList[i];
-        if (curPlayer.alive){
-            console.log("oh/?");
-            curPlayer.update();
-        }
+        playerList[i].update;
+
     }
 
     //Move the enemies
