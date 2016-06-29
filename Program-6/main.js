@@ -364,7 +364,7 @@ function update() {
 
     for(var i in playerList)
         if (playerList[i].alive)
-            playerList[i].update();
+            playerList[i].updatePlayer();
 
 
     //Move the enemies
