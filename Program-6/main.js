@@ -1,3 +1,20 @@
+var ready = false;
+var eurecaServer;
+//this function will handle client communication with the server
+var eurecaClientSetup = function() {
+    //create an instance of eureca.io client
+    var eurecaClient = new Eureca.Client();
+
+    eurecaClient.ready(function (proxy) {
+        eurecaServer = proxy;
+
+
+        //we temporary put create function here so we make sure to launch the game once the client is ready
+        create();
+        ready = true;
+    });
+}
+
 // is the map done generating?
 var isReady = false;
 
@@ -27,7 +44,7 @@ var chanceToStartAlive = 0.30;  //chance of being generated as alive
 // initialize phaser, call create() once done
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     preload: preload,
-    create: create,
+    create: eurecaClientSetup,
     update: update,
     render: render
 });
