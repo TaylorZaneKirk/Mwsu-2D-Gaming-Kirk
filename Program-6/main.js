@@ -24,7 +24,7 @@ var COLS = 40;
 
 var player;
 var character;
-var playerList = {};
+var playerList = [];
 var enemies;
 var enemySpeed;
 var actors;
