@@ -360,14 +360,7 @@ function update() {
     player.input.up = cursors.up.isDown;
     player.input.down = cursors.down.isDown;
 
-    for (var i in playerList)
-    {
 
-        if (!playerList[i]) continue;
-
-        playerList[i].update;
-
-    }
 
     //Move the enemies
     enemies.forEachAlive(function(enemy){
