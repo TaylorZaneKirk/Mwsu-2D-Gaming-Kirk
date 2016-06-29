@@ -40,13 +40,13 @@ var aPlayer = function(index, game, player){
 };
 
 aPlayer.prototype.updatePlayer = function (){
-    console.log("hi");
     for (var i in this.input) this.cursor[i] = this.input[i];
 
     this.player.body.velocity.x = 0;
     this.player.body.velocity.y = 0;
 
     if (this.cursor.left){
+        console.log("hello?");
         this.player.body.velocity.x -= 100;
     }
     if (this.cursor.right){
