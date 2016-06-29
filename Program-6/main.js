@@ -354,10 +354,10 @@ function update() {
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    player.input.left = cursors.left.isDown;
+    /*player.input.left = cursors.left.isDown;
     player.input.right = cursors.right.isDown;
     player.input.up = cursors.up.isDown;
-    player.input.down = cursors.down.isDown;
+    player.input.down = cursors.down.isDown;*/
 
     for (var i in playerList)
     {
