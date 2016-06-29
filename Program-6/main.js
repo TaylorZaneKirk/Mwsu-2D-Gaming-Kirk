@@ -360,6 +360,7 @@ function update() {
     player.input.up = cursors.up.isDown;
     player.input.down = cursors.down.isDown;
 
+    player.update();
 
 
     //Move the enemies
