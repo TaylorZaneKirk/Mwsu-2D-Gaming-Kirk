@@ -78,8 +78,7 @@ function create() {
     actors = game.add.group();
     character = new aPlayer(0, game, player);
     player = character.player;
-    console.log(player);
-    playerList[0] = player;
+    playerList[0] = character;
     player.inputEnabled = true;
 
     //enemy group
@@ -363,7 +362,9 @@ function update() {
     player.input.up = cursors.up.isDown;
     player.input.down = cursors.down.isDown;
 
-    player.updatePlayer();
+    for(var i in playerList)
+        if (playerList[i].alive)
+            playerList[i].update();
 
 
     //Move the enemies
