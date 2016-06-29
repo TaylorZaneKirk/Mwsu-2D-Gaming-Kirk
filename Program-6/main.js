@@ -79,7 +79,7 @@ function create() {
     character = new aPlayer(0, game, player);
     player = character.player;
     playerList[0] = player;
-
+    player.input.enabled = true;
 
     //enemy group
     enemies = game.add.group();
