@@ -362,6 +362,7 @@ function update() {
 
     for (var i in playerList)
     {
+        console.log("oh/?");
         if (!playerList[i]) continue;
 
         var curPlayer = playerList[i];
