@@ -241,6 +241,8 @@ function generateActors() {
     enemies.forEachDead(function(enemy){
         findSpawn(enemy);
     });
+
+    console.log(player);
 }
 
 function findSpawn(actor) {
