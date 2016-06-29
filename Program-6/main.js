@@ -78,6 +78,7 @@ function create() {
     actors = game.add.group();
     character = new aPlayer(0, game, player);
     player = character.player;
+    console.log(player);
     playerList[0] = player;
     player.inputEnabled = true;
 
