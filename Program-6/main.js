@@ -362,6 +362,8 @@ function update() {
     player.input.up = cursors.up.isDown;
     player.input.down = cursors.down.isDown;
 
+    console.log(player.input.left);
+
     for(var i in playerList)
         if (playerList[i].alive)
             playerList[i].updatePlayer();

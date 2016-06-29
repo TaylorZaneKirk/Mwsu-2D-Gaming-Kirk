@@ -46,7 +46,6 @@ aPlayer.prototype.updatePlayer = function (){
     this.player.body.velocity.y = 0;
 
     if (this.cursor.left){
-        console.log("hello?");
         this.player.body.velocity.x -= 100;
     }
     if (this.cursor.right){
