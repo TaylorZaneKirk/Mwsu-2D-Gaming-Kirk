@@ -39,7 +39,7 @@ var aPlayer = function(index, game, player){
     this.alive = true;
 };
 
-aPlayer.prototype.update = function (){
+aPlayer.prototype.updatePlayer = function (){
     console.log("hi");
     for (var i in this.input) this.cursor[i] = this.input[i];
 
