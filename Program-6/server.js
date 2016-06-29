@@ -13,9 +13,8 @@ var eurecaServer = new Eureca.Server();
 eurecaServer.attach(server);
 
 //serve index.html as default static file
-app.get('/', function (req, res, next) {
-    res.sendfile('index.html');
-});
+// serve static files from the current directory
+app.use(express.static(__dirname));
 
 //detect client connection
 eurecaServer.onConnect(function (conn) {
