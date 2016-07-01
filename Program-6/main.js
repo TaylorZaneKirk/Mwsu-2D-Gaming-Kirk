@@ -1,22 +1,6 @@
-var ready = false;
-var eurecaServer;
-//this function will handle client communication with the server
-var eurecaClientSetup = function() {
-    //create an instance of eureca.io client
-    var eurecaClient = new Eureca.Client();
-
-    eurecaClient.ready(function (proxy) {
-        eurecaServer = proxy;
-
-
-        //we temporary put create function here so we make sure to launch the game once the client is ready
-        create();
-        ready = true;
-    });
-}
-
 // is the map done generating?
 var isReady = false;
+var ready;
 
 // map dimensions
 var ROWS = 30;
@@ -24,7 +8,7 @@ var COLS = 40;
 
 var player;
 var character;
-var playerList = [];
+var playerList;
 var enemies;
 var enemySpeed;
 var actors;
@@ -53,6 +37,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     render: render
 });
 
+game.global = {
+    player: null,
+    playerList: {},
+    ready: false,
+    myId: 0
+};
+
 function preload() {
     game.load.image('tileset', 'assets/tileset.png');
     game.load.image('player', 'assets/images/phaser-dude.png');
@@ -76,9 +67,6 @@ function create() {
 
     //player
     actors = game.add.group();
-    character = new aPlayer(game.rnd.integerInRange(0, 64000), game, player);
-    player = character.player;
-    playerList.push(character);
     player.inputEnabled = true;
 
     //enemy group
