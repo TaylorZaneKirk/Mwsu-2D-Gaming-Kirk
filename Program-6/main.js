@@ -67,7 +67,7 @@ function create() {
 
     //player
     actors = game.add.group();
-    player.inputEnabled = true;
+
 
     //enemy group
     enemies = game.add.group();

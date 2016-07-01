@@ -206,6 +206,7 @@ var aPlayer = function(index, game, proxyServer){
             this.player.body.width * 0.2,
             this.player.body.height * 0.5
         );
+        player.inputEnabled = true;
     };
 
     function updateState (enemy_id, state){
