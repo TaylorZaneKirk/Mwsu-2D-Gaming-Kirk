@@ -32,7 +32,7 @@ var chanceToStartAlive = 0.30;  //chance of being generated as alive
 // initialize phaser, call create() once done
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     preload: preload,
-    create: eurecaClientSetup,
+    create: create,
     update: update,
     render: render
 });
