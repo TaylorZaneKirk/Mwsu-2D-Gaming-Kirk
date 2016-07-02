@@ -94,6 +94,7 @@ var aPlayer = function(index, game, proxyServer){
         updateState : updateState,
         update : update,
         reset : reset,
-        kill : kill
+        kill : kill,
+        state: state
     };
 };
