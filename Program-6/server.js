@@ -12,6 +12,7 @@ var Eureca = require('eureca.io');
 var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill','updateState']});
 
 var players = {};
+var mapData = [];
 
 //attach eureca.io to our http server
 eurecaServer.attach(server);
@@ -102,4 +103,106 @@ app.get('/', function (req, res, next) {
 
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
+    mapData = generateMap();
+    console.log(mapData);
 });
+
+function generateMap() {
+    //Create a new map
+    var cellmap = [];
+
+    for (var y=0; y<ROWS; y++) {
+        var newRow = [];
+        cellmap.push(newRow);
+
+        for (var x=0;x<COLS;x++)
+            newRow.push(false);
+    }
+
+    //Set up the map with random values
+    cellmap = initialiseMap(cellmap);
+
+    //And now run the simulation for a set number of steps
+    for(var i = 0; i < numberOfSteps; i++) {
+        cellmap = doSimulationStep(cellmap);
+    }
+
+    return cellmap;
+}
+
+function initialiseMap(mymap) {
+    //generate initial values of the map
+    for(var x=0; x < (ROWS); x++) {
+
+        for(var y=0; y< (COLS); y++) {
+
+            if(Math.random() < chanceToStartAlive)
+                mymap[x][y] = true;
+        }
+    }
+    return mymap;
+}
+
+function doSimulationStep(oldMap) {
+    //Run through the map multiple times and adjust tiles to suit automata
+    var newMap = [];
+
+    for (var y = 0; y < ROWS; y++) {
+        var newRow = [];
+        newMap.push(newRow);
+
+        for (var x = 0; x < COLS; x++)
+            newRow.push( false );
+    }
+
+    //Loop over each row and column of the map
+    for(var x = 0; x < oldMap.length; x++) {
+
+        for(var y = 0; y < oldMap[0].length; y++) {
+            var nbs = countAliveNeighbours(oldMap, x, y);
+
+            //The new value is based on our simulation rules
+            //First, if a cell is alive but has too few neighbours, kill it.
+            if(oldMap[x][y]) {
+                if(nbs < deathLimit) {
+                    newMap[x][y] = false;
+                } else {
+                    newMap[x][y] = true;
+                }
+            } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
+            else{
+                if(nbs > birthLimit) {
+                    newMap[x][y] = true;
+                } else {
+                    newMap[x][y] = false;
+                }
+            }
+        }
+    }
+    return newMap;
+}
+
+function countAliveNeighbours(map, x, y) {
+    //Retrieve the number of living neighbours in relation to a cell
+    var count = 0;
+
+    for (var i = -1; i < 2; i++) {
+
+        for(var j = -1; j < 2; j++) {
+            var neighbour_x = x+i;
+            var neighbour_y = y+j;
+
+            //If we're looking at the middle point
+            if(i === 0 && j === 0) {
+                //Do nothing, we don't want to add ourselves in!
+            }
+            //In case the index we're looking at it off the edge of the map
+            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
+                count = count + 1;
+            } else if(map[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
+                count = count + 1;
+            }
+        }
+    }
+    return count;
+}
