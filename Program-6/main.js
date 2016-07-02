@@ -154,7 +154,7 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
-        drawMap(eurecaProxy.getMap());
+        console.log(eurecaProxy.getMap());
 
         // debugging
         console.log(globals.playerList);
