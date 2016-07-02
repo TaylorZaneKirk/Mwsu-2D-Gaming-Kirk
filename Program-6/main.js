@@ -264,6 +264,7 @@ function initialiseMap(mymap) {
 
 
 function countAliveNeighbours(map, x, y) {
+    console.log(game.global.myMap);
     //Retrieve the number of living neighbours in relation to a cell
     var count = 0;
 
