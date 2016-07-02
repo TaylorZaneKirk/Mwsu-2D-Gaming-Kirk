@@ -460,21 +460,18 @@ function update() {
         return;
     game.global.player.update();
 
-    if(!ready || !isReady)
-        return;
-
     console.log("we here");
     game.physics.arcade.collide(player, layer2);
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    character.input.left = cursors.left.isDown;
-    character.input.right = cursors.right.isDown;
-    character.input.up = cursors.up.isDown;
-    character.input.down = cursors.down.isDown;
+    game.global.player.input.left = cursors.left.isDown;
+    game.global.player.input.right = cursors.right.isDown;
+    game.global.player.input.up = cursors.up.isDown;
+    game.global.player.input.down = cursors.down.isDown;
 
-    for(var i in playerList)
+/*    for(var i in playerList)
         if (playerList[i].alive)
             playerList[i].updatePlayer();
 
@@ -567,7 +564,7 @@ function update() {
                 }
             }
         }
-    });
+    });*/
 }
 
 function render() {
