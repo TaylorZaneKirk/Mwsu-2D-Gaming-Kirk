@@ -78,7 +78,7 @@ eurecaServer.exports.getMap = function () {
 * This method turns around and sends out player states to everyone.
 */
 eurecaServer.exports.handleState = function (id,state) {
-    console.log(id,state);
+    console.log("handling: " + id,state);
 
     players[id].state = state;
 
