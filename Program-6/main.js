@@ -1,10 +1,6 @@
 // is the map done generating?
 var isReady = false;
-var ready;
-
-// map dimensions
-var ROWS = 30;
-var COLS = 40;
+var ready = false;
 
 var player;
 var character;
@@ -23,12 +19,6 @@ var easystar;   //pathfinder
 
 var cursors;
 
-//map steps for generation
-var numberOfSteps = 4; //How many times will we pass over the map
-var deathLimit = 3; //Least number of neighbours required to live
-var birthLimit = 3; //Greateast number of neighbours before cell dies
-var chanceToStartAlive = 0.30;  //chance of being generated as alive
-
 // initialize phaser, call create() once done
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     preload: preload,
@@ -41,14 +31,14 @@ game.global = {
     player: null,
     playerList: {},
     ready: false,
-    myId: 0
+    myId: 0,
+    myMap: null
 };
 
 function preload() {
     game.load.image('tileset', 'assets/tileset.png');
     game.load.image('player', 'assets/images/phaser-dude.png');
     game.load.image('clown', 'assets/images/clown.png');
-    mapData = generateMap();    //random map generation
     easystar = new EasyStar.js();   //start the pathfinder
 }
 
@@ -94,7 +84,7 @@ function create() {
     });
 
     //Draw the map first, then generate player/enemies
-    drawMap(function(){generateActors();});
+    drawMap();
 
     //EasyStar stuff; makes calculations using the raw
     //  2D boolean array to determine paths. This is then
@@ -204,12 +194,12 @@ function countAliveNeighbours(map, x, y) {
     return count;
 }
 
-function drawMap(callback) {   //and player
+function drawMap() {   //and player
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
             var thisTile;
-            if (mapData[y][x]){
+            if (game.globals.myMap[y][x]){
                 map.putTile(3, x, y, 'level1')
                 map.putTile(0, x, y, 'collisions');
             }
@@ -218,8 +208,6 @@ function drawMap(callback) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
-
-    callback();
 }
 
 function generateActors() {

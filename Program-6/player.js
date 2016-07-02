@@ -92,6 +92,10 @@ var playState = {
 
         }
 
+        this.client.exports.setMap = function(map){
+            globals.myMap = map;
+        }
+
         /**
         * Called from server when another player "disconnects"
         */

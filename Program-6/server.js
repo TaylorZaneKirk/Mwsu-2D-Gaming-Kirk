@@ -39,6 +39,8 @@ eurecaServer.onConnect(function (conn) {
 
     //here we call setId (defined in the client side)
     remote.setId(conn.id);
+
+    remote.setMap(mapData);
 });
 
 //detect client disconnection
@@ -114,7 +116,6 @@ app.get('/', function (req, res, next) {
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     mapData = generateMap();
-    console.log(mapData);
 });
 
 function generateMap() {
