@@ -9,6 +9,10 @@ var enemies;
 var enemySpeed;
 var actors;
 
+// map dimensions
+var ROWS = 30;
+var COLS = 40;
+
 // the structure of the map
 var mapData;
 var map;
