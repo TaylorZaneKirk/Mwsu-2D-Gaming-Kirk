@@ -334,7 +334,7 @@ function findSpawn(actor) {
                 thatTile = map.getTile(x, y, 'level1'); //change layers
 
                 //If not placing the player, check if the enemy would be place too close
-                if (actor !== player && game.physics.arcade.distanceBetween(player, thatTile) < 200){
+                if (actor !== game.global.player && game.physics.arcade.distanceBetween(game.global.player, thatTile) < 200){
                     tooClose = true;
                 }
 
