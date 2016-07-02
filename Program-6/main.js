@@ -418,7 +418,7 @@ function update() {
     if (!game.global.player)
         return;
 
-    console.log(globals.player.state);
+    console.log(game.global.player.state);
 
     game.global.player.update(layer2);
 
