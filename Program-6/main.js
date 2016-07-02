@@ -35,7 +35,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
 
 game.global = {
     player: null,
-    playerList: [],
+    playerList: {},
     ready: false,
     myId: 0,
     myMap: null
@@ -167,6 +167,8 @@ function initMultiPlayer(game,globals){
         // Send a handshake to say hello to other players.
         eurecaProxy.handshake();
 
+        console.log(globals.myId);
+
     }
 
     /**
@@ -264,7 +266,6 @@ function initialiseMap(mymap) {
 
 
 function countAliveNeighbours(map, x, y) {
-    console.log(game.global.myMap);
     //Retrieve the number of living neighbours in relation to a cell
     var count = 0;
 
