@@ -318,6 +318,8 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
+        globals.myMap = eurecaProxy.getMap();
+
         // debugging
         console.log(globals.playerList);
 
@@ -327,10 +329,6 @@ function initMultiPlayer(game,globals){
         // Send a handshake to say hello to other players.
         eurecaProxy.handshake();
 
-    }
-
-    client.exports.setMap = function(map){
-        globals.myMap = map;
     }
 
     /**

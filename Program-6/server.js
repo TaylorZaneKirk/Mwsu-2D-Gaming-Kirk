@@ -70,6 +70,10 @@ eurecaServer.exports.initPlayer = function (id,state) {
     players[id].state=state;
 }
 
+eurecaServer.exports.getMap = function () {
+    return (mapData);
+}
+
 /**
 * Player calls this method in it's update function and sends in it's state
 * whenever it wants.
