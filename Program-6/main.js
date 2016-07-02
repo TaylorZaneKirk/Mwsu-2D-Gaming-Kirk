@@ -155,9 +155,8 @@ function initMultiPlayer(game,globals){
         eurecaProxy.initPlayer(id, globals.player.state);
 
         //draw our map
-        drawMap(thisMap);
         game.global.myMap = thisMap;
-        console.log(game.global.myMap);
+        drawMap(thisMap);
 
         // debugging
         console.log(globals.playerList);
@@ -304,7 +303,7 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
-    //findSpawn(game.global.player);
+    findSpawn(game.global.player);
 }
 
 function generateActors() {
