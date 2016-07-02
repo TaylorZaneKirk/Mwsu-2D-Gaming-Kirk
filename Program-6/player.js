@@ -11,14 +11,14 @@ var aPlayer = function(index, game, proxyServer){
     var player;
     var cursors;
 
-    this.cursor = {
+    cursor = {
         left:false,
         right:false,
         up:false,
         down:false
     }
 
-    this.input = {
+    input = {
         left:false,
         right:false,
         up:false,
@@ -63,23 +63,22 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function update(){
-        for (var i in this.input) this.cursor[i] = this.input[i];
+        for (var i in input) cursor[i] = input[i];
 
-        console.log(this.cursor.left);
-        this.player.body.velocity.x = 0;
-        this.player.body.velocity.y = 0;
+        player.body.velocity.x = 0;
+        player.body.velocity.y = 0;
 
-        if (this.cursor.left){
-            this.player.body.velocity.x -= 100;
+        if (cursor.left){
+            player.body.velocity.x -= 100;
         }
         if (this.cursor.right){
-            this.player.body.velocity.x += 100;
+            player.body.velocity.x += 100;
         }
         if (this.cursor.up){
-            this.player.body.velocity.y -= 100;
+            player.body.velocity.y -= 100;
         }
         if (this.cursor.down){
-            this.player.body.velocity.y += 100;
+            player.body.velocity.y += 100;
         }
     };
 
