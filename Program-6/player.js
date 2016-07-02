@@ -11,14 +11,14 @@ var aPlayer = function(index, game, proxyServer){
     var player;
     var cursors;
 
-    cursor = {
+    var cursor = {
         left:false,
         right:false,
         up:false,
         down:false
     }
 
-    input = {
+    var input = {
         left:false,
         right:false,
         up:false,
