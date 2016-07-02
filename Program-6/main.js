@@ -359,7 +359,7 @@ function findSpawn(actor) {
     }
 
     if (found === true)
-        actor.reset(spawnTile.x, spawnTile.y)
+        actor.player.reset(spawnTile.x, spawnTile.y)
         else
             console.log("no valid location found");
 }
