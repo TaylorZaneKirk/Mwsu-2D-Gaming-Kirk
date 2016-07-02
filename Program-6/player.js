@@ -73,6 +73,10 @@ var aPlayer = function(index, game, proxyServer){
         player.kill();
     };
 
+    function reset(x, y){
+        player.reset(x, y);
+    }
+
     function render() {};
 
     init(index, game, proxyServer);
@@ -81,6 +85,7 @@ var aPlayer = function(index, game, proxyServer){
         render : render,
         updateState : updateState,
         update : update,
+        reset : reset,
         kill : kill
     };
 };

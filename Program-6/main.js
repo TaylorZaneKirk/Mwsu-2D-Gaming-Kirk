@@ -357,12 +357,10 @@ function findSpawn(actor) {
             }
         }
     }
-    console.log(actor.x);
-    if (found === true){
-        actor.x = spawnTile.x;
-        //actor.reset(spawnTile.x, spawnTile.y)
-        }else
-            console.log("no valid location found");
+    if (found === true)
+        actor.reset(spawnTile.x, spawnTile.y)
+    else
+        console.log("no valid location found");
 }
 
 function getWallIntersection(ray) {
