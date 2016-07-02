@@ -260,44 +260,7 @@ function initialiseMap(mymap) {
     return mymap;
 }
 
-function doSimulationStep(oldMap) {
-    //Run through the map multiple times and adjust tiles to suit automata
-    var newMap = [];
 
-    for (var y = 0; y < ROWS; y++) {
-        var newRow = [];
-        newMap.push(newRow);
-
-        for (var x = 0; x < COLS; x++)
-            newRow.push( false );
-    }
-
-    //Loop over each row and column of the map
-    for(var x = 0; x < oldMap.length; x++) {
-
-        for(var y = 0; y < oldMap[0].length; y++) {
-            var nbs = countAliveNeighbours(oldMap, x, y);
-
-            //The new value is based on our simulation rules
-            //First, if a cell is alive but has too few neighbours, kill it.
-            if(oldMap[x][y]) {
-                if(nbs < deathLimit) {
-                    newMap[x][y] = false;
-                } else {
-                    newMap[x][y] = true;
-                }
-            } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
-            else{
-                if(nbs > birthLimit) {
-                    newMap[x][y] = true;
-                } else {
-                    newMap[x][y] = false;
-                }
-            }
-        }
-    }
-    return newMap;
-}
 
 function countAliveNeighbours(map, x, y) {
     //Retrieve the number of living neighbours in relation to a cell
@@ -338,11 +301,11 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
+    findSpawn(game.global.player);
 }
 
 function generateActors() {
 
-    isReady = true;
     findSpawn(player);
     enemies.forEachDead(function(enemy){
         findSpawn(enemy);
