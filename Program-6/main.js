@@ -329,14 +329,14 @@ function initMultiPlayer(game,globals){
 
     }
 
-    this.client.exports.setMap = function(map){
+    client.exports.setMap = function(map){
         globals.myMap = map;
     }
 
     /**
         * Called from server when another player "disconnects"
         */
-    this.client.exports.kill = function(id){
+    client.exports.kill = function(id){
         if (globals.playerList[id]) {
             globals.playerList[id].kill();
             console.log('killing ', id, globals.playerList[id]);
@@ -347,7 +347,7 @@ function initMultiPlayer(game,globals){
         * This is called from the server to spawn enemy's in the local game
         * instance.
         */
-    this.client.exports.spawnEnemy = function(id, enemy_state){
+    client.exports.spawnEnemy = function(id, enemy_state){
 
         if (id == globals.myId){
             return; //this is me
@@ -370,7 +370,7 @@ function initMultiPlayer(game,globals){
         * This is called from the server to update a particular players
         * state.
         */
-    this.client.exports.updateState = function(id,player_state){
+    client.exports.updateState = function(id,player_state){
         console.log(id,player_state);
 
         // Don't do anything if its me
