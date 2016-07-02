@@ -59,9 +59,7 @@ var aPlayer = function(index, game, proxyServer){
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
 
-        console.log("hello??");
-
-        if (cursor.left){
+        if (upKey.isDown){
             player.body.velocity.x -= 100;
         }
         if (cursor.right){
