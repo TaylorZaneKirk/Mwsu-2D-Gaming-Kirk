@@ -18,13 +18,6 @@ var aPlayer = function(index, game, proxyServer){
         down:false
     };
 
-    var input = {
-        left:false,
-        right:false,
-        up:false,
-        down:false
-    };
-
     function init(index, game, proxyServer){
 
         player_id = index;
@@ -63,8 +56,6 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function update(){
-        for (var i in input) cursor[i] = input[i];
-
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
 
