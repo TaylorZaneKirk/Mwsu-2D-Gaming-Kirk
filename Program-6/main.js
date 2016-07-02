@@ -62,7 +62,7 @@ function preload() {
 function create() {
     initMultiPlayer(game, game.global);
 
-
+    cursors = game.input.keyboard.createCursorKeys();
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //Maps and layers
