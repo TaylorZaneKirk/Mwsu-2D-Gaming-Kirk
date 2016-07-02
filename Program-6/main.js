@@ -185,6 +185,7 @@ function initMultiPlayer(game,globals){
     client.exports.spawnEnemy = function(id, enemy_state){
 
         if (id == globals.myId){
+            console.log("its me");
             return; //this is me
         }
 
