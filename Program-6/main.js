@@ -203,7 +203,7 @@ function drawMap() {   //and player
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
             var thisTile;
-            if (game.globals.myMap[y][x]){
+            if (globals.myMap[y][x]){
                 map.putTile(3, x, y, 'level1')
                 map.putTile(0, x, y, 'collisions');
             }
