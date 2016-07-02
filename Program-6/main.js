@@ -158,7 +158,7 @@ function initMultiPlayer(game,globals){
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
-        ;
+        console.log(globals.player.state);
 
         // Were ready to go
         globals.ready = true;
