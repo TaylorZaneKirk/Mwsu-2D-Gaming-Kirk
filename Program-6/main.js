@@ -196,13 +196,7 @@ var playState = {
     */
     render: function(){
 
-    },
-    /**
-    * Not used, but could be called to go back to the menu.
-    */
-    startMenu: function() {
-        game.state.start('menu');
-    },
+    }
 };
 
 function preload() {
@@ -259,9 +253,9 @@ function create() {
     //EasyStar stuff; makes calculations using the raw
     //  2D boolean array to determine paths. This is then
     //  used to interact with tilemap
-    easystar.setGrid(mapData);
+    /*easystar.setGrid(mapData);
     easystar.setAcceptableTiles([false]);
-    easystar.enableDiagonals();
+    easystar.enableDiagonals();*/
 }
 
 function generateMap() {
