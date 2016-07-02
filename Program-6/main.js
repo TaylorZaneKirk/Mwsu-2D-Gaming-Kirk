@@ -2,6 +2,7 @@
 var isReady = false;
 var ready = false;
 
+var client;
 var player;
 var character;
 var playerList;
@@ -203,7 +204,7 @@ var playState = {
 function init() {
     //Add the server client for multiplayer
     console.log("hello");
-    this.client = new Eureca.Client();
+    client = new Eureca.Client();
 
     game.global.ready = false;
 
