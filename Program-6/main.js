@@ -466,7 +466,7 @@ function update() {
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    console.log(game.global.player);
+    console.log(game.global.player.input.left);
 
     game.global.player.input.left = cursors.left.isDown;
     game.global.player.input.right = cursors.right.isDown;
