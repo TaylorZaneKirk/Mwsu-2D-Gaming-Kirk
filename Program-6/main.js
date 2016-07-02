@@ -158,16 +158,13 @@ function initMultiPlayer(game,globals){
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
-        // debugging
-        console.log(globals.playerList);
+        ;
 
         // Were ready to go
         globals.ready = true;
 
         // Send a handshake to say hello to other players.
         eurecaProxy.handshake();
-
-        console.log(globals.myId);
 
     }
 

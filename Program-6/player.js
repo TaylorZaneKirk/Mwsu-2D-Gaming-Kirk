@@ -24,6 +24,7 @@ var aPlayer = function(index, game, proxyServer){
         rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
 
         alive = true;
+        state.alive = true;
         startTime = game.time.time;
         player.anchor.setTo(0.5)
         game.physics.arcade.enable(player);
@@ -52,6 +53,11 @@ var aPlayer = function(index, game, proxyServer){
 
     function update(collisions){
         game.physics.arcade.collide(player, collisions);
+
+        state.x = player.x;
+        state.y = player.y;
+        state.alive = alive;
+        proxy.handleState(player_id,state);
 
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
