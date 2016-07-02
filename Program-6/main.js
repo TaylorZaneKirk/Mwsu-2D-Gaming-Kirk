@@ -206,8 +206,6 @@ function initMultiPlayer(game,globals){
         * state.
         */
     client.exports.updateState = function(id,player_state){
-        console.log(id,player_state);
-
         // Don't do anything if its me
         if(globals.myId == id){
             return;
