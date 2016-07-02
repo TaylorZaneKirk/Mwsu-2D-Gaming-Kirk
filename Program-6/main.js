@@ -273,7 +273,7 @@ function create() {
     easystar.enableDiagonals();*/
 }
 
-function initMultiplayer(game,globals){
+function initMultiPlayer(game,globals){
 
     // Reference to our eureca so we can call functions back on the server
     var eurecaProxy;
