@@ -158,8 +158,6 @@ function initMultiPlayer(game,globals){
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
-        console.log(globals.player.state);
-
         // Were ready to go
         globals.ready = true;
 
@@ -420,6 +418,7 @@ function update() {
     if (!game.global.player)
         return;
 
+    console.log(globals.player.state);
 
     game.global.player.update(layer2);
 
