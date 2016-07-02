@@ -466,12 +466,7 @@ function update() {
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-    console.log(player.input.left);
 
-    game.global.player.input.left = cursors.left.isDown;
-    game.global.player.input.right = cursors.right.isDown;
-    game.global.player.input.up = cursors.up.isDown;
-    game.global.player.input.down = cursors.down.isDown;
 
 /*    for(var i in playerList)
         if (playerList[i].alive)
