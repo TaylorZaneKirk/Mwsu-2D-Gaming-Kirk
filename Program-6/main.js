@@ -422,10 +422,12 @@ function updateEnemies(enemy) {
 function update() {
     if (!game.global.player)
         return;
+
+    game.physics.arcade.collide(game.global.player, layer2);
     game.global.player.update();
 
 
-    game.physics.arcade.collide(game.global.player, layer2);
+
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
