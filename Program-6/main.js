@@ -35,7 +35,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
 
 game.global = {
     player: null,
-    playerList: {},
+    playerList: [],
     ready: false,
     myId: 0,
     myMap: null
