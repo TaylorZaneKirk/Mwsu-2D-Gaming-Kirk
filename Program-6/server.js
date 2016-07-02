@@ -14,6 +14,16 @@ var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill','upda
 var players = {};
 var mapData = [];
 
+// map dimensions
+var ROWS = 30;
+var COLS = 40;
+
+//map steps for generation
+var numberOfSteps = 4; //How many times will we pass over the map
+var deathLimit = 3; //Least number of neighbours required to live
+var birthLimit = 3; //Greateast number of neighbours before cell dies
+var chanceToStartAlive = 0.30;  //chance of being generated as alive
+
 //attach eureca.io to our http server
 eurecaServer.attach(server);
 
