@@ -219,6 +219,9 @@ function preload() {
 }
 
 function create() {
+    this.initMultiPlayer(game,game.global);
+
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     cursors = game.input.keyboard.createCursorKeys();
 
@@ -268,6 +271,121 @@ function create() {
     /*easystar.setGrid(mapData);
     easystar.setAcceptableTiles([false]);
     easystar.enableDiagonals();*/
+}
+
+function initMultiplayer(game,globals){
+
+    // Reference to our eureca so we can call functions back on the server
+    var eurecaProxy;
+
+    /**
+        * Fires on initial connection
+        */
+    this.client.onConnect(function (connection) {
+        console.log('Incoming connection', connection);
+
+    });
+    /**
+        * When the connection is established and ready
+        * we will set a local variable to the "serverProxy"
+        * sent back by the server side.
+        */
+    this.client.ready(function (serverProxy) {
+        // Local reference to the server proxy to be
+        // used in other methods within this module.
+        eurecaProxy = serverProxy;
+
+    });
+
+    /**
+        * This sets the players id that we get from the server
+        * It creates the instance of the player, and communicates
+        * it's state information to the server.
+        */
+    this.client.exports.setId = function(id){
+        console.log("Setting Id:" + id);
+
+        // Assign my new connection Id
+        globals.myId = id;
+
+        // Create new "dude"
+        globals.player = new aPlayer(id, game, eurecaProxy);
+
+        // Put instance of "dude" into list
+        globals.playerList[id] = globals.player.state;
+
+        //Send state to server
+        eurecaProxy.initPlayer(id, globals.player.state);
+
+        // debugging
+        console.log(globals.playerList);
+
+        // Were ready to go
+        globals.ready = true;
+
+        // Send a handshake to say hello to other players.
+        eurecaProxy.handshake();
+
+    }
+
+    this.client.exports.setMap = function(map){
+        globals.myMap = map;
+    }
+
+    /**
+        * Called from server when another player "disconnects"
+        */
+    this.client.exports.kill = function(id){
+        if (globals.playerList[id]) {
+            globals.playerList[id].kill();
+            console.log('killing ', id, globals.playerList[id]);
+        }
+    }
+
+    /**
+        * This is called from the server to spawn enemy's in the local game
+        * instance.
+        */
+    this.client.exports.spawnEnemy = function(id, enemy_state){
+
+        if (id == globals.myId){
+            return; //this is me
+        }
+
+        //if the id doesn't exist in your local table
+        // then spawn the enemy
+
+        console.log('Spawning New Player');
+
+        console.log(enemy_state);
+
+        globals.playerList[id] = enemy_state;
+
+        console.log(globals.playerList);
+
+    }
+
+    /**
+        * This is called from the server to update a particular players
+        * state.
+        */
+    this.client.exports.updateState = function(id,player_state){
+        console.log(id,player_state);
+
+        // Don't do anything if its me
+        if(globals.myId == id){
+            return;
+        }
+
+        // If player exists, update that players state.
+        if (globals.playerList[id])  {
+            globals.playerList[id].state = player_state;
+        }
+
+        //now how do we update everyone??
+    }
+
+
 }
 
 function generateMap() {
@@ -502,6 +620,10 @@ function updateEnemies(enemy) {
 }
 
 function update() {
+    if (!game.global.player)
+        return;
+    game.global.player.update();
+
     if(!ready || !isReady)
         return;
     game.physics.arcade.collide(player, layer2);
