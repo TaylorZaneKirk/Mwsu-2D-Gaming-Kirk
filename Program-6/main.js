@@ -423,8 +423,8 @@ function update() {
     if (!game.global.player)
         return;
 
-    game.physics.arcade.collide(game.global.player, layer2);
-    game.global.player.update();
+
+    game.global.player.update(layer2);
 
 
 
