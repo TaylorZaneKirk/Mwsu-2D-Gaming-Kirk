@@ -25,6 +25,7 @@ var cursors;
 
 // initialize phaser, call create() once done
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
+    init: init,
     preload: preload,
     create: create,
     update: update,
@@ -198,6 +199,17 @@ var playState = {
 
     }
 };
+
+function init() {
+    //Add the server client for multiplayer
+    console.log("hello");
+    this.client = new Eureca.Client();
+
+    game.global.ready = false;
+
+    game.global.player = false;
+
+}
 
 function preload() {
     game.load.image('tileset', 'assets/tileset.png');
