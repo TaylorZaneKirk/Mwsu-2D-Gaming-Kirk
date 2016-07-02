@@ -6,6 +6,7 @@ var playState = {
     */
     init: function(){
         //Add the server client for multiplayer
+        console.log("hello");
         this.client = new Eureca.Client();
 
         game.global.ready = false;
