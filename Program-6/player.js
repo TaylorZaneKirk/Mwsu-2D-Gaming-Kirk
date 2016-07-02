@@ -9,14 +9,7 @@ var aPlayer = function(index, game, proxyServer){
     var player_id;
     var proxy;
     var player;
-    var cursors;
 
-    var cursor = {
-        left:false,
-        right:false,
-        up:false,
-        down:false
-    };
 
     function init(index, game, proxyServer){
 
@@ -25,8 +18,10 @@ var aPlayer = function(index, game, proxyServer){
         proxy = proxyServer;
 
         player = game.add.sprite(x, y, 'player');
-
-        cursors = game.input.keyboard.createCursorKeys();
+        upKey = game.input.keyboard.addKey(Phaser.Keyboard.UP);
+        downKey = game.input.keyboard.addKey(Phaser.Keyboard.DOWN);
+        leftKey = game.input.keyboard.addKey(Phaser.Keyboard.LEFT);
+        rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT)
 
         alive = true;
         startTime = game.time.time;
@@ -59,16 +54,16 @@ var aPlayer = function(index, game, proxyServer){
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
 
-        if (upKey.isDown){
+        if (leftKey.isDown){
             player.body.velocity.x -= 100;
         }
-        if (cursor.right){
+        if (rightKey.isDown){
             player.body.velocity.x += 100;
         }
-        if (cursor.up){
+        if (upKey.isDown){
             player.body.velocity.y -= 100;
         }
-        if (cursor.down){
+        if (downKey.isDown){
             player.body.velocity.y += 100;
         }
     };
