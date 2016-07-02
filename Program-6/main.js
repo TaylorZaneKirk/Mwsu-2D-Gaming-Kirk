@@ -154,6 +154,7 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
+        //draw our map
         drawMap(thisMap);
 
         // debugging
@@ -461,6 +462,8 @@ function update() {
 
     if(!ready || !isReady)
         return;
+
+    console.log("we here");
     game.physics.arcade.collide(player, layer2);
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
