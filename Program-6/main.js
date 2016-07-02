@@ -156,6 +156,7 @@ function initMultiPlayer(game,globals){
 
         //draw our map
         drawMap(thisMap);
+        globals.myMap = thisMap;
 
         // debugging
         console.log(globals.playerList);
