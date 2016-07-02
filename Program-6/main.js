@@ -139,7 +139,7 @@ function initMultiPlayer(game,globals){
         * It creates the instance of the player, and communicates
         * it's state information to the server.
         */
-    client.exports.setId = function(id){
+    client.exports.setId = function(id, thisMap){
         console.log("Setting Id:" + id);
 
         // Assign my new connection Id
@@ -154,7 +154,8 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
-        console.log(eurecaProxy.getMap());
+        globals.myMap = thisMap;
+        consle.log(globals.myMap);
 
         // debugging
         console.log(globals.playerList);
