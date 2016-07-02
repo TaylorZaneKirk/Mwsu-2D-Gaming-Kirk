@@ -281,7 +281,7 @@ function initMultiPlayer(game,globals){
     /**
         * Fires on initial connection
         */
-    this.client.onConnect(function (connection) {
+    client.onConnect(function (connection) {
         console.log('Incoming connection', connection);
 
     });
@@ -290,7 +290,7 @@ function initMultiPlayer(game,globals){
         * we will set a local variable to the "serverProxy"
         * sent back by the server side.
         */
-    this.client.ready(function (serverProxy) {
+    client.ready(function (serverProxy) {
         // Local reference to the server proxy to be
         // used in other methods within this module.
         eurecaProxy = serverProxy;
@@ -302,7 +302,7 @@ function initMultiPlayer(game,globals){
         * It creates the instance of the player, and communicates
         * it's state information to the server.
         */
-    this.client.exports.setId = function(id){
+    client.exports.setId = function(id){
         console.log("Setting Id:" + id);
 
         // Assign my new connection Id
