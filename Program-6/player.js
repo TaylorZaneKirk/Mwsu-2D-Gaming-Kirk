@@ -34,7 +34,7 @@ var aPlayer = function(index, game, proxyServer){
         alive = true;
         startTime = game.time.time;
         player.anchor.setTo(0.5)
-        game.physics.arcade.enable(this.player);
+        game.physics.arcade.enable(player);
         player.enableBody = true;
         player.body.collideWorldBounds = true;
         player.body.immovable = false;
