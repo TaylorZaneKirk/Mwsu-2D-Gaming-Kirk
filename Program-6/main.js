@@ -277,9 +277,9 @@ function countAliveNeighbours(map, x, y) {
                 //Do nothing, we don't want to add ourselves in!
             }
             //In case the index we're looking at it off the edge of the map
-            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.length || neighbour_y >= map[0].length) {
+            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= game.global.myMap.length || neighbour_y >= game.global.myMap[0].length) {
                 count = count + 1;
-            } else if(map[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
+            } else if(game.global.myMap[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
                 count = count + 1;
             }
         }
