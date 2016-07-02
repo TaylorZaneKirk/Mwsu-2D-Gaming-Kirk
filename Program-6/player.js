@@ -9,6 +9,7 @@ var aPlayer = function(index, game, proxyServer){
     var player_id;
     var proxy;
     var player;
+    var tint;
 
 
     function init(index, game, proxyServer){
@@ -39,6 +40,9 @@ var aPlayer = function(index, game, proxyServer){
             player.body.height * 0.5
         );
         player.inputEnabled = true;
+
+        tint = Math.random() * 0xffffff;
+        player.tint = tint;
     };
 
     function updateState (newState){
@@ -46,6 +50,7 @@ var aPlayer = function(index, game, proxyServer){
         player.x = state.x;
         player.y = state.y;
         alive = state.alive;
+        player.tint = state.tint;
     };
 
     function update(collisions){
@@ -54,6 +59,7 @@ var aPlayer = function(index, game, proxyServer){
         state.x = player.x;
         state.y = player.y;
         state.alive = alive;
+        state.tint = player.tint;
         proxy.handleState(player_id,state);
 
         player.body.velocity.x = 0;
