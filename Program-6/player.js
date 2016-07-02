@@ -41,15 +41,11 @@ var aPlayer = function(index, game, proxyServer){
         player.inputEnabled = true;
     };
 
-    function updateState (enemy_id, state){
-        console.log("hello??????");
-        if(game.time.time - startTime > 2000){
-            console.log(game.time.time);
-            for(s in state){
-                console.log(state[s]);
-            }
-            startTime = game.time.time;
-        }
+    function updateState (newState){
+        state = newState;
+        player.x = state.x;
+        player.y = state.y;
+        alive = state.alive;
     };
 
     function update(collisions){

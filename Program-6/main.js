@@ -218,7 +218,7 @@ function initMultiPlayer(game,globals){
 
         // If player exists, update that players state.
         if (globals.playerList[id])  {
-            globals.playerList[id].state = player_state;
+            globals.playerList[id].updateState(player_state);
         }
 
         //now how do we update everyone??
