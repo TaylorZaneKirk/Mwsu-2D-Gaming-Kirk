@@ -155,7 +155,7 @@ function initMultiPlayer(game,globals){
         eurecaProxy.initPlayer(id, globals.player.state);
 
         globals.myMap = thisMap;
-        consle.log(globals.myMap);
+        console.log(globals.myMap);
 
         // debugging
         console.log(globals.playerList);
@@ -177,8 +177,6 @@ function initMultiPlayer(game,globals){
             console.log('killing ', id, globals.playerList[id]);
         }
     }
-
-    client.exports.setMap = function () {console.log("hi");}
 
     /**
         * This is called from the server to spawn enemy's in the local game
