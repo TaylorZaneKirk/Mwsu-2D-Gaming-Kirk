@@ -460,11 +460,13 @@ function update() {
         return;
     game.global.player.update();
 
-    console.log("we here");
+
     game.physics.arcade.collide(player, layer2);
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
+
+    console.log(game.global.player);
 
     game.global.player.input.left = cursors.left.isDown;
     game.global.player.input.right = cursors.right.isDown;
