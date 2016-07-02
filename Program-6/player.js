@@ -42,6 +42,7 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function updateState (enemy_id, state){
+        console.log("hello??????");
         if(game.time.time - startTime > 2000){
             console.log(game.time.time);
             for(s in state){
