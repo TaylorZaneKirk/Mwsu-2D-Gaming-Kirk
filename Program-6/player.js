@@ -33,17 +33,17 @@ var aPlayer = function(index, game, proxyServer){
         player = game.add.sprite(x, y, 'player');
         alive = true;
         startTime = game.time.time;
-        this.player.anchor.setTo(0.5)
+        player.anchor.setTo(0.5)
         game.physics.arcade.enable(this.player);
-        this.player.enableBody = true;
-        this.player.body.collideWorldBounds = true;
-        this.player.body.immovable = false;
-        this.player.body.bounce.setTo(0, 0);
-        this.player.body.setSize(
-            this.player.body.width * 0.6,
-            this.player.body.height * 0.5,
-            this.player.body.width * 0.2,
-            this.player.body.height * 0.5
+        player.enableBody = true;
+        player.body.collideWorldBounds = true;
+        player.body.immovable = false;
+        player.body.bounce.setTo(0, 0);
+        player.body.setSize(
+            player.body.width * 0.6,
+            player.body.height * 0.5,
+            player.body.width * 0.2,
+            player.body.height * 0.5
         );
         player.inputEnabled = true;
     };
