@@ -224,7 +224,6 @@ function create() {
 
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    cursors = game.input.keyboard.createCursorKeys();
 
     //Maps and layers
     map = game.add.tilemap();

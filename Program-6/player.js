@@ -9,6 +9,7 @@ var aPlayer = function(index, game, proxyServer){
     var player_id;
     var proxy;
     var player;
+    var cursors;
 
     this.cursor = {
         left:false,
@@ -31,6 +32,9 @@ var aPlayer = function(index, game, proxyServer){
         proxy = proxyServer;
 
         player = game.add.sprite(x, y, 'player');
+
+        cursors = game.input.keyboard.createCursorKeys();
+
         alive = true;
         startTime = game.time.time;
         player.anchor.setTo(0.5)
