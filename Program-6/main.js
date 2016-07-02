@@ -102,9 +102,6 @@ function create() {
         };
     });
 
-    //Draw the map first, then generate player/enemies
-    drawMap();
-
     //EasyStar stuff; makes calculations using the raw
     //  2D boolean array to determine paths. This is then
     //  used to interact with tilemap
@@ -157,7 +154,7 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
-        globals.myMap = eurecaProxy.getMap();
+        drawMap(eurecaProxy.getMap());
 
         // debugging
         console.log(globals.playerList);
@@ -326,12 +323,12 @@ function countAliveNeighbours(map, x, y) {
     return count;
 }
 
-function drawMap() {   //and player
+function drawMap(myMap) {   //and player
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
             var thisTile;
-            if (game.global.myMap[y][x]){
+            if (myMap[y][x]){
                 map.putTile(3, x, y, 'level1')
                 map.putTile(0, x, y, 'collisions');
             }
