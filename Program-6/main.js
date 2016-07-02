@@ -219,7 +219,7 @@ function preload() {
 }
 
 function create() {
-    this.initMultiPlayer(game,game.global);
+    initMultiPlayer(game, game.global);
 
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
