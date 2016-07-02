@@ -71,13 +71,13 @@ var aPlayer = function(index, game, proxyServer){
         if (cursor.left){
             player.body.velocity.x -= 100;
         }
-        if (this.cursor.right){
+        if (cursor.right){
             player.body.velocity.x += 100;
         }
-        if (this.cursor.up){
+        if (cursor.up){
             player.body.velocity.y -= 100;
         }
-        if (this.cursor.down){
+        if (cursor.down){
             player.body.velocity.y += 100;
         }
     };
