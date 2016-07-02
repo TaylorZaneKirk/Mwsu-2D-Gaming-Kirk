@@ -11,21 +11,21 @@ var aPlayer = function(index, game, proxyServer){
     var player;
     var cursors;
 
-    var cursor = {
-        left:false,
-        right:false,
-        up:false,
-        down:false
-    }
-
-    var input = {
-        left:false,
-        right:false,
-        up:false,
-        down:false
-    }
-
     function init(index, game, proxyServer){
+
+        var cursor = {
+            left:false,
+            right:false,
+            up:false,
+            down:false
+        }
+
+        var input = {
+            left:false,
+            right:false,
+            up:false,
+            down:false
+        }
 
         player_id = index;
 
