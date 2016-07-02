@@ -304,7 +304,7 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
-    findSpawn(game.global.player);
+    //findSpawn(game.global.player);
 }
 
 function generateActors() {
