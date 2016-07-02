@@ -149,7 +149,7 @@ function initMultiPlayer(game,globals){
         globals.player = new aPlayer(id, game, eurecaProxy);
 
         // Put instance of "dude" into list
-        globals.playerList[id] = globals.player.state;
+        globals.playerList[id] = globals.player
 
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
@@ -196,7 +196,11 @@ function initMultiPlayer(game,globals){
 
         console.log(enemy_state);
 
-        globals.playerList[id] = enemy_state;
+        var enemy = new aPlayer(id, game, eurecaProxy)
+        enemy.state = enemy_state;
+        globals.playerList[id] = enemy;
+
+        //globals.playerList[id] = enemy_state;
 
         console.log(globals.playerList);
 
@@ -419,8 +423,6 @@ function updateEnemies(enemy) {
 function update() {
     if (!game.global.player)
         return;
-
-    console.log(game.global.player.state);
 
     game.global.player.update(layer2);
 
