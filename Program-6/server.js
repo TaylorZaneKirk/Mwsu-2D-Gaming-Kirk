@@ -238,7 +238,7 @@ function findSpawn(actor) {
             if (!mapData[x][y]){
                 nbs = countAliveNeighbours(mapData, x, y);
 
-                for (var c of players){
+                for (var c in players){
                     if(actor != c){
                         distance = Math.sqrt((x -= c.state.x) * x + (y -= c.state.y) * y);
                         if (distance < 100)
