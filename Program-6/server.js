@@ -231,6 +231,7 @@ function findSpawn(actor) {
             //grab random coordintes
             var x = getRandomInt(0, COLS - 1);
             var y = getRandomInt(0, ROWS - 1);
+            console.log(x);
             var nbs;
             var distance;
             tooClose = false;
