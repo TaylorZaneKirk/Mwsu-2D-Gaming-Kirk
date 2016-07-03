@@ -106,8 +106,8 @@ var aPlayer = function(index, game, proxyServer){
 var aNPC = aNPC || {};
 
 var aNPC = function(index, myState, game, proxyServer){
-    var x = myState.y * 20;
-    var y = myState.x * 20;
+    var x = myState.x * 20;
+    var y = myState.y * 20;
     var state = myState;
     var startTime;              // starting game time
     var alive = myState.alive;
