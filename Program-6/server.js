@@ -17,7 +17,7 @@ var npcs = {};
 var npcsPerMap = 3;
 
 // map dimensions
-var ROWS = 30;
+var ROWS = 40;
 var COLS = 40;
 
 //map steps for generation
