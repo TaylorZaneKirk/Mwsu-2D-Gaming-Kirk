@@ -31,7 +31,6 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     create: create,
     update: update,
     render: render,
-    getWallIntersection: getWallIntersection
 });
 
 game.global = {

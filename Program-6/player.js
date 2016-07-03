@@ -202,9 +202,30 @@ var aNPC = function(index, myState, game, proxyServer){
 
         //path controller
         // Test if any walls intersect the ray
-        var intersect = game.getWallIntersection(ray);
+        var intersect = getWallIntersection(ray);
         console.log("hi", intersect);
 
+    };
+
+    function getWallIntersection(ray) {
+        //Form array of all tiles that are intersected by the ray
+        var blockingWalls = game.global.map.layer('layer2').getRayCastTiles(ray)
+
+        var hidden = false; //assume sighted until proven otherwise
+
+        if (ray.length > 150)   //too far away
+            return true;
+        else{
+            blockingWalls.forEach(function(thisTile){
+                if (thisTile.index == 0){
+                    //wall in the way
+                    hidden = true;
+                }
+            });
+
+            //Did enemy see player?
+            return hidden;
+        }
     };
 
     function kill() {
