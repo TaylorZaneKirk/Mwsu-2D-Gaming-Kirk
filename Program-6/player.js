@@ -243,7 +243,7 @@ var aNPC = function(index, myState, game, proxyServer){
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
-
+        console.log("hello?");
         game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
             path = newPath;
             console.log(path, newPath);
