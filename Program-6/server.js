@@ -226,7 +226,7 @@ function findSpawn(actor) {
     var found = false;
     var tooClose;
     var spawnTile;
-    for (var i = 0; i < ROWS*COLS; i++) {   //still looking...
+    while(found === false) {   //still looking...
         if (found === false){
             //grab random coordintes
             var x = getRandomInt(0, COLS - 1);
@@ -235,7 +235,7 @@ function findSpawn(actor) {
             var distance;
             tooClose = false;
 
-            if (!mapData[x][y]){
+            if (mapData && !mapData[x][y]){
                 nbs = countAliveNeighbours(mapData, x, y);
 
                 for (var c in players){
