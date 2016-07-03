@@ -204,9 +204,8 @@ var aNPC = function(index, myState, game, proxyServer){
             npc.body.velocity.y += speed;
 
         if(path){
-            for (var p in path){
-                var next = p + 1;
-                console.log(next);
+            for (var p = 0; p < path.length; p++){
+
                 if (npcTile.x == path[p].x && npcTile.y == path[p].y){
                     if (p == (path.length - 1))
                         nextStep = null;
