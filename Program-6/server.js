@@ -287,6 +287,7 @@ function generateNPCs(){
         thisNPC.x = startLoc.x;
         thisNPC.y = startLoc.y;
         npcs[i] = thisNPC;
+        console.log(npcs[i]);
     }
 }
 
