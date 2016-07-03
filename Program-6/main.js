@@ -327,9 +327,7 @@ function update() {
 
     game.global.player.update();
 
-    for(var c in game.global.npcList){
-        console.log(c);
-    }
+    console.log(game.global.npcList);
 
 /*    for(var i in playerList)
         if (playerList[i].alive)
