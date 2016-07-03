@@ -127,8 +127,6 @@ eurecaServer.exports.handshake = function()
 }
 
 
-
-
 app.get('/', function (req, res, next) {
     res.sendFile(__dirname+'/index.html');
 });
@@ -138,9 +136,11 @@ server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     mapData = generateMap();
     generateNPCs();
-    console.log(npcs);
 });
 
+//Based on Cellular Automata
+//Create a procedurally generated map
+//(Represented as a 2D array of boolean values)
 function generateMap() {
     //Create a new map
     var cellmap = [];
@@ -160,6 +160,7 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
+    //Box in the World
     for(var j = 0; j < ROWS; j++){
         cellmap[0][j] = true;
         cellmap[COLS-1][j] = true;
@@ -168,14 +169,16 @@ function generateMap() {
         cellmap[k][0] = true;
         cellmap[k][ROWS-1] = true;
     }
+
     return cellmap;
 }
 
+//generate initial values of the map
 function initialiseMap(mymap) {
-    //generate initial values of the map
-    for(var x=0; x < (ROWS); x++) {
 
-        for(var y=0; y< (COLS); y++) {
+    for(var x=0; x < COLS; x++) {
+
+        for(var y=0; y < ROWS; y++) {
 
             if(Math.random() < chanceToStartAlive)
                 mymap[x][y] = true;
@@ -184,8 +187,9 @@ function initialiseMap(mymap) {
     return mymap;
 }
 
+//Run through the map multiple times and adjust tiles to suit automata
 function doSimulationStep(oldMap) {
-    //Run through the map multiple times and adjust tiles to suit automata
+
     var newMap = [];
 
     for (var x = 0; x < COLS; x++) {
@@ -248,8 +252,9 @@ function countAliveNeighbours(map, x, y) {
     return count;
 }
 
+//find a valid location on the map to spawn the plater
 function findSpawn(actor) {
-    //find a valid location on the map to spawn the plater
+
     var found = false;
     var tooClose;
     var spawnTile;
@@ -262,9 +267,9 @@ function findSpawn(actor) {
             var distance;
             tooClose = false;
 
-            if (mapData && mapData[x][y] === false){
-                nbs = countAliveNeighbours(mapData, x, y);
-                for (var c in players){
+            if (mapData && mapData[x][y] === false){    //if this is a walkable-space
+                nbs = countAliveNeighbours(mapData, x, y);  //check surroundings
+                for (var c in players){ //check distance from players
                     if(actor != c && c.state){
                         distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
                         if (distance < 100)
@@ -272,6 +277,8 @@ function findSpawn(actor) {
                     }
                 }
 
+                //If surrounded by walkable-spaces, and
+                //  space is not to close to another player return space
                 if(nbs === 0 && tooClose === false){
                     found = true;
                     spawnTile = {x: x, y: y};
@@ -284,6 +291,8 @@ function findSpawn(actor) {
     return(findSpawn(actor));
 }
 
+//This function is responsible for creating the NPC
+//  data for the map
 function generateNPCs(){
     for (var i = 0; i < npcsPerMap; i++){
         var thisNPC = {
@@ -292,11 +301,14 @@ function generateNPCs(){
             x : 0,
             y : 0
         };
+
+        //Find a good spot to drop 'em
         var startLoc = findSpawn(thisNPC)
         thisNPC.x = startLoc.x;
         thisNPC.y = startLoc.y;
+
+        //Record this NPC
         npcs[i] = thisNPC;
-        console.log(npcs[i]);
     }
 }
 
