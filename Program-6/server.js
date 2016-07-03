@@ -229,8 +229,8 @@ function findSpawn(actor) {
     while(found === false) {   //still looking...
         if (found === false){
             //grab random coordintes
-            var x = getRandomInt(0, COLS - 1);
-            var y = getRandomInt(0, ROWS - 1);
+            var y = getRandomInt(0, COLS - 1);
+            var x = getRandomInt(0, ROWS - 1);
             console.log(x);
             var nbs;
             var distance;
