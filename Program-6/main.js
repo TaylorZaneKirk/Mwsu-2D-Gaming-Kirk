@@ -386,15 +386,15 @@ function update() {
     if (!game.global.player)
         return;
 
-    game.global.player.update(layer2);
 
 
 
+    game.physics.arcade.collide(game.global.player.sprite, layer2);
     game.physics.arcade.collide(enemies, layer2);
     game.physics.arcade.collide(enemies, player);
     game.physics.arcade.collide(enemies);
 
-
+    game.global.player.update();
 
 /*    for(var i in playerList)
         if (playerList[i].alive)

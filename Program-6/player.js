@@ -59,9 +59,6 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function update(collisions){
-        if (!game.physics)
-            return;
-        game.physics.arcade.collide(player, collisions);
 
         state.x = player.x;
         state.y = player.y;
@@ -102,6 +99,7 @@ var aPlayer = function(index, game, proxyServer){
     return {
         render : render,
         updateState : updateState,
+        sprite : player,
         update : update,
         reset : reset,
         kill : kill,
