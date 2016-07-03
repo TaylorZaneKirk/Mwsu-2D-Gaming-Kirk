@@ -165,10 +165,10 @@ var aNPC = function(index, myState, game, proxyServer){
         state.nextStep = nextStep;
         state.path = path;
 
-        var ray = new Phaser.Line(npc.x, npc.y, game.global.player.x, game.global.player.y);
+        var ray = new Phaser.Line(npc.x, npc.y, game.global.player.sprite.x, game.global.player.sprite.y);
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(game.global.player.sprite.x, game.global.player.sprite.y, 20, 20, 'level1');
 
         //path controller
         // Test if any walls intersect the ray
@@ -243,7 +243,7 @@ var aNPC = function(index, myState, game, proxyServer){
     function updatePath(){
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(game.global.player.sprite.x, game.global.player.sprite.y, 20, 20, 'level1');
         console.log("hello?");
         game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
             path = newPath;
