@@ -139,14 +139,14 @@ function initMultiPlayer(game,globals){
         * It creates the instance of the player, and communicates
         * it's state information to the server.
         */
-    client.exports.setId = function(id, thisMap){
+    client.exports.setId = function(id, thisMap, spawnLoc){
         console.log("Setting Id:" + id);
 
         // Assign my new connection Id
         globals.myId = id;
 
         // Create new "dude"
-        globals.player = new aPlayer(id, game, eurecaProxy);
+        globals.player = new aPlayer(id, spawnLoc, game, eurecaProxy);
 
         // Put instance of "dude" into list
         globals.playerList[id] = globals.player
@@ -185,7 +185,6 @@ function initMultiPlayer(game,globals){
     client.exports.spawnEnemy = function(id, enemy_state){
 
         if (id == globals.myId){
-            console.log("its me");
             return; //this is me
         }
 
@@ -225,42 +224,6 @@ function initMultiPlayer(game,globals){
     }
 
 
-}
-
-function generateMap() {
-    //Create a new map
-    var cellmap = [];
-
-    for (var y=0; y<ROWS; y++) {
-        var newRow = [];
-        cellmap.push(newRow);
-
-        for (var x=0;x<COLS;x++)
-            newRow.push(false);
-    }
-
-    //Set up the map with random values
-    cellmap = initialiseMap(cellmap);
-
-    //And now run the simulation for a set number of steps
-    for(var i = 0; i < numberOfSteps; i++) {
-        cellmap = doSimulationStep(cellmap);
-    }
-
-    return cellmap;
-}
-
-function initialiseMap(mymap) {
-    //generate initial values of the map
-    for(var x=0; x < (ROWS); x++) {
-
-        for(var y=0; y< (COLS); y++) {
-
-            if(Math.random() < chanceToStartAlive)
-                mymap[x][y] = true;
-        }
-    }
-    return mymap;
 }
 
 
@@ -304,7 +267,6 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
-    findSpawn(game.global.player);
 }
 
 function generateActors() {

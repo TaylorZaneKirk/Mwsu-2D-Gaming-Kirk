@@ -37,8 +37,10 @@ eurecaServer.onConnect(function (conn) {
     //register the client
     players[conn.id] = {id:conn.id, remote:remote, state:null}
 
+    var spawnLoc = findSpawn(players[conn.id]);
+
     //here we call setId (defined in the client side)
-    remote.setId(conn.id, mapData);
+    remote.setId(conn.id, mapData, spawnLoc);
 });
 
 //detect client disconnection
@@ -78,7 +80,6 @@ eurecaServer.exports.getMap = function () {
 * This method turns around and sends out player states to everyone.
 */
 eurecaServer.exports.handleState = function (id,state) {
-    console.log("handling: " + id,state);
 
     players[id].state = state;
 
@@ -218,4 +219,41 @@ function countAliveNeighbours(map, x, y) {
         }
     }
     return count;
+}
+
+function findSpawn(actor) {
+    //find a valid location on the map to spawn the plater
+    var found = false;
+    var tooClose;
+    var spawnTile;
+    for (var i = 0; i < ROWS*COLS; i++) {   //still looking...
+        if (found === false){
+            //grab random coordintes
+            var x = game.rnd.integerInRange(0, COLS - 1) | 0;
+            var y = game.rnd.integerInRange(0, ROWS - 1) | 0;
+            var nbs;
+            var distance;
+            tooClose = false;
+
+            if (!mapData[x][y]){
+                nbs = countAliveNeighbours(mapData, x, y);
+
+                for (var c of players){
+                    if(actor != c){
+                        distance = game.math.distance(x, y, c.state.x, c.state.y);
+                        if (distance < 100)
+                            tooClose = true;
+                    }
+                }
+
+                if(nbs === 0 && tooClose === false){
+                    found = true;
+                    spawnTile = {x: x, y: y};
+                    return (spawnTile);
+                }
+            }
+        }
+    }
+    console.log("Error: No Location Returned: retrying...")
+    return(findSpawn(actor));
 }

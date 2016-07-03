@@ -12,7 +12,7 @@ var aPlayer = function(index, game, proxyServer){
     var tint;
 
 
-    function init(index, game, proxyServer){
+    function init(index, spawnLoc, game, proxyServer){
 
         player_id = index;
 
@@ -43,6 +43,11 @@ var aPlayer = function(index, game, proxyServer){
 
         tint = Math.random() * 0xffffff;
         player.tint = tint;
+
+        player.x = spawnLoc.x;
+        player.y = spawnLoc.y;
+        state.x = player.x;
+        state.y = player.y;
     };
 
     function updateState (newState){
