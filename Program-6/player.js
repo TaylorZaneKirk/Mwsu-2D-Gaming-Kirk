@@ -106,6 +106,7 @@ var aPlayer = function(index, game, proxyServer){
 var aNPC = aNPC || {};
 
 var aNPC = function(index, myState, game, proxyServer){
+
     var x = myState.x * 20;
     var y = myState.y * 20;
     var state = myState;
@@ -115,6 +116,9 @@ var aNPC = function(index, myState, game, proxyServer){
     var proxy;
     var npc;
     var tint;
+    var nextStep;
+    var path;
+    var speed = 50;
 
 
     function init(index, game, proxyServer){
@@ -158,6 +162,9 @@ var aNPC = function(index, myState, game, proxyServer){
         state.alive = alive;
         state.tint = player.tint;
         proxy.handleNPC(npc_id, state);
+
+        var ray = new Phaser.Line(npc.x, npc.y, game.global.player.x, game.global.player.y);
+        console.log(ray);
     };
 
     function kill() {
