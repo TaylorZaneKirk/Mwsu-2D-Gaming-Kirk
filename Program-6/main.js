@@ -171,11 +171,12 @@ function initMultiPlayer(game,globals){
         drawMap(thisMap);
 
         for (var c in npcs){
-            console.log(c);
             var thisNPC = new aNPC(c.index, c, game, eurecaProxy);
             globals.npcList[c.index] = thisNPC;
         }
 
+        console.log(npcs);
+        console.log(globals.npcList);
         globals.player.sprite.x = (spawnLoc.y * 20);
         globals.player.sprite.y = (spawnLoc.x * 20);
     }
