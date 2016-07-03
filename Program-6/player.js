@@ -116,8 +116,8 @@ var aNPC = function(index, myState, game, proxyServer){
     var proxy;
     var npc;
     var tint;
-    var nextStep;
-    var path;
+    var nextStep = null;
+    var path = null;
     var speed = 50;
 
 
@@ -162,7 +162,7 @@ var aNPC = function(index, myState, game, proxyServer){
         state.x = npc.x;
         state.y = npc.y;
         state.alive = alive;
-        state.tint = player.tint;
+        state.tint = npc.tint;
         state.nextStep = nextStep;
         state.path = path;
         proxy.handleNPC(npc_id, state);
