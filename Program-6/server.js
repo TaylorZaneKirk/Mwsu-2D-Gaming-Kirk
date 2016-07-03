@@ -43,6 +43,8 @@ eurecaServer.onConnect(function (conn) {
 
     //here we call setId (defined in the client side)
     remote.setId(conn.id);
+
+    console.log(npcs);
     remote.setMap(mapData, spawnLoc, npcs)
 });
 
