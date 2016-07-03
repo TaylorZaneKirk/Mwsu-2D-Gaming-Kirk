@@ -171,6 +171,7 @@ function initMultiPlayer(game,globals){
         drawMap(thisMap);
 
         for (var c in npcs){
+            console.log(c);
             var thisNPC = new aNPC(c.index, c, game, eurecaProxy);
             globals.npcList[c.index] = thisNPC;
         }
@@ -326,8 +327,6 @@ function update() {
     game.physics.arcade.collide(enemies);
 
     game.global.player.update();
-
-    console.log(game.global.npcList);
 
 /*    for(var i in playerList)
         if (playerList[i].alive)
