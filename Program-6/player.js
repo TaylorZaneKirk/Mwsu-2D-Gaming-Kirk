@@ -267,7 +267,7 @@ var aNPC = function(index, myState, game, proxyServer){
             }
             else
                 nextStep = null;
-        }
+        });
     };
 
     function getWallIntersection(ray) {
