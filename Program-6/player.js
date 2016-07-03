@@ -101,3 +101,80 @@ var aPlayer = function(index, game, proxyServer){
         state: state
     };
 };
+
+
+var aNPC = aNPC || {};
+
+var aNPC = function(index, myState, game, proxyServer){
+    var x = myState.x * 20;
+    var y = myState.y * 20;
+    var state = myState;
+    var startTime;              // starting game time
+    var alive = myState.alive;
+    var npc_id;
+    var proxy;
+    var npc;
+    var tint;
+
+
+    function init(index, game, proxyServer){
+
+        npc_id = index;
+
+        proxy = proxyServer;
+
+        npc = game.add.sprite(x, y, 'clown');
+
+        startTime = game.time.time;
+        npc.anchor.setTo(0.5)
+        game.physics.arcade.enable(npc);
+        npc.enableBody = true;
+        npc.body.collideWorldBounds = true;
+        npc.body.immovable = false;
+        npc.body.bounce.setTo(0, 0);
+        npc.body.setSize(
+            npc.body.width * 0.6,
+            npc.body.height * 0.5,
+            npc.body.width * 0.2,
+            npc.body.height * 0.5
+        );
+
+        tint = Math.random() * 0xffffff;
+        npc.tint = tint;
+    };
+
+    function updateState (newState){
+        state = newState;
+        npc.x = state.x;
+        npc.y = state.y;
+        alive = state.alive;
+        npc.tint = state.tint;
+    };
+
+    function update(){
+
+        state.x = npc.x;
+        state.y = npc.y;
+        state.alive = alive;
+        state.tint = player.tint;
+        proxy.handleNPC(npc_id, state);
+    };
+
+    function kill() {
+        alive = false;
+        npc.kill();
+    };
+
+    function render() {};
+
+    init(index, game, proxyServer);
+
+    return {
+        render : render,
+        updateState : updateState,
+        sprite : npc,
+        update : update,
+        kill : kill,
+        state: state
+    };
+}

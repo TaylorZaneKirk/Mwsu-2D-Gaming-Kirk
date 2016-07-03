@@ -9,7 +9,7 @@ var Eureca = require('eureca.io');
 
 
 //create an instance of EurecaServer
-var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap']});
+var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap', 'updateNPC']});
 
 var players = {};
 var mapData = [];
@@ -91,6 +91,19 @@ eurecaServer.exports.handleState = function (id,state) {
         var remote = players[c].remote;
 
         remote.updateState(id, state);
+
+    }
+}
+
+eurecaServer.exports.handleNPC = function (id,state) {
+
+    npcs[id] = state;
+
+    for (var c in players)
+    {
+        var remote = players[c].remote;
+
+        remote.updateNPC(id, state);
 
     }
 }
@@ -265,7 +278,7 @@ function findSpawn(actor) {
 function generateNPCs(){
     for (var i = 0; i < npcsPerMap; i++){
         var thisNPC = {
-            sprite : 'clown',
+            index: i,
             alive : true,
             x : 0,
             y : 0

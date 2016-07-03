@@ -36,6 +36,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
 game.global = {
     player: null,
     playerList: {},
+    npcList: {},
     ready: false,
     myId: 0,
     myMap: null
@@ -169,7 +170,11 @@ function initMultiPlayer(game,globals){
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
-        console.log(spawnLoc);
+        for (var c in npcs){
+            var thisNPC = new aNPC(c.index, c, game, eurecaProxy);
+            globals.npcList[c.index] = thisNPC;
+        }
+
         globals.player.sprite.x = (spawnLoc.y * 20);
         globals.player.sprite.y = (spawnLoc.x * 20);
     }
@@ -228,6 +233,11 @@ function initMultiPlayer(game,globals){
         if (globals.playerList[id])  {
             globals.playerList[id].updateState(player_state);
         }
+    }
+
+    client.exports.updateNPC = function(id, npc){
+        if(globals.npcList[id])
+            globals.npcList[id].updateState(npc);
     }
 }
 
