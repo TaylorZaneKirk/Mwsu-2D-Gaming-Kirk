@@ -139,7 +139,7 @@ function initMultiPlayer(game,globals){
         * It creates the instance of the player, and communicates
         * it's state information to the server.
         */
-    client.exports.setId = function(id, thisMap, spawnLoc){
+    client.exports.setId = function(id){
         console.log("Setting Id:" + id);
 
         // Assign my new connection Id
@@ -154,14 +154,6 @@ function initMultiPlayer(game,globals){
         //Send state to server
         eurecaProxy.initPlayer(id, globals.player.state);
 
-        //draw our map
-        game.global.myMap = thisMap;
-        drawMap(thisMap);
-
-        console.log(spawnLoc);
-        globals.player.sprite.x = (spawnLoc.y * 20);
-        globals.player.sprite.y = (spawnLoc.x * 20);
-
         console.log(globals.playerList);
 
         // Were ready to go
@@ -170,6 +162,16 @@ function initMultiPlayer(game,globals){
         // Send a handshake to say hello to other players.
         eurecaProxy.handshake();
 
+    }
+
+    client.exports.setMap = function(thisMap, spawnLoc, npcs){
+        //draw our map
+        game.global.myMap = thisMap;
+        drawMap(thisMap);
+
+        console.log(spawnLoc);
+        globals.player.sprite.x = (spawnLoc.y * 20);
+        globals.player.sprite.y = (spawnLoc.x * 20);
     }
 
     /**
@@ -226,38 +228,7 @@ function initMultiPlayer(game,globals){
         if (globals.playerList[id])  {
             globals.playerList[id].updateState(player_state);
         }
-
-        //now how do we update everyone??
     }
-
-
-}
-
-
-
-function countAliveNeighbours(map, x, y) {
-    //Retrieve the number of living neighbours in relation to a cell
-    var count = 0;
-
-    for (var i = -1; i < 2; i++) {
-
-        for(var j = -1; j < 2; j++) {
-            var neighbour_x = x+i;
-            var neighbour_y = y+j;
-
-            //If we're looking at the middle point
-            if(i === 0 && j === 0) {
-                //Do nothing, we don't want to add ourselves in!
-            }
-            //In case the index we're looking at it off the edge of the map
-            else if(neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= game.global.myMap.length || neighbour_y >= game.global.myMap[0].length) {
-                count = count + 1;
-            } else if(game.global.myMap[neighbour_x][neighbour_y]) { //Otherwise, a normal check of the neighbour
-                count = count + 1;
-            }
-        }
-    }
-    return count;
 }
 
 function drawMap(myMap) {   //and player
@@ -274,63 +245,6 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
-}
-
-function generateActors() {
-
-    findSpawn(player);
-    enemies.forEachDead(function(enemy){
-        findSpawn(enemy);
-    });
-
-    console.log(player);
-}
-
-function findSpawn(actor) {
-    //find a valid location on the map to spawn the plater
-    var found = false;
-    var tooClose;
-    var spawnTile;
-    for (var i = 0; i < ROWS*COLS; i++) {   //still looking...
-        if (found === false){
-            //grab random coordintes
-            var x = game.rnd.integerInRange(0, COLS - 1) | 0;
-            var y = game.rnd.integerInRange(0, ROWS - 1) | 0;
-            var thatTile;
-            var nbs;
-
-            tooClose = false;   //Assume we're not too close
-            thatTile = map.getTile(x, y, 'collisions'); //get tile we're looking at
-
-            if (thatTile === null) {  //is tile walkable?
-                thatTile = map.getTile(x, y, 'level1'); //change layers
-
-                //If not placing the player, check if the enemy would be place too close
-                if (actor !== game.global.player && game.physics.arcade.distanceBetween(game.global.player, thatTile) < 200){
-                    tooClose = true;
-                }
-
-                //make sure we're not too close to another thing
-                enemies.forEachAlive(function(actor){
-                    if (game.physics.arcade.distanceBetween(actor, thatTile) < 30)
-                        tooClose = true;
-                });
-
-                //make sure that it is surrounded by other walkable tiles
-                nbs = countAliveNeighbours(mapData, thatTile.x, thatTile.y);
-
-                //If all qualifications met, stop looking and mark location
-                if (nbs === 0 && tooClose === false) {
-                    found = true;
-                    spawnTile = {x: thatTile.worldX, y: thatTile.worldY}
-                }
-            }
-        }
-    }
-    if (found === true)
-        actor.reset(spawnTile.x, spawnTile.y)
-    else
-        console.log("no valid location found");
 }
 
 function getWallIntersection(ray) {
