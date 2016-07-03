@@ -170,35 +170,35 @@ var aNPC = function(index, myState, game, proxyServer){
         var ray = new Phaser.Line(npc.x, npc.y, game.global.player.x, game.global.player.y);
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
 
         //stop moving; await orders
         npc.body.velocity.x = 0;
         npc.body.velocity.y = 0;
 
-        if (npc.nextStep == 'R')  //move right
+        if (nextStep == 'R')  //move right
             npc.body.velocity.x += speed;
-        if (npc.nextStep == 'L')  //move left
+        if (nextStep == 'L')  //move left
             npc.body.velocity.x -= speed;
-        if (npc.nextStep == 'LD'){  //move left&down
+        if (nextStep == 'LD'){  //move left&down
             npc.body.velocity.x -= speed;
             npc.body.velocity.y -= speed;
         }
-        if (npc.nextStep == 'RD'){  //move right&down
+        if (nextStep == 'RD'){  //move right&down
             npc.body.velocity.x += speed;
             npc.body.velocity.y -= speed;
         }
-        if (npc.nextStep == 'LU'){  //move left&up
+        if (nextStep == 'LU'){  //move left&up
             npc.body.velocity.x -= speed;
             npc.body.velocity.y += speed;
         }
-        if (npc.nextStep == 'RU'){  //move right&up
+        if (nextStep == 'RU'){  //move right&up
             npc.body.velocity.x += speed;
             npc.body.velocity.y += speed;
         }
-        if (npc.nextStep == 'D')  //move down
+        if (nextStep == 'D')  //move down
             npc.body.velocity.y -= speed;
-        if (npc.nextStep == 'U')  //move up
+        if (nextStep == 'U')  //move up
             npc.body.velocity.y += speed;
     };
 
