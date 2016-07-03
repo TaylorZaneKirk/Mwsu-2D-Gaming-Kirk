@@ -146,7 +146,7 @@ function initMultiPlayer(game,globals){
         globals.myId = id;
 
         // Create new "dude"
-        globals.player = new aPlayer(id, spawnLoc, game, eurecaProxy);
+        globals.player = new aPlayer(id, game, eurecaProxy);
 
         // Put instance of "dude" into list
         globals.playerList[id] = globals.player
@@ -157,6 +157,9 @@ function initMultiPlayer(game,globals){
         //draw our map
         game.global.myMap = thisMap;
         drawMap(thisMap);
+
+        globals.player.state.x = spawnLoc.x;
+        globals.player.state.y = spawnLoc.y;
 
         console.log(globals.playerList);
 
