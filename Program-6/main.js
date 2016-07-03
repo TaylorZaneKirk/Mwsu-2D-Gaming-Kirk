@@ -40,7 +40,8 @@ game.global = {
     ready: false,
     myId: 0,
     myMap: null,
-    map: null
+    map: null,
+    walls: null
 };
 
 function init() {
@@ -259,6 +260,7 @@ function drawMap(myMap) {   //and player
         }
     map.setCollision(0); //tile 0 = wall
     game.global.map = map;
+    game.global.walls = layer2;
 }
 
 function getWallIntersection(ray) {
