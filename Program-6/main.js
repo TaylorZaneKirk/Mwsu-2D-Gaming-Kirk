@@ -158,6 +158,7 @@ function initMultiPlayer(game,globals){
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
+        console.log(spawnLoc);
         globals.player.sprite.x = spawnLoc.x;
         globals.player.sprite.y = spawnLoc.y;
 
