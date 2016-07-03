@@ -158,7 +158,6 @@ var aNPC = function(index, myState, game, proxyServer){
     };
 
     function update(){
-        console.log("hi");
         state.x = npc.x;
         state.y = npc.y;
         state.alive = alive;
@@ -171,6 +170,8 @@ var aNPC = function(index, myState, game, proxyServer){
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
+
+        console.log(npcTile, playerTile);
 
         //stop moving; await orders
         npc.body.velocity.x = 0;
