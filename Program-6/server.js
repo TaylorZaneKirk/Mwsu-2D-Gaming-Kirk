@@ -149,10 +149,9 @@ function generateMap() {
         var newRow = [];
         cellmap.push(newRow);
 
-        for (var y = 0; y < ROWS ;x++)
+        for (var y = 0; y < ROWS; y++)
             newRow.push(false);
     }
-    console.log("hello?");
     //Set up the map with random values
     cellmap = initialiseMap(cellmap);
 
