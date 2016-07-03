@@ -41,7 +41,8 @@ game.global = {
     myId: 0,
     myMap: null,
     map: null,
-    walls: null
+    walls: null,
+    easystar: null
 };
 
 function init() {
@@ -59,7 +60,7 @@ function preload() {
     game.load.image('tileset', 'assets/tileset.png');
     game.load.image('player', 'assets/images/phaser-dude.png');
     game.load.image('clown', 'assets/images/clown.png');
-    easystar = new EasyStar.js();   //start the pathfinder
+    game.global.easystar = new EasyStar.js();   //start the pathfinder
 }
 
 function create() {
@@ -104,13 +105,6 @@ function create() {
             enemyPath: []
         };
     });
-
-    //EasyStar stuff; makes calculations using the raw
-    //  2D boolean array to determine paths. This is then
-    //  used to interact with tilemap
-    /*easystar.setGrid(mapData);
-    easystar.setAcceptableTiles([false]);
-    easystar.enableDiagonals();*/
 }
 
 function initMultiPlayer(game,globals){
@@ -261,6 +255,13 @@ function drawMap(myMap) {   //and player
     map.setCollision(0); //tile 0 = wall
     game.global.map = map;
     game.global.walls = layer2;
+
+    //EasyStar stuff; makes calculations using the raw
+    //  2D boolean array to determine paths. This is then
+    //  used to interact with tilemap
+    game.global.easystar.setGrid(mapData);
+    game.global.easystar.setAcceptableTiles([false]);
+    game.global.easystar.enableDiagonals();
 }
 
 function getWallIntersection(ray) {
