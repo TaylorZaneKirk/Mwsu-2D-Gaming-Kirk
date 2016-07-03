@@ -277,7 +277,7 @@ var aNPC = function(index, myState, game, proxyServer){
         var blockingWalls = game.global.walls.getRayCastTiles(ray);
 
         var hidden = false; //assume sighted until proven otherwise
-        console.log(blockingWalls);
+        console.log(ray.length);
         if (ray.length > 150)   //too far away
             return true;
         else{
