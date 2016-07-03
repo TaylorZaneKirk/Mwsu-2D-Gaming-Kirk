@@ -328,7 +328,7 @@ function update() {
     game.global.player.update();
 
     for(var c in game.global.npcList){
-        c.update();
+        console.log(c);
     }
 
 /*    for(var i in playerList)
