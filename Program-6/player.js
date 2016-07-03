@@ -277,14 +277,13 @@ var aNPC = function(index, myState, game, proxyServer){
         var blockingWalls = game.global.walls.getRayCastTiles(ray);
 
         var hidden = false; //assume sighted until proven otherwise
-
+        console.log("123");
         if (ray.length > 150)   //too far away
             return true;
         else{
             blockingWalls.forEach(function(thisTile){
                 if (thisTile.index == 0){
                     //wall in the way
-                    console.log("home");
                     hidden = true;
                 }
             });
