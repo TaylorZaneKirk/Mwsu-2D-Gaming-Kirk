@@ -201,7 +201,7 @@ var aNPC = function(index, myState, game, proxyServer){
         if (nextStep == 'U')  //move up
             npc.body.velocity.y += speed;
 
-        //path controller
+        /*//path controller
         if(npcTile && playerTile){
             //First check if the enemy can see the player
             //  then get next step data
@@ -209,7 +209,7 @@ var aNPC = function(index, myState, game, proxyServer){
             // Test if any walls intersect the ray
             var intersect = game.getWallIntersection(ray);
             console.log(intersect);
-        }
+        }*/
     };
 
     function kill() {
