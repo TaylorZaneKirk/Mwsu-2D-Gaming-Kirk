@@ -229,8 +229,8 @@ function findSpawn(actor) {
     for (var i = 0; i < ROWS*COLS; i++) {   //still looking...
         if (found === false){
             //grab random coordintes
-            var x = game.rnd.integerInRange(0, COLS - 1) | 0;
-            var y = game.rnd.integerInRange(0, ROWS - 1) | 0;
+            var x = getRandomInt(0, COLS - 1);
+            var y = getRandomInt(0, ROWS - 1);
             var nbs;
             var distance;
             tooClose = false;
@@ -240,7 +240,7 @@ function findSpawn(actor) {
 
                 for (var c of players){
                     if(actor != c){
-                        distance = game.math.distance(x, y, c.state.x, c.state.y);
+                        distance = Math.sqrt((x -= c.state.x) * x + (y -= c.state.y) * y);
                         if (distance < 100)
                             tooClose = true;
                     }
@@ -256,4 +256,12 @@ function findSpawn(actor) {
     }
     console.log("Error: No Location Returned: retrying...")
     return(findSpawn(actor));
+}
+
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
