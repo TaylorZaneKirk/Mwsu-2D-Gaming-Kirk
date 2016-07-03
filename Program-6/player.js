@@ -170,6 +170,10 @@ var aNPC = function(index, myState, game, proxyServer){
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
 
+        //path controller
+        // Test if any walls intersect the ray
+        var intersect = getWallIntersection(ray);
+
         //stop moving; await orders
         npc.body.velocity.x = 0;
         npc.body.velocity.y = 0;
@@ -227,10 +231,7 @@ var aNPC = function(index, myState, game, proxyServer){
         if(game.time.time - startTime < 1000)
             return;
 
-        //path controller
-        // Test if any walls intersect the ray
-        var intersect = getWallIntersection(ray);
-
+        console.log(intersect);
         if (!intersect){
             updatePath();
         }
