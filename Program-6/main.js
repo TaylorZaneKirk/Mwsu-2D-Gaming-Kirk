@@ -39,7 +39,8 @@ game.global = {
     npcList: {},
     ready: false,
     myId: 0,
-    myMap: null
+    myMap: null,
+    map: null;
 };
 
 function init() {
@@ -257,6 +258,7 @@ function drawMap(myMap) {   //and player
             }
         }
     map.setCollision(0); //tile 0 = wall
+    game.global.map = map;
 }
 
 function getWallIntersection(ray) {

@@ -164,7 +164,9 @@ var aNPC = function(index, myState, game, proxyServer){
         proxy.handleNPC(npc_id, state);
 
         var ray = new Phaser.Line(npc.x, npc.y, game.global.player.x, game.global.player.y);
-        console.log(ray);
+        var map = game.global.map;
+        var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
     };
 
     function kill() {
