@@ -170,8 +170,6 @@ var aNPC = function(index, myState, game, proxyServer){
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
 
-        console.log(nextStep);
-
         //stop moving; await orders
         npc.body.velocity.x = 0;
         npc.body.velocity.y = 0;
@@ -250,7 +248,7 @@ var aNPC = function(index, myState, game, proxyServer){
             path = newPath;
 
             if (path.length){
-
+                console.log("ohhi");
                 if(npcTile.x > path[0].x && npcTile.y == path[0].y)
                     nextStep = 'L';
                 else if (npcTile.x < path[0].x && npcTile.y == path[0].y)
