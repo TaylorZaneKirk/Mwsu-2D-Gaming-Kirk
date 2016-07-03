@@ -203,6 +203,7 @@ function initMultiPlayer(game,globals){
         enemy.state = enemy_state;
         enemy.sprite.x = enemy_state.x;
         enemy.sprite.y = enemy_state.y;
+        enemy.sprite.tint = enemy_state.tint;
         globals.playerList[id] = enemy;
 
         //globals.playerList[id] = enemy_state;
