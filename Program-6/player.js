@@ -158,7 +158,7 @@ var aNPC = function(index, myState, game, proxyServer){
     };
 
     function update(){
-
+        console.log("hi");
         state.x = npc.x;
         state.y = npc.y;
         state.alive = alive;
