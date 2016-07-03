@@ -244,7 +244,6 @@ var aNPC = function(index, myState, game, proxyServer){
         var map = game.global.map;
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.sprite.x, game.global.player.sprite.y, 20, 20, 'level1');
-        console.log(game.global.easystar);
         game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
             console.log(newPath);
             path = newPath;
@@ -271,6 +270,7 @@ var aNPC = function(index, myState, game, proxyServer){
             else
                 nextStep = null;
         });
+        game.global.easystar.calculate();
     };
 
     function getWallIntersection(ray) {
