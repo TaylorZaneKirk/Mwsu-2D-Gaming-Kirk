@@ -205,7 +205,8 @@ var aNPC = function(index, myState, game, proxyServer){
 
         if(path){
             for (var p in path){
-                console.log(p);
+                var next = p + 1;
+                console.log(next);
                 if (npcTile.x == path[p].x && npcTile.y == path[p].y){
                     if (p == (path.length - 1))
                         nextStep = null;
