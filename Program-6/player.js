@@ -223,7 +223,7 @@ var aNPC = function(index, myState, game, proxyServer){
                 }
             }
         }
-
+        console.log("phase1");
         if(game.time.time - startTime < 1000)
             return;
 
@@ -236,6 +236,8 @@ var aNPC = function(index, myState, game, proxyServer){
         }
 
         proxy.handleNPC(npc_id, state);
+        startTime = game.time.time;
+        console.log("phase2");
     };
 
     function updatePath(){
