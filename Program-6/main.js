@@ -40,7 +40,7 @@ game.global = {
     ready: false,
     myId: 0,
     myMap: null,
-    map: null;
+    map: null
 };
 
 function init() {
