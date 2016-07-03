@@ -188,12 +188,12 @@ function doSimulationStep(oldMap) {
     //Run through the map multiple times and adjust tiles to suit automata
     var newMap = [];
 
-    for (var y = 0; y < ROWS; y++) {
+    for (var x = 0; x < COLS; x++) {
         var newRow = [];
         newMap.push(newRow);
 
-        for (var x = 0; x < COLS; x++)
-            newRow.push( false );
+        for (var y = 0; y < ROWS; y++)
+            newRow.push(false);
     }
 
     //Loop over each row and column of the map
