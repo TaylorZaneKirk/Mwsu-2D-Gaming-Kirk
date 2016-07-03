@@ -9,10 +9,12 @@ var Eureca = require('eureca.io');
 
 
 //create an instance of EurecaServer
-var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill','updateState']});
+var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState']});
 
 var players = {};
 var mapData = [];
+var npcs = {};
+var npcsPerMap = 3;
 
 // map dimensions
 var ROWS = 30;
@@ -119,6 +121,7 @@ app.get('/', function (req, res, next) {
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     mapData = generateMap();
+    generateNPCs();
 });
 
 function generateMap() {
@@ -256,6 +259,21 @@ function findSpawn(actor) {
     }
     console.log("Error: No Location Returned: retrying...")
     return(findSpawn(actor));
+}
+
+function generateNPCs(){
+    for (var i = 0; i < npcsPerMap; i++){
+        var thisNPC = {
+            sprite : 'clown',
+            alive : true,
+            x : 0,
+            y : 0
+        };
+        var startLoc = findSpawn(thisNPC)
+        thisNPC.x = startLoc.x;
+        thisNPC.y = startLoc.y;
+        npcs[i] = thisNPC;
+    }
 }
 
 /**

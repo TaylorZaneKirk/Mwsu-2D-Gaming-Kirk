@@ -145,10 +145,10 @@ function initMultiPlayer(game,globals){
         // Assign my new connection Id
         globals.myId = id;
 
-        // Create new "dude"
+        // Create new player
         globals.player = new aPlayer(id, game, eurecaProxy);
 
-        // Put instance of "dude" into list
+        // Put instance of new player into list
         globals.playerList[id] = globals.player
 
         //Send state to server
