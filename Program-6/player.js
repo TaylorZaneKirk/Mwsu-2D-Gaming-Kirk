@@ -201,14 +201,10 @@ var aNPC = function(index, myState, game, proxyServer){
             npc.body.velocity.y += speed;
 
         //path controller
-        if(npcTile && playerTile){
-            //First check if the enemy can see the player
-            //  then get next step data
+        // Test if any walls intersect the ray
+        var intersect = game.getWallIntersection(ray);
+        console.log("hi", intersect);
 
-            // Test if any walls intersect the ray
-            var intersect = game.getWallIntersection(ray);
-            console.log("hi", intersect);
-        }
     };
 
     function kill() {
