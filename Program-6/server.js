@@ -235,12 +235,12 @@ function findSpawn(actor) {
             var distance;
             tooClose = false;
 
-            if (mapData && !mapData[x][y]){
+            if (mapData && mapData[x][y] === false){
                 nbs = countAliveNeighbours(mapData, x, y);
 
                 for (var c in players){
                     if(actor != c && c.state){
-                        distance = Math.sqrt((x -= c.state.x) * x + (y -= c.state.y) * y);
+                        distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
                         if (distance < 100)
                             tooClose = true;
                     }
