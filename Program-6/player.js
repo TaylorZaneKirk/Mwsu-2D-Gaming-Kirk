@@ -199,7 +199,7 @@ var aNPC = function(index, myState, game, proxyServer){
         if (nextStep == 'U')  //move up
             npc.body.velocity.y += speed;
 
-        if(path.length){
+        if(path){
             for (var p in path){
                 if (npcTile.x == path[p].x && npcTile.y == path[p].y){
                     if (c == (path.length - 1))
