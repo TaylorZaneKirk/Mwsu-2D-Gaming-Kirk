@@ -122,6 +122,7 @@ server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     mapData = generateMap();
     generateNPCs();
+    console.log(npcs);
 });
 
 function generateMap() {
@@ -240,7 +241,6 @@ function findSpawn(actor) {
 
             if (mapData && mapData[x][y] === false){
                 nbs = countAliveNeighbours(mapData, x, y);
-                console.log(nbs);
                 for (var c in players){
                     if(actor != c && c.state){
                         distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
