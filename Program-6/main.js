@@ -159,8 +159,8 @@ function initMultiPlayer(game,globals){
         drawMap(thisMap);
 
         console.log(spawnLoc);
-        globals.player.sprite.x = spawnLoc.x * 30;
-        globals.player.sprite.y = spawnLoc.y * 40;
+        globals.player.sprite.x = spawnLoc.x * 40;
+        globals.player.sprite.y = spawnLoc.y * 30;
 
         console.log(globals.playerList);
 
