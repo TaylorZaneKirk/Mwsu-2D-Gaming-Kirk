@@ -201,6 +201,8 @@ function initMultiPlayer(game,globals){
 
         var enemy = new aPlayer(id, game, eurecaProxy)
         enemy.state = enemy_state;
+        enemy.sprite.x = enemy_state.x;
+        enemy.sprite.y = enemy_state.y;
         globals.playerList[id] = enemy;
 
         //globals.playerList[id] = enemy_state;
