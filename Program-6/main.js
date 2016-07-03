@@ -259,7 +259,7 @@ function drawMap(myMap) {   //and player
     //EasyStar stuff; makes calculations using the raw
     //  2D boolean array to determine paths. This is then
     //  used to interact with tilemap
-    game.global.easystar.setGrid(mapData);
+    game.global.easystar.setGrid(game.global.myMap);
     game.global.easystar.setAcceptableTiles([false]);
     game.global.easystar.enableDiagonals();
 }
