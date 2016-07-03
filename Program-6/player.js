@@ -59,6 +59,8 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function update(collisions){
+        if (!player)
+            return;
         game.physics.arcade.collide(player, collisions);
 
         state.x = player.x;
