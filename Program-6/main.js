@@ -171,6 +171,7 @@ function initMultiPlayer(game,globals){
         drawMap(thisMap);
 
         for (var c in npcs){
+            console.log(c);
             globals.npcList[c.index] = new aNPC(c.index, c, game, eurecaProxy);
         }
 
