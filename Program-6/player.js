@@ -248,7 +248,7 @@ var aNPC = function(index, myState, game, proxyServer){
         game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
             path = newPath;
             console.log(path, newPath);
-            if (path.length){
+            if (path){
 
                 if(npcTile.x > path[0].x && npcTile.y == path[0].y)
                     nextStep = 'L';
