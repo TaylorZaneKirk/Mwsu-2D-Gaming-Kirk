@@ -171,8 +171,6 @@ var aNPC = function(index, myState, game, proxyServer){
         var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
 
-        console.log(npcTile, playerTile);
-
         //stop moving; await orders
         npc.body.velocity.x = 0;
         npc.body.velocity.y = 0;
@@ -209,7 +207,7 @@ var aNPC = function(index, myState, game, proxyServer){
 
             // Test if any walls intersect the ray
             var intersect = game.getWallIntersection(ray);
-            console.log(intersect);
+            console.log("hi", intersect);
         }
     };
 
