@@ -284,6 +284,7 @@ var aNPC = function(index, myState, game, proxyServer){
             blockingWalls.forEach(function(thisTile){
                 if (thisTile.index == 0){
                     //wall in the way
+                    console.log("home");
                     hidden = true;
                 }
             });
