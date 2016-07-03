@@ -209,7 +209,7 @@ var aNPC = function(index, myState, game, proxyServer){
 
     function getWallIntersection(ray) {
         //Form array of all tiles that are intersected by the ray
-        var mapLayer = game.global.map.layers[1];
+        var mapLayer = game.global.map.layers[0];
         var blockingWalls = mapLayer.getRayCastTiles(ray);
 
         var hidden = false; //assume sighted until proven otherwise
