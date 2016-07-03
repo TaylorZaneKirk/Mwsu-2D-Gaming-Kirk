@@ -18,7 +18,7 @@ var npcsPerMap = 3;
 
 // map dimensions
 var ROWS = 40;
-var COLS = 30;
+var COLS = 40;
 
 //map steps for generation
 var numberOfSteps = 4; //How many times will we pass over the map
