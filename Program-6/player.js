@@ -164,7 +164,6 @@ var aNPC = function(index, myState, game, proxyServer){
         state.tint = npc.tint;
         state.nextStep = nextStep;
         state.path = path;
-        proxy.handleNPC(npc_id, state);
 
         var ray = new Phaser.Line(npc.x, npc.y, game.global.player.x, game.global.player.y);
         var map = game.global.map;
@@ -200,11 +199,75 @@ var aNPC = function(index, myState, game, proxyServer){
         if (nextStep == 'U')  //move up
             npc.body.velocity.y += speed;
 
+        if(path.length){
+            for (var p in path){
+                if (npcTile.x == path[p].x && npcTile.y == path[p].y){
+                    if (c == (path.length - 1))
+                        nextStep = null;
+                    else if (npcTile.x > path[p + 1].x && npcTile.y == path[p + 1].y)
+                        nextStep = 'L';
+                    else if (npcTile.x < path[p + 1].x && npcTile.y == path[p + 1].y)
+                        nextStep = 'R';
+                    else if (npcTile.x < path[p + 1].x && npcTile.y > path[p + 1].y)
+                        nextStep = 'RD';
+                    else if (npcTile.x > path[p + 1].x && npcTile.y > path[p + 1].y)
+                        nextStep = 'LD';
+                    else if (npcTile.x < path[p + 1].x && npcTile.y < path[p + 1].y)
+                        nextStep = 'RU';
+                    else if (npcTile.x > path[p + 1].x && npcTile.y < path[p + 1].y)
+                        nextStep = 'LU';
+                    else if (npcTile.x == path[p + 1].x && npcTile.y > path[p + 1].y)
+                        nextStep = 'U';
+                    else if (npcTile.x == path[p + 1].x && npcTile.y < path[p + 1].y)
+                        nextStep = 'L';
+                }
+            }
+        }
+
+        if(game.time.time - startTime < 1000)
+            return;
+
         //path controller
         // Test if any walls intersect the ray
         var intersect = getWallIntersection(ray);
-        console.log("hi", intersect);
 
+        if (!intersect){
+            updatePath();
+        }
+
+        proxy.handleNPC(npc_id, state);
+    };
+
+    function updatePath(){
+        var map = game.global.map;
+        var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
+        var playerTile = map.getTileWorldXY(game.global.player.x, game.global.player.y, 20, 20, 'level1');
+
+        game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
+            path = newPath;
+
+            if (path.length){
+
+                if(npcTile.x > path[0].x && npcTile.y == path[0].y)
+                    nextStep = 'L';
+                else if (npcTile.x < path[0].x && npcTile.y == path[0].y)
+                    nextStep = 'R';
+                else if (npcTile.x < path[0].x && npcTile.y > path[0].y)
+                    nextStep = 'RD';   //Gonna move right&down next
+                else if (npcTile.x > path[0].x && npcTile.y > path[0].y)
+                    nextStep = 'LD';   //Gonna move left&down next
+                else if (npcTile.x < path[0].x && npcTile.y < path[0].y)
+                    nextStep = 'RU';   //Gonna move right&up next
+                else if (npcTile.x > path[0].x && npcTile.y < path[0].y)
+                    nextStep = 'LU';   //Gonna move left&up next
+                else if (npcTile.x == path[0].x && npcTile.y > path[0].y)
+                    nextStep = 'D';
+                else if (npcTile.x == path[0].x && npcTile.y < path[0].y)
+                    nextStep = 'U';
+            }
+            else
+                nextStep = null;
+        }
     };
 
     function getWallIntersection(ray) {
