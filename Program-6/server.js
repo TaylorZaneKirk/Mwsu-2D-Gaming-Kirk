@@ -250,7 +250,7 @@ function roomDetection (oldMap){
 
     for(var y = 0; y < ROWS; y++){
         for (var x = 0; x < COLS; x++){
-            if (newMap[x][y] === false)
+            if (newMap[y][x] === false)
                 return false;
         }
     }
