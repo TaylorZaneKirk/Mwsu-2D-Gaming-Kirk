@@ -11,8 +11,8 @@ var enemySpeed;
 var actors;
 
 // map dimensions
-var ROWS = 30; //x
-var COLS = 40; //y
+var ROWS = 40; //x
+var COLS = 30; //y
 
 // the structure of the map
 var mapData;
@@ -73,8 +73,8 @@ function create() {
     map = game.add.tilemap();
     walls = game.add.group();
     tiles = map.addTilesetImage('tileset', null, 20, 20);
-    layer = map.create('level1', COLS, ROWS, 20, 20);
-    layer2 = map.createBlankLayer('collisions', COLS, ROWS, 20, 20);
+    layer = map.create('level1', ROWS, COLS, 20, 20);
+    layer2 = map.createBlankLayer('collisions', ROWS, COLS, 20, 20);
     layer2.properties = {'collision' : true};
     layer.resizeWorld();
 
