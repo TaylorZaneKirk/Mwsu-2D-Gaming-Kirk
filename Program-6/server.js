@@ -267,11 +267,11 @@ function roomDetection (oldMap){
     if (roomSpaces.length > 0 && roomSpaces.length < 30 ){
         for (var p in roomSpaces){
             console.log(roomSpaces[p]);
-            newMap[roomSpaces[p].x][roomSpaces[p].y] = true;
         }
+        return newMap
     }
 
-    return newMap;
+    return oldMap;
 }
 
 function floodFill (thisMap, coord, target, replacement, roomSpaces){
@@ -281,12 +281,8 @@ function floodFill (thisMap, coord, target, replacement, roomSpaces){
     if (thisMap[x][y] === replacement)
         return;
 
-    for (var c in roomSpaces){
-        if (roomSpaces[c].x == x && roomSpaces[c].y == y)
-            return;
-    }
-
     if (thisMap[x][y] === target){
+        thisMap[x][y] = replacement;
         roomSpaces.push({x: x, y: y});
     }
 
