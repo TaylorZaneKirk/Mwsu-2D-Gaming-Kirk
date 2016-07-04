@@ -192,11 +192,11 @@ function doSimulationStep(oldMap) {
 
     var newMap = [];
 
-    for (var x = 0; x < COLS; x++) {
+    for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         newMap.push(newRow);
 
-        for (var y = 0; y < ROWS; y++)
+        for (var x = 0; x < COLS; x++)
             newRow.push(false);
     }
 
