@@ -170,6 +170,7 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
+    floodfill(cellmap);
     return cellmap;
 }
 
@@ -227,6 +228,18 @@ function doSimulationStep(oldMap) {
         }
     }
     return newMap;
+}
+
+function floodfill (oldMap){
+    var newMap = [];
+    for (var y = 0; y < ROWS; y++) {
+        var newRow = [];
+        newMap.push(newRow);
+
+        for (var x = 0; x < COLS; x++)
+            newRow.push( old[y][x] );
+    }
+    console.log(newMap);
 }
 
 function countAliveNeighbours(map, x, y) {
