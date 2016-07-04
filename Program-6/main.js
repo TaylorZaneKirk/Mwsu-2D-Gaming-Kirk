@@ -234,7 +234,7 @@ function initMultiPlayer(game,globals){
     }
 
     client.exports.updateNPC = function(id, npc, origin){
-        if(globals.myId == origin){
+        if(globals.myId == origin)
             return;
 
         if(globals.npcList[id])
