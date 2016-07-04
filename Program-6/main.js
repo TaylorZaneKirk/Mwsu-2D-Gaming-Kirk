@@ -256,11 +256,11 @@ function drawMap(myMap) {   //and player
         for (var y = 0; y < ROWS; y++) {
             var thisTile;
             if (myMap[x][y]){
-                map.putTile(3, x, y, 'level1')
-                map.putTile(0, x, y, 'collisions');
+                map.putTile(3, y, x, 'level1')
+                map.putTile(0, y, x, 'collisions');
             }
             else{
-                map.putTile(3, x, y, 'level1');
+                map.putTile(3, y, x, 'level1');
             }
         }
     map.setCollision(0); //tile 0 = wall
