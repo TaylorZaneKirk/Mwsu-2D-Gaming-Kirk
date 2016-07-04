@@ -44,7 +44,6 @@ eurecaServer.onConnect(function (conn) {
     //here we call setId (defined in the client side)
     remote.setId(conn.id);
 
-    console.log(npcs);
     remote.setMap(mapData, spawnLoc, npcs)
 });
 
@@ -70,7 +69,6 @@ eurecaServer.onDisconnect(function (conn) {
 * to do the update. That's done on the client right after).
 */
 eurecaServer.exports.initPlayer = function (id,state) {
-    console.log(state);
 
     players[id].state=state;
 }

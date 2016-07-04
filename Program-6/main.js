@@ -13,10 +13,6 @@ var map;
 var layer;
 var layer2;
 
-var easystar;   //pathfinder
-
-var cursors;
-
 // initialize phaser, call create() once done
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, {
     init: init,
