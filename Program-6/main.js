@@ -11,8 +11,8 @@ var enemySpeed;
 var actors;
 
 // map dimensions
-var ROWS = 40; //x
-var COLS = 40; //y
+var ROWS = 30; //y
+var COLS = 40; //x
 
 // the structure of the map
 var mapData;
@@ -73,8 +73,8 @@ function create() {
     map = game.add.tilemap();
     walls = game.add.group();
     tiles = map.addTilesetImage('tileset', null, 20, 20);
-    layer = map.create('level1', ROWS, COLS, 20, 20);
-    layer2 = map.createBlankLayer('collisions', ROWS, COLS, 20, 20);
+    layer = map.create('level1', COLS, ROWS, 20, 20);
+    layer2 = map.createBlankLayer('collisions', COLS, ROWS, 20, 20);
     layer2.properties = {'collision' : true};
     layer.resizeWorld();
 
@@ -175,13 +175,6 @@ function initMultiPlayer(game,globals){
         console.log(globals.npcList);
         globals.player.sprite.x = (spawnLoc.x);
         globals.player.sprite.y = (spawnLoc.y);
-
-        //EasyStar stuff; makes calculations using the raw
-        //  2D boolean array to determine paths. This is then
-        //  used to interact with tilemap
-        game.global.easystar.setGrid(thisMap);
-        game.global.easystar.setAcceptableTiles([false]);
-        game.global.easystar.enableDiagonals();
     }
 
     /**
@@ -251,7 +244,6 @@ function initMultiPlayer(game,globals){
 
 function drawMap(myMap) {   //and player
     //Based on final map configuration, draw the tiles
-    console.log(myMap);
     for (var x = 0; x < COLS; x++)
         for (var y = 0; y < ROWS; y++) {
             var thisTile;
@@ -266,6 +258,14 @@ function drawMap(myMap) {   //and player
     map.setCollision(0); //tile 0 = wall
     game.global.map = map;
     game.global.walls = layer2;
+
+    //EasyStar stuff; makes calculations using the raw
+    //  2D boolean array to determine paths. This is then
+    //  used to interact with tilemap
+    console.log(game.global.myMap);
+    game.global.easystar.setGrid(game.global.myMap);
+    game.global.easystar.setAcceptableTiles([false]);
+    game.global.easystar.enableDiagonals();
 }
 
 function update() {
@@ -282,11 +282,9 @@ function update() {
     for (var c in game.global.npcList)
         game.global.npcList[c].update();
 
-/*    for(var i in playerList)
+    /*    for(var i in playerList)
         if (playerList[i].alive)
             playerList[i].updatePlayer();
-
-
     //Move the enemies
     enemies.forEachAlive(function(enemy){
         // Define a line that connects the person to the ball
@@ -297,11 +295,9 @@ function update() {
         var ray = new Phaser.Line(enemy.x, enemy.y, player.x, player.y);
         var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
         var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
-
         //stop moving; await orders
         enemy.body.velocity.x = 0;
         enemy.body.velocity.y = 0;
-
         if (enemy.nextStep == 'R')  //move right
             enemy.body.velocity.x += enemySpeed;
         if (enemy.nextStep == 'L')  //move left
@@ -326,15 +322,12 @@ function update() {
             enemy.body.velocity.y -= enemySpeed;
         if (enemy.nextStep == 'U')  //move up
             enemy.body.velocity.y += enemySpeed;
-
         //path controller
         if(enemyTile && playerTile){
             //First check if the enemy can see the player
             //  then get next step data
-
             // Test if any walls intersect the ray
             var intersect = getWallIntersection(ray);
-
             if (intersect) {
                 // A wall is blocking this persons vision so change them back to their default color
                 enemy.tint = 0xffffff;
@@ -343,9 +336,7 @@ function update() {
                 //  and update their path
                 enemy.tint = 0xff0000;
                 updateEnemies(enemy);
-
             }
-
             //get enemies next move
             if(enemy.enemyPath){
                 //where is enemy on the path?

@@ -17,8 +17,8 @@ var npcs = {};
 var npcsPerMap = 3;
 
 // map dimensions
-var ROWS = 40; //x
-var COLS = 30; //y
+var ROWS = 30; //y
+var COLS = 40; //x
 
 //map steps for generation
 var numberOfSteps = 4; //How many times will we pass over the map
@@ -145,11 +145,11 @@ function generateMap() {
     //Create a new map
     var cellmap = [];
 
-    for (var y = 0; y < COLS; y++) {
+    for (var x = 0; x < COLS; x++) {
         var newRow = [];
         cellmap.push(newRow);
 
-        for (var x = 0; x < ROWS; x++)
+        for (var y = 0; y < ROWS; y++)
             newRow.push(false);
     }
     //Set up the map with random values
@@ -161,13 +161,13 @@ function generateMap() {
     }
 
     //Box in the World
-    for(var j = 0; j < COLS; j++){
+    for(var j = 0; j < ROWS; j++){
         cellmap[0][j] = true;
-        cellmap[ROWS-1][j] = true;
+        cellmap[COLS-1][j] = true;
     }
-    for(var k = 0; k < ROWS; k++){
+    for(var k = 0; k < COLS; k++){
         cellmap[k][0] = true;
-        cellmap[k][COLS-1] = true;
+        cellmap[k][ROWS-1] = true;
     }
 
     return cellmap;
@@ -176,9 +176,9 @@ function generateMap() {
 //generate initial values of the map
 function initialiseMap(mymap) {
 
-    for(var x = 0; x < COLS; x++) {
+    for(var x=0; x < COLS; x++) {
 
-        for(var y = 0; y < ROWS; y++) {
+        for(var y=0; y < ROWS; y++) {
 
             if(Math.random() < chanceToStartAlive)
                 mymap[x][y] = true;
@@ -192,11 +192,11 @@ function doSimulationStep(oldMap) {
 
     var newMap = [];
 
-    for (var y = 0; y < ROWS; y++) {
+    for (var x = 0; x < COLS; x++) {
         var newRow = [];
         newMap.push(newRow);
 
-        for (var x = 0; x < COLS; x++)
+        for (var y = 0; y < ROWS; y++)
             newRow.push(false);
     }
 
@@ -261,8 +261,8 @@ function findSpawn(actor) {
     while(found === false) {   //still looking...
         if (found === false){
             //grab random coordintes
-            var x = getRandomInt(2, COLS - 1);
             var y = getRandomInt(2, ROWS - 1);
+            var x = getRandomInt(2, COLS - 1);
             var nbs;
             var distance;
             tooClose = false;
