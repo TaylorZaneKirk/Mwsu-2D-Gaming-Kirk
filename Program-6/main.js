@@ -265,6 +265,7 @@ function drawMap(myMap) {   //and player
     game.global.easystar.setGrid(game.global.myMap);
     game.global.easystar.setAcceptableTiles([false]);
     game.global.easystar.enableDiagonals();
+    console.log(game.global.easystar);
 }
 
 function update() {
