@@ -97,7 +97,7 @@ eurecaServer.exports.handleState = function (id,state) {
     }
 }
 
-eurecaServer.exports.handleNPC = function (id,state) {
+eurecaServer.exports.handleNPC = function (id,state, origin) {
 
     npcs[id] = state;
 
@@ -105,11 +105,10 @@ eurecaServer.exports.handleNPC = function (id,state) {
     {
         var remote = players[c].remote;
 
-        remote.updateNPC(id, state, c);
+        remote.updateNPC(id, state, origin);
 
     }
 
-    console.log("Handled NPC #:" + id);
 }
 
 /**

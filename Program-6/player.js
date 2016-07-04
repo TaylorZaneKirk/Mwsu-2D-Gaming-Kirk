@@ -241,7 +241,7 @@ var aNPC = function(index, myState, game, proxyServer){
             updatePath();
         }
 
-        proxy.handleNPC(npc_id, state);
+        proxy.handleNPC(npc_id, state, game.global.myId);
         startTime = game.time.time;
     };
 
