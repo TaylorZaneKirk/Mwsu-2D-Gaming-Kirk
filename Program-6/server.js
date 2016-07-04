@@ -233,31 +233,41 @@ function doSimulationStep(oldMap) {
 }
 
 function roomDetection (oldMap){
+
     var newMap = [];
+    var roomSpaces = [];
     var firstSpace;
+    var found = false;
+
     for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         newMap.push(newRow);
 
         for (var x = 0; x < COLS; x++){
             newRow.push( oldMap[y][x] );
-            if (oldMap[y][x] === false){
-                firstSpace = {x: y, y: x};
-            }
         }
     }
-    floodFill(newMap, firstSpace, false, true);
 
-    for(var y = 0; y < ROWS; y++){
-        for (var x = 0; x < COLS; x++){
-            if (newMap[y][x] === false)
-                return false;
+    while (found === false){
+        var x = getRandomInt(2, ROWS - 1);
+        var y = getRandomInt(2, COLS - 1);
+        if (newMap[x][y] === false){
+            found = true;
+            firstSpace = {x: x, y: y};
         }
     }
-    return true;
+
+    floodFill(newMap, firstSpace, false, true, roomSpaces);
+    if (roomSpaces.length > 0 && roomSpaces.length < 30 ){
+        for (var p in roomSpaces){
+            newMap[roomSpaces[p].x][roomSpaces[p].y] = true;
+        }
+    }
+
+    return newMap;
 }
 
-function floodFill (thisMap, coord, target, replacement){
+function floodFill (thisMap, coord, target, replacement, roomSpaces){
 
     var x = coord.x;
     var y = coord.y;
@@ -266,7 +276,7 @@ function floodFill (thisMap, coord, target, replacement){
         return;
 
     if (thisMap[x][y] === target){
-        thisMap[x][y] = replacement;
+        roomSpaces.push({x: x, y: y});
     }
 
     for (var i = -1; i < 1; i++){
@@ -283,7 +293,7 @@ function floodFill (thisMap, coord, target, replacement){
         }
         else{
             var newCoord = {x: neighbourX, y: neighbourY};
-            floodFill(thisMap, newCoord, false, true);
+            floodFill(thisMap, newCoord, false, true, roomSpaces);
         }
     }
     return
