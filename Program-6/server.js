@@ -145,11 +145,11 @@ function generateMap() {
     //Create a new map
     var cellmap = [];
 
-    for (var x = 0; x < ROWS; x++) {
+    for (var y = 0; y < COLS; y++) {
         var newRow = [];
         cellmap.push(newRow);
 
-        for (var y = 0; y < COLS; y++)
+        for (var x = 0; x < ROWS; x++)
             newRow.push(false);
     }
     //Set up the map with random values
@@ -176,9 +176,9 @@ function generateMap() {
 //generate initial values of the map
 function initialiseMap(mymap) {
 
-    for(var x=0; x < ROWS; x++) {
+    for(var y = 0; y < COLS; y++) {
 
-        for(var y=0; y < COLS; y++) {
+        for(var x = 0; x < ROWS; x++) {
 
             if(Math.random() < chanceToStartAlive)
                 mymap[x][y] = true;
