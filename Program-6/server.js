@@ -160,6 +160,10 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
+    for(var j = 0; j < numberOfSteps; j++) {
+        cellmap = roomDetection(cellmap);
+    }
+
     //Box in the World
     for(var j = 0; j < COLS; j++){
         cellmap[0][j] = true;
@@ -170,10 +174,7 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
-    if (roomDetection(cellmap))
-        return cellmap;
-    else
-        return generateMap();
+
 }
 
 //generate initial values of the map
