@@ -176,9 +176,9 @@ function generateMap() {
 //generate initial values of the map
 function initialiseMap(mymap) {
 
-    for(var x=0; x < COLS; x++) {
+    for(var x=0; x < ROWS; x++) {
 
-        for(var y=0; y < ROWS; y++) {
+        for(var y=0; y < COLS; y++) {
 
             if(Math.random() < chanceToStartAlive)
                 mymap[x][y] = true;
