@@ -133,6 +133,7 @@ app.get('/', function (req, res, next) {
 
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
+    console.log("Beginning Map-generation...");
     mapData = generateMap();
     generateNPCs();
 });
@@ -174,6 +175,7 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
+    console.log("Map completed...")
     return (cellmap);
 }
 
