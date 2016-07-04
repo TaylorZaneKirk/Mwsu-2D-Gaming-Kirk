@@ -201,9 +201,9 @@ function doSimulationStep(oldMap) {
     }
 
     //Loop over each row and column of the map
-    for(var x = 0; x < COLS; x++) {
+    for(var x = 0; x < ROWS; x++) {
 
-        for(var y = 0; y < ROWS; y++) {
+        for(var y = 0; y < COLS; y++) {
             var nbs = countAliveNeighbours(oldMap, x, y);
 
             //The new value is based on our simulation rules
