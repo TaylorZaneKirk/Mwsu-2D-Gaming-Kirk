@@ -17,8 +17,8 @@ var npcs = {};
 var npcsPerMap = 3;
 
 // map dimensions
-var ROWS = 30; //y
-var COLS = 40; //x
+var ROWS = 30;
+var COLS = 40;
 
 //map steps for generation
 var numberOfSteps = 4; //How many times will we pass over the map
@@ -145,13 +145,14 @@ function generateMap() {
     //Create a new map
     var cellmap = [];
 
-    for (var x = 0; x < COLS; x++) {
+    for (var y=0; y<ROWS; y++) {
         var newRow = [];
         cellmap.push(newRow);
 
-        for (var y = 0; y < ROWS; y++)
+        for (var x=0;x<COLS;x++)
             newRow.push(false);
     }
+
     //Set up the map with random values
     cellmap = initialiseMap(cellmap);
 
@@ -176,9 +177,10 @@ function generateMap() {
 //generate initial values of the map
 function initialiseMap(mymap) {
 
-    for(var x=0; x < COLS; x++) {
+    //generate initial values of the map
+    for(var x=0; x < (ROWS); x++) {
 
-        for(var y=0; y < ROWS; y++) {
+        for(var y=0; y< (COLS); y++) {
 
             if(Math.random() < chanceToStartAlive)
                 mymap[x][y] = true;
@@ -190,20 +192,21 @@ function initialiseMap(mymap) {
 //Run through the map multiple times and adjust tiles to suit automata
 function doSimulationStep(oldMap) {
 
+    //Run through the map multiple times and adjust tiles to suit automata
     var newMap = [];
 
-    for (var x = 0; x < COLS; x++) {
+    for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         newMap.push(newRow);
 
-        for (var y = 0; y < ROWS; y++)
-            newRow.push(false);
+        for (var x = 0; x < COLS; x++)
+            newRow.push( false );
     }
 
     //Loop over each row and column of the map
-    for(var x = 0; x < COLS; x++) {
+    for(var x = 0; x < oldMap.length; x++) {
 
-        for(var y = 0; y < ROWS; y++) {
+        for(var y = 0; y < oldMap[0].length; y++) {
             var nbs = countAliveNeighbours(oldMap, x, y);
 
             //The new value is based on our simulation rules
