@@ -161,7 +161,7 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
-    for(var j = 0; j < numberOfSteps * 10; j++) {
+    for(var j = 0; j < numberOfSteps * 2; j++) {
         cellmap = roomDetection(cellmap);
     }
 
@@ -264,7 +264,7 @@ function roomDetection (oldMap){
     }
 
     floodFill(newMap, firstSpace, false, true, roomSpaces);
-    if (roomSpaces.length > 0 && roomSpaces.length < 30 ){
+    if (roomSpaces.length > 0 && roomSpaces.length < 20 ){
         for (var p in roomSpaces){
             console.log(roomSpaces[p]);
         }
