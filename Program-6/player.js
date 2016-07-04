@@ -226,9 +226,9 @@ var aNPC = function(index, myState, game, proxyServer){
                     else if (npcTile.x > path[p + 1].x && npcTile.y < path[p + 1].y)
                         nextStep = 'LU';
                     else if (npcTile.x == path[p + 1].x && npcTile.y > path[p + 1].y)
-                        nextStep = 'U';
+                        nextStep = 'D';
                     else if (npcTile.x == path[p + 1].x && npcTile.y < path[p + 1].y)
-                        nextStep = 'L';
+                        nextStep = 'U';
                 }
             }
         }
