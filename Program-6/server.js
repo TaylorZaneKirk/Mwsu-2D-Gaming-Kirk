@@ -261,7 +261,7 @@ function roomDetection (oldMap){
     floodFill(newMap, firstSpace, false, true, roomSpaces);
     if (roomSpaces.length > 0 && roomSpaces.length < 30 ){
         for (var p in roomSpaces){
-            newMap[roomSpaces[p].y][roomSpaces[p].x] = true;
+            newMap[roomSpaces[p].x][roomSpaces[p].y] = true;
         }
     }
 
