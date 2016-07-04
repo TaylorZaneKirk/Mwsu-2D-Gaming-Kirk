@@ -161,7 +161,7 @@ var aNPC = function(index, myState, game, proxyServer){
     function update(){
         game.physics.arcade.collide(npc, game.global.walls);
         for (var c in game.global.npcList)
-            game.physics.arcade.collide(npc, game.global.npcList[c]);
+            game.physics.arcade.collide(npc, game.global.npcList[c].sprite);
 
         state.x = npc.x;
         state.y = npc.y;
