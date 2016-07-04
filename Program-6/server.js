@@ -108,6 +108,8 @@ eurecaServer.exports.handleNPC = function (id,state) {
         remote.updateNPC(id, state, c);
 
     }
+
+    console.log("Handled NPC #:" + id);
 }
 
 /**
