@@ -174,6 +174,9 @@ var aNPC = function(index, myState, game, proxyServer){
         // Test if any walls intersect the ray
         var intersect = getWallIntersection(ray);
 
+        npc.body.velocity.x = 0;
+        npc.body.velocity.y = 0;
+
         if (!nextStep){
             //stop moving; await orders
             npc.body.velocity.x = 0;
