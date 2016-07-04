@@ -54,6 +54,7 @@ var aPlayer = function(index, game, proxyServer){
     };
 
     function update(){
+        game.physics.arcade.collide(player, game.global.walls);
 
         state.x = player.x;
         state.y = player.y;
@@ -159,6 +160,7 @@ var aNPC = function(index, myState, game, proxyServer){
 
     function update(){
         game.physics.arcade.collide(npc, game.global.walls);
+        game.physics.arcade.collide(npc);
 
         state.x = npc.x;
         state.y = npc.y;

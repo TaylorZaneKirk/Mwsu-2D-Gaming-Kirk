@@ -272,15 +272,14 @@ function update() {
     if (!game.global.player)
         return;
 
-    game.physics.arcade.collide(game.global.player.sprite, layer2);
-    game.physics.arcade.collide(game.global.npcList, layer2);
-    game.physics.arcade.collide(enemies, player);
-    game.physics.arcade.collide(enemies);
+    //game.physics.arcade.collide(game.global.player.sprite, layer2);
+    //game.physics.arcade.collide(game.global.npcList, layer2);
+    //game.physics.arcade.collide(enemies, player);
+    //game.physics.arcade.collide(enemies);
 
     game.global.player.update();
 
     for (var c in game.global.npcList){
-        game.physics.arcade.collide(game.global.npcList[c], layer2);
         game.global.npcList[c].update();
     }
     /*    for(var i in playerList)
