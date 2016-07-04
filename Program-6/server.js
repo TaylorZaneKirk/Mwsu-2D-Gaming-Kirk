@@ -285,7 +285,7 @@ function findSpawn(actor) {
                 //  space is not to close to another player return space
                 if(nbs === 0 && tooClose === false){
                     found = true;
-                    spawnTile = {x: x * 20, y: y * 20};
+                    spawnTile = {x: y * 20, y: x * 20};
                     return (spawnTile);
                 }
             }
