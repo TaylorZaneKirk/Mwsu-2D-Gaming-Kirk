@@ -290,17 +290,18 @@ function floodFill (thisMap, coord, target, replacement, roomSpaces){
         for (var j = -1; j < 1; j++){
             var neighbourX = x + i;
             var neighbourY = y + j;
-        }
-        if(i === 0 && j === 0){
-            //do nothing
-        }
-        else if (neighbourX < 0 || neighbourY < 0 ||
-                 neighbourX >= thisMap.length || neighbourY >= thisMap[0].length){
-            //Off the grid, do nothing
-        }
-        else{
-            var newCoord = {x: neighbourX, y: neighbourY};
-            floodFill(thisMap, newCoord, false, true, roomSpaces);
+
+            if(i === 0 && j === 0){
+                //do nothing
+            }
+            else if (neighbourX < 0 || neighbourY < 0 ||
+                     neighbourX >= thisMap.length || neighbourY >= thisMap[0].length){
+                //Off the grid, do nothing
+            }
+            else{
+                var newCoord = {x: neighbourX, y: neighbourY};
+                floodFill(thisMap, newCoord, false, true, roomSpaces);
+            }
         }
     }
     return
