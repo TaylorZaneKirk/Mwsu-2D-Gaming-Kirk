@@ -170,7 +170,7 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
-    floodfill(cellmap);
+    roomDetection(cellmap);
     return cellmap;
 }
 
@@ -230,16 +230,54 @@ function doSimulationStep(oldMap) {
     return newMap;
 }
 
-function floodfill (oldMap){
+function roomDetection (oldMap){
     var newMap = [];
+    var firstSpace;
     for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         newMap.push(newRow);
 
-        for (var x = 0; x < COLS; x++)
+        for (var x = 0; x < COLS; x++){
             newRow.push( oldMap[y][x] );
+            if (oldMap[y][x] === false){
+                firstSpace = {x: y, y: x};
+            }
+        }
     }
+    floodFill(newMap, firstSpace, false, true);
     console.log(newMap);
+}
+
+function floodFill (thisMap, coord, target, replacement){
+
+    var x = coord.x;
+    var y = coord.y;
+
+    if (thisMap[x][y] === replacement)
+        return;
+
+    if (thisMap[x][y] === target){
+        thisMap[x][y] = replacement;
+    }
+
+    for (var i = -1; i < 1; i++){
+        for (var j = -1; j < 1; j++){
+            var neighbourX = x + i;
+            var neighbourY = y + j;
+        }
+        if(i === 0 && j === 0){
+            //do nothing
+        }
+        else if (neighbourX < 0 || neighbourY < 0 ||
+                 neighbourX >= thisMap.length || neighbourY >= thisMap[0].length){
+            //Off the grid, do nothing
+        }
+        else{
+            var newCoord = {x: neighbourX, y: neighbourY};
+            floodFill(thisMap, newCoord, false, true);
+        }
+    }
+    return
 }
 
 function countAliveNeighbours(map, x, y) {
