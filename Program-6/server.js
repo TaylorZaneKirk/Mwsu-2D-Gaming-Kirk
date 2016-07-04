@@ -161,7 +161,7 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
-    for(var j = 0; j < numberOfSteps * 2; j++) {
+    for(var j = 0; j < numberOfSteps; j++) {
         cellmap = roomDetection(cellmap);
     }
 
@@ -276,10 +276,10 @@ function floodFill (thisMap, coord, target, replacement, roomSpaces){
     var x = coord.x;
     var y = coord.y;
 
-    if (thisMap[x][y] === replacement)
+    if (thisMap[x][y] == replacement)
         return;
 
-    if (thisMap[x][y] === target){
+    if (thisMap[x][y] == target){
         thisMap[x][y] = replacement;
         roomSpaces.push({x: x, y: y});
     }
