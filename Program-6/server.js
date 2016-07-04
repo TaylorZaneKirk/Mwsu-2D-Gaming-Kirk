@@ -161,7 +161,7 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
-    for(var j = 0; j < numberOfSteps; j++) {
+    for(var j = 0; j < numberOfSteps * 2; j++) {
         cellmap = roomDetection(cellmap);
     }
 
