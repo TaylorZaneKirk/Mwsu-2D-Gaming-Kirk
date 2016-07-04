@@ -158,6 +158,8 @@ var aNPC = function(index, myState, game, proxyServer){
     };
 
     function update(){
+        game.physics.arcade.collide(npc, game.global.walls);
+
         state.x = npc.x;
         state.y = npc.y;
         state.alive = alive;
