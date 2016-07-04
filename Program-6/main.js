@@ -251,8 +251,8 @@ function initMultiPlayer(game,globals){
 
 function drawMap(myMap) {   //and player
     //Based on final map configuration, draw the tiles
-    for (var x = 0; x < ROWS; x++)
-        for (var y = 0; y < COLS; y++) {
+    for (var y = 0; y < COLS; y++)
+        for (var x = 0; x < ROWS; x++) {
             var thisTile;
             if (myMap[x][y]){
                 map.putTile(3, x, y, 'level1')
