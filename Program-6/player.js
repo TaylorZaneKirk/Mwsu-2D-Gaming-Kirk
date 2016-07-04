@@ -252,7 +252,7 @@ var aNPC = function(index, myState, game, proxyServer){
         console.log(npcTile.x, npcTile.y, playerTile.x, playerTile.y);
         if (npcTile.x == playerTile.x && npcTile.y == playerTile.y)
             return;
-        game.global.easystar.findPath(npcTile.y, npcTile.x, playerTile.y, playerTile.x, function(newPath){
+        game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
             console.log(newPath);
             path = newPath;
 
