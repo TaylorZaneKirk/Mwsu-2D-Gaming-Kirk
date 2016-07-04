@@ -1,14 +1,7 @@
 // is the map done generating?
-var isReady = false;
 var ready = false;
 
 var client;
-var player;
-var character;
-var playerList;
-var enemies;
-var enemySpeed;
-var actors;
 
 // map dimensions
 var ROWS = 30; //y
@@ -47,7 +40,7 @@ game.global = {
 
 function init() {
     //Add the server client for multiplayer
-    console.log("hello");
+
     client = new Eureca.Client();
 
     game.global.ready = false;
@@ -66,7 +59,6 @@ function preload() {
 function create() {
     initMultiPlayer(game, game.global);
 
-    cursors = game.input.keyboard.createCursorKeys();
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //Maps and layers
@@ -78,33 +70,6 @@ function create() {
     layer2.properties = {'collision' : true};
     layer.resizeWorld();
 
-    //player
-    actors = game.add.group();
-
-
-    //enemy group
-    enemies = game.add.group();
-    enemies.createMultiple(3, 'clown');
-    actors.add(enemies);
-    //enemy physics
-    enemySpeed = 50;
-    enemies.forEach(function(actor){
-        actor.anchor.setTo(0.5)
-        game.physics.arcade.enable(actor);
-        actor.enableBody = true;
-        actor.body.collideWorldBounds = true;
-        actor.body.immovable = true;
-        actor.body.setSize(
-            actor.body.width * 0.8,
-            actor.body.height * 0.5,
-            actor.body.width * 0.2,
-            actor.body.height * 0.5
-        );
-        actor.data = {
-            nextStep: null,
-            enemyPath: []
-        };
-    });
 }
 
 function initMultiPlayer(game,globals){
@@ -233,8 +198,9 @@ function initMultiPlayer(game,globals){
         }
     }
 
+    //Called from the server, update NPCs on map
     client.exports.updateNPC = function(id, npc, origin){
-        if(globals.myId == origin)
+        if(globals.myId == origin)  //Keeps frame-jerking to a minimum
             return;
 
         if(globals.npcList[id])
@@ -270,103 +236,13 @@ function drawMap(myMap) {   //and player
 
 function update() {
     if (!game.global.player)
-        return;
+        return; //Stuff isn't ready; hold on...
 
-    //game.physics.arcade.collide(game.global.player.sprite, layer2);
-    //game.physics.arcade.collide(game.global.npcList, layer2);
-    //game.physics.arcade.collide(enemies, player);
-    //game.physics.arcade.collide(enemies);
+    game.global.player.update();    //update player
 
-    game.global.player.update();
-
-    for (var c in game.global.npcList){
+    for (var c in game.global.npcList){ //update NPCs
         game.global.npcList[c].update();
     }
-    /*    for(var i in playerList)
-        if (playerList[i].alive)
-            playerList[i].updatePlayer();
-    //Move the enemies
-    enemies.forEachAlive(function(enemy){
-        // Define a line that connects the person to the ball
-        // This isn't drawn on screen. This is just mathematical representation
-        // of a line to make our calculations easier. Unless you want to do a lot
-        // of math, make sure you choose an engine that has things like line intersection
-        // tests built in, like Phaser does.
-        var ray = new Phaser.Line(enemy.x, enemy.y, player.x, player.y);
-        var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
-        //stop moving; await orders
-        enemy.body.velocity.x = 0;
-        enemy.body.velocity.y = 0;
-        if (enemy.nextStep == 'R')  //move right
-            enemy.body.velocity.x += enemySpeed;
-        if (enemy.nextStep == 'L')  //move left
-            enemy.body.velocity.x -= enemySpeed;
-        if (enemy.nextStep == 'LD'){  //move left&down
-            enemy.body.velocity.x -= enemySpeed;
-            enemy.body.velocity.y -= enemySpeed;
-        }
-        if (enemy.nextStep == 'RD'){  //move right&down
-            enemy.body.velocity.x += enemySpeed;
-            enemy.body.velocity.y -= enemySpeed;
-        }
-        if (enemy.nextStep == 'LU'){  //move left&up
-            enemy.body.velocity.x -= enemySpeed;
-            enemy.body.velocity.y += enemySpeed;
-        }
-        if (enemy.nextStep == 'RU'){  //move right&up
-            enemy.body.velocity.x += enemySpeed;
-            enemy.body.velocity.y += enemySpeed;
-        }
-        if (enemy.nextStep == 'D')  //move down
-            enemy.body.velocity.y -= enemySpeed;
-        if (enemy.nextStep == 'U')  //move up
-            enemy.body.velocity.y += enemySpeed;
-        //path controller
-        if(enemyTile && playerTile){
-            //First check if the enemy can see the player
-            //  then get next step data
-            // Test if any walls intersect the ray
-            var intersect = getWallIntersection(ray);
-            if (intersect) {
-                // A wall is blocking this persons vision so change them back to their default color
-                enemy.tint = 0xffffff;
-            } else {
-                // This enemy can see the player so change their color
-                //  and update their path
-                enemy.tint = 0xff0000;
-                updateEnemies(enemy);
-            }
-            //get enemies next move
-            if(enemy.enemyPath){
-                //where is enemy on the path?
-                for (var i = 0; i < enemy.enemyPath.length; i++){
-                    if (enemyTile.x == enemy.enemyPath[i].x &&
-                        enemyTile.y == enemy.enemyPath[i].y)
-                    {
-                        if (i == (enemy.enemyPath.length - 1))
-                            enemy.nextStep = null;  //End of trail; wait
-                        else if(enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y == enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'L';   //Gonna move left next
-                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y == enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'R';   //Gonna move right next
-                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'RD';   //Gonna move right&down next
-                        else if (enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'LD';   //Gonna move left&down next
-                        else if (enemyTile.x < enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'RU';   //Gonna move right&up next
-                        else if (enemyTile.x > enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'LU';   //Gonna move left&up next
-                        else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y > enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'D';   //Gonna move down next
-                        else if (enemyTile.x == enemy.enemyPath[i + 1].x && enemyTile.y < enemy.enemyPath[i + 1].y)
-                            enemy.nextStep = 'U';   //Gonna move up next
-                    }
-                }
-            }
-        }
-    });*/
 }
 
 function render() {
