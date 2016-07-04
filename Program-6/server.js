@@ -105,7 +105,7 @@ eurecaServer.exports.handleNPC = function (id,state) {
     {
         var remote = players[c].remote;
 
-        remote.updateNPC(id, state);
+        remote.updateNPC(id, state, c);
 
     }
 }

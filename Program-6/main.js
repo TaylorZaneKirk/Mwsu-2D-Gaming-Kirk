@@ -233,7 +233,8 @@ function initMultiPlayer(game,globals){
         }
     }
 
-    client.exports.updateNPC = function(id, npc){
+    client.exports.updateNPC = function(id, npc, origin){
+        console.log(origin);
         if(globals.npcList[id])
             globals.npcList[id].updateState(npc);
     }
@@ -264,68 +265,9 @@ function drawMap(myMap) {   //and player
     game.global.easystar.enableDiagonals();
 }
 
-function getWallIntersection(ray) {
-    //Form array of all tiles that are intersected by the ray
-    var blockingWalls = layer2.getRayCastTiles(ray)
-
-    var hidden = false; //assume sighted until proven otherwise
-
-    if (ray.length > 150)   //too far away
-        return true;
-    else{
-        blockingWalls.forEach(function(thisTile){
-            if (thisTile.index == 0){
-                //wall in the way
-                hidden = true;
-            }
-        });
-
-        //Did enemy see player?
-        return hidden;
-    }
-}
-
-function updateEnemies(enemy) {
-    //Get new path for the enemy
-
-    var enemyTile = map.getTileWorldXY(enemy.x, enemy.y, 20, 20, 'level1');
-    var playerTile = map.getTileWorldXY(player.x, player.y, 20, 20, 'level1');
-    if(enemyTile && playerTile){
-
-        easystar.findPath(enemyTile.x, enemyTile.y, playerTile.x, playerTile.y, function(path){
-            enemy.enemyPath = path;
-            if (path.length){
-
-                if(enemyTile.x > path[0].x && enemyTile.y == path[0].y)
-                    enemy.nextStep = 'L';
-                else if (enemyTile.x < path[0].x && enemyTile.y == path[0].y)
-                    enemy.nextStep = 'R';
-                else if (enemyTile.x < path[0].x && enemyTile.y > path[0].y)
-                    enemy.nextStep = 'RD';   //Gonna move right&down next
-                else if (enemyTile.x > path[0].x && enemyTile.y > path[0].y)
-                    enemy.nextStep = 'LD';   //Gonna move left&down next
-                else if (enemyTile.x < path[0].x && enemyTile.y < path[0].y)
-                    enemy.nextStep = 'RU';   //Gonna move right&up next
-                else if (enemyTile.x > path[0].x && enemyTile.y < path[0].y)
-                    enemy.nextStep = 'LU';   //Gonna move left&up next
-                else if (enemyTile.x == path[0].x && enemyTile.y > path[0].y)
-                    enemy.nextStep = 'D';
-                else if (enemyTile.x == path[0].x && enemyTile.y < path[0].y)
-                    enemy.nextStep = 'U';
-            }
-            else
-                enemy.nextStep = null;
-        });
-        easystar.calculate();
-    }
-}
-
 function update() {
     if (!game.global.player)
         return;
-
-
-
 
     game.physics.arcade.collide(game.global.player.sprite, layer2);
     game.physics.arcade.collide(enemies, layer2);
