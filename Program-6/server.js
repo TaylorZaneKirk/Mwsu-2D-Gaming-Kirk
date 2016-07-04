@@ -269,7 +269,7 @@ function roomDetection (oldMap){
 }
 
 function floodFill (thisMap, coord, target, replacement, roomSpaces){
-
+    console.log("ran");
     var x = coord.x;
     var y = coord.y;
 
