@@ -237,7 +237,7 @@ function floodfill (oldMap){
         newMap.push(newRow);
 
         for (var x = 0; x < COLS; x++)
-            newRow.push( old[y][x] );
+            newRow.push( oldMap[y][x] );
     }
     console.log(newMap);
 }
