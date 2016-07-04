@@ -162,13 +162,13 @@ function generateMap() {
     }
 
     //Box in the World
-    for(var j = 0; j < ROWS; j++){
+    for(var j = 0; j < COLS; j++){
         cellmap[0][j] = true;
-        cellmap[COLS-1][j] = true;
+        cellmap[ROWS-1][j] = true;
     }
-    for(var k = 0; k < COLS; k++){
+    for(var k = 0; k < ROWS; k++){
         cellmap[k][0] = true;
-        cellmap[k][ROWS-1] = true;
+        cellmap[k][COLS-1] = true;
     }
 
     return cellmap;
