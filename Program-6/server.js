@@ -170,8 +170,10 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
-    roomDetection(cellmap);
-    return cellmap;
+    if (roomDetection(cellmap))
+        return cellmap;
+    else
+        return generateMap();
 }
 
 //generate initial values of the map
@@ -245,7 +247,14 @@ function roomDetection (oldMap){
         }
     }
     floodFill(newMap, firstSpace, false, true);
-    console.log(newMap);
+
+    for(var y = 0; y < ROWS; y++){
+        for (var x = 0; x < COLS; x++){
+            if (newMap[x][y] === false)
+                return false;
+        }
+    }
+    return true;
 }
 
 function floodFill (thisMap, coord, target, replacement){
