@@ -264,13 +264,13 @@ function findSpawn(actor) {
     while(found === false) {   //still looking...
         if (found === false){
             //grab random coordintes
-            var y = getRandomInt(2, ROWS - 1);
-            var x = getRandomInt(2, COLS - 1);
+            var x = getRandomInt(2, ROWS - 1);
+            var y = getRandomInt(2, COLS - 1);
             var nbs;
             var distance;
             tooClose = false;
 
-            if (mapData && mapData[x][y] === false){    //if this is a walkable-space
+            if (mapData[x][y] === false){    //if this is a walkable-space
                 nbs = countAliveNeighbours(mapData, x, y);  //check surroundings
                 for (var c in players){ //check distance from players
                     if(actor != c && c.state){
