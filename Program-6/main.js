@@ -175,6 +175,13 @@ function initMultiPlayer(game,globals){
         console.log(globals.npcList);
         globals.player.sprite.x = (spawnLoc.x);
         globals.player.sprite.y = (spawnLoc.y);
+
+        //EasyStar stuff; makes calculations using the raw
+        //  2D boolean array to determine paths. This is then
+        //  used to interact with tilemap
+        game.global.easystar.setGrid(thisMap);
+        game.global.easystar.setAcceptableTiles([false]);
+        game.global.easystar.enableDiagonals();
     }
 
     /**
@@ -258,14 +265,6 @@ function drawMap(myMap) {   //and player
     map.setCollision(0); //tile 0 = wall
     game.global.map = map;
     game.global.walls = layer2;
-
-    //EasyStar stuff; makes calculations using the raw
-    //  2D boolean array to determine paths. This is then
-    //  used to interact with tilemap
-    console.log(game.global.myMap);
-    game.global.easystar.setGrid(game.global.myMap);
-    game.global.easystar.setAcceptableTiles([false]);
-    game.global.easystar.enableDiagonals();
 }
 
 function update() {
