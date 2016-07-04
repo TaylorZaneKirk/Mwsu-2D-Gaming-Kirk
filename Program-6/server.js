@@ -174,7 +174,7 @@ function generateMap() {
         cellmap[k][COLS-1] = true;
     }
 
-    console.log(cellmap);
+    return (cellmap);
 }
 
 //generate initial values of the map
