@@ -201,9 +201,9 @@ function doSimulationStep(oldMap) {
     }
 
     //Loop over each row and column of the map
-    for(var x = 0; x < ROWS; x++) {
+    for(var x = 0; x < COLS; x++) {
 
-        for(var y = 0; y < COLS; y++) {
+        for(var y = 0; y < ROWS; y++) {
             var nbs = countAliveNeighbours(oldMap, x, y);
 
             //The new value is based on our simulation rules
@@ -261,8 +261,8 @@ function findSpawn(actor) {
     while(found === false) {   //still looking...
         if (found === false){
             //grab random coordintes
-            var y = getRandomInt(2, COLS - 1);
-            var x = getRandomInt(2, ROWS - 1);
+            var x = getRandomInt(2, COLS - 1);
+            var y = getRandomInt(2, ROWS - 1);
             var nbs;
             var distance;
             tooClose = false;
