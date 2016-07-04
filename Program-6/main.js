@@ -12,7 +12,7 @@ var actors;
 
 // map dimensions
 var ROWS = 40; //x
-var COLS = 30; //y
+var COLS = 35; //y
 
 // the structure of the map
 var mapData;
