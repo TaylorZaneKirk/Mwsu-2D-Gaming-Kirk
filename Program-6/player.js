@@ -238,13 +238,16 @@ var aNPC = function(index, myState, game, proxyServer){
             }
         }
 
-        if(game.time.time - startTime < 1000)
-            return;
-
-
         if (!intersect){
+            npc.tint = 0xff0000;
             updatePath();
         }
+        else{
+            npc.tint = 0xffffff;
+        }
+
+        if(game.time.time - startTime < 1000)
+            return;
 
         proxy.handleNPC(npc_id, state, game.global.myId);
         startTime = game.time.time;

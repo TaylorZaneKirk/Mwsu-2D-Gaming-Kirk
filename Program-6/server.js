@@ -161,6 +161,8 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
+    //roomDetection checks several locations
+    //  to attempt to eliminate unreachable rooms
     for(var j = 0; j < numberOfSteps * 2; j++) {
         cellmap = roomDetection(cellmap);
     }
@@ -255,8 +257,8 @@ function roomDetection (oldMap){
     }
 
     while (found === false){
-        var x = getRandomInt(2, ROWS - 1);
-        var y = getRandomInt(2, COLS - 1);
+        var x = getRandomInt(1, ROWS - 1);
+        var y = getRandomInt(1, COLS - 1);
         if (newMap[x][y] === false){
             found = true;
             firstSpace = {x: x, y: y};
