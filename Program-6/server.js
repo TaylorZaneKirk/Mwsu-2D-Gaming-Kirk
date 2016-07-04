@@ -145,11 +145,11 @@ function generateMap() {
     //Create a new map
     var cellmap = [];
 
-    for (var x = 0; x < COLS; x++) {
+    for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         cellmap.push(newRow);
 
-        for (var y = 0; y < ROWS; y++)
+        for (var x = 0; x < COLS; x++)
             newRow.push(false);
     }
     //Set up the map with random values
