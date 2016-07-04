@@ -11,8 +11,8 @@ var enemySpeed;
 var actors;
 
 // map dimensions
-var ROWS = 30; //y
-var COLS = 40; //x
+var ROWS = 40; //x
+var COLS = 30; //y
 
 // the structure of the map
 var mapData;
@@ -251,8 +251,8 @@ function initMultiPlayer(game,globals){
 
 function drawMap(myMap) {   //and player
     //Based on final map configuration, draw the tiles
-    for (var x = 0; x < COLS; x++)
-        for (var y = 0; y < ROWS; y++) {
+    for (var x = 0; x < ROWS; x++)
+        for (var y = 0; y < COLS; y++) {
             var thisTile;
             if (myMap[x][y]){
                 map.putTile(3, x, y, 'level1')
