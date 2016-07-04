@@ -276,6 +276,11 @@ function floodFill (thisMap, coord, target, replacement, roomSpaces){
     if (thisMap[x][y] === replacement)
         return;
 
+    for (var c in roomSpaces){
+        if (roomSpaces[c].x == x && roomSpaces[c].y == y)
+            return;
+    }
+
     if (thisMap[x][y] === target){
         roomSpaces.push({x: x, y: y});
     }
