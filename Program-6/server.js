@@ -161,7 +161,7 @@ function generateMap() {
         cellmap = doSimulationStep(cellmap);
     }
 
-    for(var j = 0; j < numberOfSteps * 2; j++) {
+    for(var j = 0; j < numberOfSteps * 10; j++) {
         cellmap = roomDetection(cellmap);
     }
 
@@ -235,6 +235,9 @@ function doSimulationStep(oldMap) {
     return newMap;
 }
 
+//Randomly check various locations in the map
+//  for rooms. If a 'room' is smaller than 30 tiles
+//  fill it with non-walkable spaces
 function roomDetection (oldMap){
 
     var newMap = [];
