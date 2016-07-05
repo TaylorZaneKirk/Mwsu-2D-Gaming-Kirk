@@ -403,7 +403,7 @@ function generateNPCs(){
             alive : true,
             x : 0,
             y : 0,
-            startLoc: {x: 0, y: 0}
+            startLoc: null
         };
 
         //Find a good spot to drop 'em

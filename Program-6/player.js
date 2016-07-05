@@ -166,7 +166,6 @@ var aNPC = function(index, myState, game, proxyServer){
         alive = state.alive;
         npc.tint = state.tint;
         nextStep = state.nextStep;
-        path = state.path;
     };
 
     function update(){
@@ -179,7 +178,6 @@ var aNPC = function(index, myState, game, proxyServer){
         state.alive = alive;
         state.tint = npc.tint;
         state.nextStep = nextStep;
-        state.path = path;
 
         var ray = new Phaser.Line(npc.x, npc.y, game.global.player.sprite.x, game.global.player.sprite.y);
         var map = game.global.map;
