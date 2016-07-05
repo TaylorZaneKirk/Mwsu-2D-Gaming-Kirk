@@ -167,6 +167,8 @@ function generateMap() {
         cellmap = roomDetection(cellmap);
     }
 
+    cellmap = doSimulationStep(cellmap);
+
     //Box in the World
     for(var j = 0; j < COLS; j++){
         cellmap[0][j] = true;
