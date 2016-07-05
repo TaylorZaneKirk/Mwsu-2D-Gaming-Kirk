@@ -149,12 +149,13 @@ var aNPC = function(index, myState, game, proxyServer){
         npc.body.bounce.setTo(0, 0);
         npc.body.setSize(
             npc.body.width * 0.6,
-            npc.body.height * 0.5,
-            npc.body.width * 0.2,
+            npc.body.height * 1.0,
+            npc.body.width * 0.4,
             npc.body.height * 0.5
         );
     };
 
+    //Sync with Server data
     function updateState (newState){
         state = newState;
         npc.x = state.x;
@@ -166,6 +167,8 @@ var aNPC = function(index, myState, game, proxyServer){
         nextStep = state.nextStep;
     };
 
+    //Record some data for updating the Server
+    //Move this NPC and Path stuff
     function update(){
         game.physics.arcade.collide(npc, game.global.walls);
         for (var c in game.global.npcList)

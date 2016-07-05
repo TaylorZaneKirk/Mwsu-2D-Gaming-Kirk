@@ -1,5 +1,5 @@
-// is the map done generating?
-var ready = false;
+///Main Game 'World' script//
+////////////////////////////
 
 var client;
 
