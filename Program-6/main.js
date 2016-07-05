@@ -226,6 +226,7 @@ function drawMap(myMap) {
     game.global.easystar.setGrid(myMap);
     game.global.easystar.setAcceptableTiles([false]);
     game.global.easystar.enableDiagonals();
+    game.global.easystar.enableCornerCutting();
 }
 
 function update() {
