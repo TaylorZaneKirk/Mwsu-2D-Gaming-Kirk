@@ -243,5 +243,6 @@ function update() {
 function render() {
     for (var c in game.global.npcList){ //update NPCs
         game.global.npcList[c].render();
+        game.global.player.render();
     }
 }
