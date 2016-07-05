@@ -134,7 +134,10 @@ var aNPC = function(index, myState, game, proxyServer){
         proxy = proxyServer;
 
         npc = game.add.sprite(x, y, 'clown');
-        startTile = myState.startTile || game.global.map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
+        startTile = game.global.map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
+
+        if(!state.startTile)
+            state.startTile = startTile;
 
         startTime = game.time.time;
         blindTime = game.time.time;
