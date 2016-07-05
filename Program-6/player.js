@@ -117,6 +117,7 @@ var aNPC = function(index, myState, game, proxyServer){
 
     var x = myState.x;
     var y = myState.y;
+    var lastSpot = {x: x, y: y};
     var startTile;
     var state = myState;
     var startTime;              // starting game time
@@ -162,6 +163,8 @@ var aNPC = function(index, myState, game, proxyServer){
         state = newState;
         npc.x = state.x;
         npc.y = state.y;
+        lastSpot.x = state.x;
+        lastSpot.y = state.y;
         alive = state.alive;
         npc.tint = state.tint;
         nextStep = state.nextStep;
@@ -266,8 +269,8 @@ var aNPC = function(index, myState, game, proxyServer){
                 updatePath(npcTile, startTile);
         }
 
-        //only update the server
-        if(game.time.time - startTime < 2500)
+        //only update the server once per second if the npc has moved
+        if((game.time.time - startTime < 1000) || (lastSpot.x == npc.x && lastSpot.y == npc.y))
             return;
 
         proxy.handleNPC(npc_id, state, game.global.myId);
