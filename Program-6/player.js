@@ -333,7 +333,7 @@ var aNPC = function(index, myState, game, proxyServer){
         npc.kill();
     };
 
-    function render() {};
+    function render() {game.debug.body(npc);};
 
     init(index, game, proxyServer);
 

@@ -225,7 +225,7 @@ function drawMap(myMap) {
     //  used to interact with tilemap
     game.global.easystar.setGrid(myMap);
     game.global.easystar.setAcceptableTiles([false]);
-    //game.global.easystar.enableDiagonals();
+    game.global.easystar.enableDiagonals();
     game.global.easystar.enableCornerCutting();
 }
 
