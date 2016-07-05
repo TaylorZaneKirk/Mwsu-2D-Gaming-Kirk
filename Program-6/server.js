@@ -157,7 +157,7 @@ function generateMap() {
     cellmap = initialiseMap(cellmap);
 
     //And now run the simulation for a set number of steps
-    for(var i = 0; i < numberOfSteps; i++) {
+    for(var i = 0; i < numberOfSteps - 1; i++) {
         cellmap = doSimulationStep(cellmap);
     }
 
