@@ -147,7 +147,7 @@ var aNPC = function(index, myState, game, proxyServer){
         npc.body.collideWorldBounds = true;
         npc.body.immovable = false;
         npc.body.bounce.setTo(0, 0);
-        npc.body.setSize(10, 10, 0, 20);
+        npc.body.setSize(20, 20, 10, 20);
     };
 
     //Sync with Server data
