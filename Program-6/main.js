@@ -203,6 +203,7 @@ function initMultiPlayer(game,globals){
     }
 }
 
+//Convert boolean 2D array into tilemap
 function drawMap(myMap) {
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
@@ -241,8 +242,7 @@ function update() {
 }
 
 function render() {
-    for (var c in game.global.npcList){ //update NPCs
+    /*for (var c in game.global.npcList){ //update NPCs
         game.global.npcList[c].render();
-        game.global.player.render();
-    }
+    }*/
 }
