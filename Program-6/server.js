@@ -242,11 +242,19 @@ function doSimulationStep(oldMap) {
 //  fill it with non-walkable spaces
 function roomDetection (oldMap){
 
-    var newMap = [];
-    var roomSpaces = [];
-    var firstSpace;
-    var found = false;
+    var newMap = [];    //modified map
 
+    var roomSpaces = []; //Array contain spaces that have been filled
+                        //  if the number of elements in the array is
+                        //  too high or too low, the original map is
+                        //  maintained without change; otherwise, the
+                        //  new map with the spaces filled in is adopted
+                        //  and newMap replaces oldMap
+
+    var firstSpace; //First space that will be flooded
+    var found = false;  //Have we found a valid space, yet?
+
+    //make a copy of the map
     for (var y = 0; y < ROWS; y++) {
         var newRow = [];
         newMap.push(newRow);
@@ -256,65 +264,78 @@ function roomDetection (oldMap){
         }
     }
 
+    //Get a valid location
     while (found === false){
         var x = getRandomInt(1, ROWS - 1);
         var y = getRandomInt(1, COLS - 1);
+
         if (newMap[x][y] === false){
             found = true;
             firstSpace = {x: x, y: y};
         }
     }
 
+    //perform flood on selected space
     floodFill(newMap, firstSpace, false, true, roomSpaces);
+
+    //If enough spaces were filled, but not too many (don't want
+    //  to eliminate the main chamber) return the newMap to make
+    //  changes permanent
     if (roomSpaces.length > 0 && roomSpaces.length < 20 ){
         console.log(roomSpaces.length);
-        for(var c in roomSpaces)
-            console.log(roomSpaces[c])
         return newMap
     }
-
+    //  otherwise, discard changes by returning the original map
     return oldMap;
 }
 
+//Works like the Paint-Bucket tool from MS-Paint
+//  the length of the roomSpaces array after this
+//  function is complete denotes the 'size' of a
+//  'chamber' in this map
 function floodFill (thisMap, coord, target, replacement, roomSpaces){
     var x = coord.x;
     var y = coord.y;
 
+    //If this is a wall, do nothing (base case)
     if (thisMap[x][y] == replacement)
         return;
 
+    //This is a walking tile; turn it into a wall,
+    //  and record the position
     if (thisMap[x][y] == target){
         thisMap[x][y] = replacement;
         roomSpaces.push({x: x, y: y});
     }
 
+    //Flood the neighbors
     for (var i = -1; i < 1; i++){
         for (var j = -1; j < 1; j++){
             var neighbourX = x + i;
             var neighbourY = y + j;
 
             if(i === 0 && j === 0){
-                //do nothing
+                //do nothing; this is us
             }
             else if (neighbourX < 0 || neighbourY < 0 ||
                      neighbourX >= thisMap.length || neighbourY >= thisMap[0].length){
                 //Off the grid, do nothing
             }
-            else{
+            else{   //this is a good spot; recurse.
                 var newCoord = {x: neighbourX, y: neighbourY};
                 floodFill(thisMap, newCoord, false, true, roomSpaces);
             }
         }
     }
+
     return
 }
 
+//Retrieve the number of living neighbours in relation to a cell
 function countAliveNeighbours(map, x, y) {
-    //Retrieve the number of living neighbours in relation to a cell
     var count = 0;
 
     for (var i = -1; i < 2; i++) {
-
         for(var j = -1; j < 2; j++) {
             var neighbour_x = x+i;
             var neighbour_y = y+j;
@@ -331,46 +352,44 @@ function countAliveNeighbours(map, x, y) {
             }
         }
     }
+
     return count;
 }
 
-//find a valid location on the map to spawn the plater
+//find a valid location on the map to spawn the thing
 function findSpawn(actor) {
 
     var found = false;
     var tooClose;
     var spawnTile;
     while(found === false) {   //still looking...
-        if (found === false){
-            //grab random coordintes
-            var x = getRandomInt(2, ROWS - 1);
-            var y = getRandomInt(2, COLS - 1);
-            var nbs;
-            var distance;
-            tooClose = false;
 
-            if (mapData[x][y] === false){    //if this is a walkable-space
-                nbs = countAliveNeighbours(mapData, x, y);  //check surroundings
-                for (var c in players){ //check distance from players
-                    if(actor != c && c.state){
-                        distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
-                        if (distance < 100)
-                            tooClose = true;
-                    }
-                }
+        //grab random coordintes
+        var x = getRandomInt(2, ROWS - 2);
+        var y = getRandomInt(2, COLS - 2);
+        var nbs;
+        var distance;
+        tooClose = false;   //Not too close until proven otherwise
 
-                //If surrounded by walkable-spaces, and
-                //  space is not to close to another player return space
-                if(nbs === 0 && tooClose === false){
-                    found = true;
-                    spawnTile = {x: y * 20, y: x * 20};
-                    return (spawnTile);
+        if (mapData[x][y] === false){    //if this is a walkable-space
+            nbs = countAliveNeighbours(mapData, x, y);  //check surroundings
+            for (var c in players){ //check distance from players
+                if(actor != c && c.state){
+                    distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
+                    if (distance < 100)
+                        tooClose = true;
                 }
+            }
+
+            //If surrounded by walkable-spaces, and
+            //  space is not to close to another player return space
+            if(nbs === 0 && tooClose === false){
+                found = true;
+                spawnTile = {x: y * 20, y: x * 20};
+                return (spawnTile);
             }
         }
     }
-    console.log("Error: No Location Returned: retrying...")
-    return(findSpawn(actor));
 }
 
 //This function is responsible for creating the NPC
@@ -394,10 +413,7 @@ function generateNPCs(){
     }
 }
 
-/**
- * Returns a random integer between min (inclusive) and max (inclusive)
- * Using Math.round() will give you a non-uniform distribution!
- */
+//Returns a random integer between min (inclusive) and max (inclusive)
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }

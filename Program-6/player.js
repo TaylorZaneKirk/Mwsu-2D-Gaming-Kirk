@@ -91,10 +91,6 @@ var aPlayer = function(index, game, proxyServer){
         player.kill();
     };
 
-    function reset(x, y){
-        player.reset(x, y);
-    }
-
     function render() {};
 
     init(index, game, proxyServer);
@@ -104,7 +100,6 @@ var aPlayer = function(index, game, proxyServer){
         updateState : updateState,
         sprite : player,
         update : update,
-        reset : reset,
         kill : kill,
         state: state
     };
@@ -269,8 +264,8 @@ var aNPC = function(index, myState, game, proxyServer){
                 updatePath(npcTile, startTile);
         }
 
-        //only update the server once per second if the npc has moved
-        if((game.time.time - startTime < 1000) || (lastSpot.x == npc.x && lastSpot.y == npc.y))
+        //only update the server once per half-second if the npc has moved
+        if((game.time.time - startTime < 500) || (lastSpot.x == npc.x && lastSpot.y == npc.y))
             return;
 
         proxy.handleNPC(npc_id, state, game.global.myId);

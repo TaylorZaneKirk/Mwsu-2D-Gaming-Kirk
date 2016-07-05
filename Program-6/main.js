@@ -122,18 +122,19 @@ function initMultiPlayer(game,globals){
 
     }
 
+    //retrieve necessary data from server containing
+    //  map, player spawn location, and npcs on map
     client.exports.setMap = function(thisMap, spawnLoc, npcs){
         //draw our map
         game.global.myMap = thisMap;
         drawMap(thisMap);
 
+        //place NPCs
         for (var c in npcs){
-            console.log(npcs[c]);
             globals.npcList[c] = new aNPC(npcs[c].index, npcs[c], game, eurecaProxy);
         }
 
-        console.log(npcs);
-        console.log(globals.npcList);
+        //Player's starting location
         globals.player.sprite.x = (spawnLoc.x);
         globals.player.sprite.y = (spawnLoc.y);
     }
@@ -172,8 +173,6 @@ function initMultiPlayer(game,globals){
         enemy.sprite.tint = enemy_state.tint;
         globals.playerList[id] = enemy;
 
-        //globals.playerList[id] = enemy_state;
-
         console.log(globals.playerList);
 
     }
@@ -204,7 +203,7 @@ function initMultiPlayer(game,globals){
     }
 }
 
-function drawMap(myMap) {   //and player
+function drawMap(myMap) {
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
@@ -224,7 +223,6 @@ function drawMap(myMap) {   //and player
     //EasyStar stuff; makes calculations using the raw
     //  2D boolean array to determine paths. This is then
     //  used to interact with tilemap
-    console.log(myMap);
     game.global.easystar.setGrid(myMap);
     game.global.easystar.setAcceptableTiles([false]);
     game.global.easystar.enableDiagonals();
