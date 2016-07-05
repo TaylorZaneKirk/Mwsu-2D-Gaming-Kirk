@@ -281,7 +281,7 @@ function roomDetection (oldMap){
     //If enough spaces were filled, but not too many (don't want
     //  to eliminate the main chamber) return the newMap to make
     //  changes permanent
-    if (roomSpaces.length > 0 && roomSpaces.length < 20 ){
+    if (roomSpaces.length > 0 && roomSpaces.length < 30 ){
         console.log(roomSpaces.length);
         return newMap
     }
