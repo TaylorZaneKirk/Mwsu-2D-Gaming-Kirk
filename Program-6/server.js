@@ -22,7 +22,7 @@ var COLS = 40;
 
 //map steps for generation
 var numberOfSteps = 5; //How many times will we pass over the map
-var deathLimit = 3; //Least number of neighbours required to live
+var deathLimit = 4; //Least number of neighbours required to live
 var birthLimit = 5; //Greateast number of neighbours before cell dies
 var chanceToStartAlive = 0.40;  //chance of being generated as alive
 
