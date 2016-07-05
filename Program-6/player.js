@@ -110,6 +110,7 @@ var aNPC = function(index, myState, game, proxyServer){
 
     var x = myState.x;
     var y = myState.y;
+    var startTile;
     var state = myState;
     var startTime;              // starting game time
     var alive = myState.alive;
@@ -129,6 +130,7 @@ var aNPC = function(index, myState, game, proxyServer){
         proxy = proxyServer;
 
         npc = game.add.sprite(x, y, 'clown');
+        startTile = game.global.map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
 
         startTime = game.time.time;
         npc.anchor.setTo(0.5)
@@ -143,9 +145,7 @@ var aNPC = function(index, myState, game, proxyServer){
             npc.body.width * 0.2,
             npc.body.height * 0.5
         );
-
-        tint = Math.random() * 0xffffff;
-        npc.tint = tint;
+        console.log(startTile);
     };
 
     function updateState (newState){
