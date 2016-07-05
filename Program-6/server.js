@@ -402,13 +402,15 @@ function generateNPCs(){
             index: i,
             alive : true,
             x : 0,
-            y : 0
+            y : 0,
+            startLoc: {x: 0, y: 0}
         };
 
         //Find a good spot to drop 'em
         var startLoc = findSpawn(thisNPC)
         thisNPC.x = startLoc.x;
         thisNPC.y = startLoc.y;
+        thisNPC.startLoc = startLoc;
 
         //Record this NPC
         npcs[i] = thisNPC;

@@ -136,11 +136,6 @@ var aNPC = function(index, myState, game, proxyServer){
 
         npc = game.add.sprite(x, y, 'clown');
 
-        if (!startLoc){
-            startLoc = {x: x, y: y};
-            state.startLoc = startLoc;
-        }
-
         startTile = game.global.map.getTileWorldXY(startLoc.x, startLoc.y, 20, 20, 'level1');
 
         state.startTile = startTile;
@@ -172,7 +167,6 @@ var aNPC = function(index, myState, game, proxyServer){
         npc.tint = state.tint;
         nextStep = state.nextStep;
         path = state.path;
-        startLoc = state.startLoc;
     };
 
     function update(){
