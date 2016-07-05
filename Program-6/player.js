@@ -114,6 +114,7 @@ var aNPC = function(index, myState, game, proxyServer){
     var y = myState.y;
     var lastSpot = {x: x, y: y};
     var startTile;
+    var startLoc = myState.startLoc;
     var state = myState;
     var startTime;              // starting game time
     var blindTime;
@@ -134,10 +135,15 @@ var aNPC = function(index, myState, game, proxyServer){
         proxy = proxyServer;
 
         npc = game.add.sprite(x, y, 'clown');
-        startTile = game.global.map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
 
-        if(!state.startTile)
-            state.startTile = startTile;
+        if (!startLoc){
+            startLoc = {x: x, y: y};
+            state.startLoc = startLoc;
+        }
+
+        startTile = game.global.map.getTileWorldXY(startLoc.x, startLoc.y, 20, 20, 'level1');
+
+        state.startTile = startTile;
 
         startTime = game.time.time;
         blindTime = game.time.time;
@@ -166,7 +172,7 @@ var aNPC = function(index, myState, game, proxyServer){
         npc.tint = state.tint;
         nextStep = state.nextStep;
         path = state.path;
-        startTile = state.startTile;
+        startLoc = state.startLoc;
     };
 
     function update(){
