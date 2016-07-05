@@ -6,10 +6,11 @@ var aPlayer = function(index, game, proxyServer){
     var state = {};
     var startTime;              // starting game time
     var alive;
-    var player_id;
-    var proxy;
-    var player;
+    var player_id;  //server ID
+    var proxy;  //connection to the eureca server
+    var player; //contains the sprite of the player
     var tint;
+    var lastSpot = {x: 0, y: 0};
 
 
     function init(index, game, proxyServer){
@@ -49,6 +50,8 @@ var aPlayer = function(index, game, proxyServer){
         state = newState;
         player.x = state.x;
         player.y = state.y;
+        lastSpot.x = state.x;
+        lastSpot.y = state.y;
         alive = state.alive;
         player.tint = state.tint;
     };
@@ -60,7 +63,6 @@ var aPlayer = function(index, game, proxyServer){
         state.y = player.y;
         state.alive = alive;
         state.tint = player.tint;
-        proxy.handleState(player_id,state);
 
         player.body.velocity.x = 0;
         player.body.velocity.y = 0;
@@ -77,6 +79,11 @@ var aPlayer = function(index, game, proxyServer){
         if (downKey.isDown){
             player.body.velocity.y += 100;
         }
+
+        //only update the server when a player has moved
+        if(lastSpot.x == player.x && lastSpot.y == player.y)
+            return;
+        proxy.handleState(player_id, state);
     };
 
     function kill() {
@@ -215,54 +222,66 @@ var aNPC = function(index, myState, game, proxyServer){
         if (nextStep == 'U')  //move up
             npc.body.velocity.y += speed;
 
+        //If NPC has a path, follow it.
         if(path){
+
+            //Where are we in the path?
             for (var p = 0; p < path.length; p++){
 
                 if (npcTile.x == path[p].x && npcTile.y == path[p].y){
                     if (p == (path.length - 1))
-                        nextStep = null;
+                        nextStep = null;    //at the end of path
                     else if (npcTile.x > path[p + 1].x && npcTile.y == path[p + 1].y)
-                        nextStep = 'L';
+                        nextStep = 'L'; //move left
                     else if (npcTile.x < path[p + 1].x && npcTile.y == path[p + 1].y)
-                        nextStep = 'R';
+                        nextStep = 'R'; //move right
                     else if (npcTile.x < path[p + 1].x && npcTile.y > path[p + 1].y)
-                        nextStep = 'RD';
+                        nextStep = 'RD';    //move right and down
                     else if (npcTile.x > path[p + 1].x && npcTile.y > path[p + 1].y)
-                        nextStep = 'LD';
+                        nextStep = 'LD';    //move left and down
                     else if (npcTile.x < path[p + 1].x && npcTile.y < path[p + 1].y)
-                        nextStep = 'RU';
+                        nextStep = 'RU';    //move right and up
                     else if (npcTile.x > path[p + 1].x && npcTile.y < path[p + 1].y)
-                        nextStep = 'LU';
+                        nextStep = 'LU';    //move left and up
                     else if (npcTile.x == path[p + 1].x && npcTile.y > path[p + 1].y)
-                        nextStep = 'D';
+                        nextStep = 'D'; //move down
                     else if (npcTile.x == path[p + 1].x && npcTile.y < path[p + 1].y)
-                        nextStep = 'U';
+                        nextStep = 'U'; //move up
                 }
             }
         }
 
-        if (!intersect){
-            npc.tint = 0xff0000;
+        //check if NPC sees the target
+        if (!intersect){    //Sighted; get a path to target
+            npc.tint = 0xff0000;    //change color to denote alerted
             updatePath(npcTile, playerTile);
-            blindTime = game.time.time;
+            blindTime = game.time.time; //update time-last-sighted
         }
-        else{
+        else{   //NPC has no target, normalize color
             npc.tint = 0xffffff;
+
+            //if a period of time has passed since the last time
+            //  the NPC had a target, return to starting location
             if ((game.time.time - blindTime > 3000) && npcTile != startTile)
                 updatePath(npcTile, startTile);
         }
 
-        if(game.time.time - startTime < 1000)
+        //only update the server
+        if(game.time.time - startTime < 2500)
             return;
 
         proxy.handleNPC(npc_id, state, game.global.myId);
         startTime = game.time.time;
     };
 
+    //Use easystar.js to find a path from currTile to targetTile
     function updatePath(currTile, targetTile){
 
+        //if currTile and targetTile are the same tile; do nothing
         if (currTile.x == targetTile.x && currTile.y == targetTile.y)
             return;
+
+        //get the path
         game.global.easystar.findPath(currTile.x, currTile.y, targetTile.x, targetTile.y, function(newPath){
 
             path = newPath;
@@ -292,6 +311,8 @@ var aNPC = function(index, myState, game, proxyServer){
         game.global.easystar.calculate();
     };
 
+    //Determine if any tiles that are intersected by 'ray'
+    //  are 'walls' / can be 'seen through'
     function getWallIntersection(ray) {
         //Form array of all tiles that are intersected by the ray
         var blockingWalls = game.global.walls.getRayCastTiles(ray);
