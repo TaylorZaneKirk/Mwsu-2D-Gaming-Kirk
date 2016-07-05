@@ -163,7 +163,7 @@ function generateMap() {
 
     //roomDetection checks several locations
     //  to attempt to eliminate unreachable rooms
-    for(var j = 0; j < numberOfSteps * 2; j++) {
+    for(var j = 0; j < numberOfSteps * numberOfSteps; j++) {
         cellmap = roomDetection(cellmap);
     }
 
@@ -415,5 +415,5 @@ function generateNPCs(){
 
 //Returns a random integer between min (inclusive) and max (inclusive)
 function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.round(Math.random() * (max - min + 1)) + min;
 }
