@@ -276,7 +276,7 @@ var aNPC = function(index, myState, game, proxyServer){
     function updatePath(currTile, targetTile){
 
         //if currTile and targetTile are the same tile; do nothing
-        if (currTile.x == targetTile.x && currTile.y == targetTile.y)
+        if (!(currTile && targetTile) || (currTile.x == targetTile.x && currTile.y == targetTile.y))
             return;
 
         //get the path
