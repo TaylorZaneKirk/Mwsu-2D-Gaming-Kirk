@@ -113,6 +113,7 @@ var aNPC = function(index, myState, game, proxyServer){
     var startTile;
     var state = myState;
     var startTime;              // starting game time
+    var blindTime;
     var alive = myState.alive;
     var npc_id;
     var proxy;
@@ -133,6 +134,8 @@ var aNPC = function(index, myState, game, proxyServer){
         startTile = game.global.map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
 
         startTime = game.time.time;
+        blindTime = game.time.time;
+
         npc.anchor.setTo(0.5)
         game.physics.arcade.enable(npc);
         npc.enableBody = true;
@@ -240,10 +243,13 @@ var aNPC = function(index, myState, game, proxyServer){
 
         if (!intersect){
             npc.tint = 0xff0000;
-            updatePath();
+            updatePath(npcTile, playerTile);
+            blindTime = game.time.time;
         }
         else{
             npc.tint = 0xffffff;
+            if ((game.time.time - blindTime > 3000) && npcTile != startTile)
+                updatePath(npcTile, startTile);
         }
 
         if(game.time.time - startTime < 1000)
@@ -253,33 +259,31 @@ var aNPC = function(index, myState, game, proxyServer){
         startTime = game.time.time;
     };
 
-    function updatePath(){
-        var map = game.global.map;
-        var npcTile = map.getTileWorldXY(npc.x, npc.y, 20, 20, 'level1');
-        var playerTile = map.getTileWorldXY(game.global.player.sprite.x, game.global.player.sprite.y, 20, 20, 'level1');
-        if (npcTile.x == playerTile.x && npcTile.y == playerTile.y)
+    function updatePath(currTile, targetTile){
+
+        if (currTile.x == targetTile.x && currTile.y == targetTile.y)
             return;
-        game.global.easystar.findPath(npcTile.x, npcTile.y, playerTile.x, playerTile.y, function(newPath){
+        game.global.easystar.findPath(currTile.x, currTile.y, targetTile.x, targetTile.y, function(newPath){
 
             path = newPath;
 
             if (path){
 
-                if(npcTile.x > path[0].x && npcTile.y == path[0].y)
+                if(currTile.x > path[0].x && currTile.y == path[0].y)
                     nextStep = 'L';
-                else if (npcTile.x < path[0].x && npcTile.y == path[0].y)
+                else if (currTile.x < path[0].x && currTile.y == path[0].y)
                     nextStep = 'R';
-                else if (npcTile.x < path[0].x && npcTile.y > path[0].y)
+                else if (currTile.x < path[0].x && currTile.y > path[0].y)
                     nextStep = 'RD';   //Gonna move right&down next
-                else if (npcTile.x > path[0].x && npcTile.y > path[0].y)
+                else if (currTile.x > path[0].x && currTile.y > path[0].y)
                     nextStep = 'LD';   //Gonna move left&down next
-                else if (npcTile.x < path[0].x && npcTile.y < path[0].y)
+                else if (currTile.x < path[0].x && currTile.y < path[0].y)
                     nextStep = 'RU';   //Gonna move right&up next
-                else if (npcTile.x > path[0].x && npcTile.y < path[0].y)
+                else if (currTile.x > path[0].x && currTile.y < path[0].y)
                     nextStep = 'LU';   //Gonna move left&up next
-                else if (npcTile.x == path[0].x && npcTile.y > path[0].y)
+                else if (currTile.x == path[0].x && currTile.y > path[0].y)
                     nextStep = 'D';
-                else if (npcTile.x == path[0].x && npcTile.y < path[0].y)
+                else if (currTile.x == path[0].x && currTile.y < path[0].y)
                     nextStep = 'U';
             }
             else
