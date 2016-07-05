@@ -24,7 +24,7 @@ var COLS = 40;
 var numberOfSteps = 4; //How many times will we pass over the map
 var deathLimit = 3; //Least number of neighbours required to live
 var birthLimit = 4; //Greateast number of neighbours before cell dies
-var chanceToStartAlive = 0.525;  //chance of being generated as alive
+var chanceToStartAlive = 0.45;  //chance of being generated as alive
 
 //attach eureca.io to our http server
 eurecaServer.attach(server);
