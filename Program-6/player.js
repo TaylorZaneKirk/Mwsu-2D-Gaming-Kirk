@@ -138,8 +138,6 @@ var aNPC = function(index, myState, game, proxyServer){
 
         startTile = game.global.map.getTileWorldXY(startLoc.x, startLoc.y, 20, 20, 'level1');
 
-        state.startTile = startTile;
-
         startTime = game.time.time;
         blindTime = game.time.time;
 
