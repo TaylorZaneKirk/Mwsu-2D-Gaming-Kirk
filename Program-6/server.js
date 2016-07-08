@@ -9,7 +9,15 @@ var Eureca = require('eureca.io');
 
 
 //create an instance of EurecaServer
-var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap', 'updateNPC', 'testMap']});
+var eurecaServer = new Eureca.Server({allow:['setId',
+                                             'spawnEnemy',
+                                             'kill',
+                                             'updateState',
+                                             'setMap',
+                                             'updateNPC',
+                                             'testMap'
+                                            ]
+                                     });
 
 var worldMap = {floors : [], warps: [], npcs: []};
 var players = {};
@@ -38,7 +46,7 @@ eurecaServer.onConnect(function (conn) {
     var remote = eurecaServer.getClient(conn.id);
 
     //register the client
-    players[conn.id] = {id:conn.id, remote:remote, state:null}
+    players[conn.id] = {id:conn.id, remote:remote, state:null, currMap: 0}
 
     var spawnLoc = findSpawn(players[conn.id], 0);
 
@@ -105,6 +113,36 @@ eurecaServer.exports.handleNPC = function (id,state, origin) {
 
     }
 
+}
+
+eurecaServer.explorts.moveMap = function (id, warpDir){
+
+    var remote = players[id].remote;
+
+    for (var c in players)
+    {
+        if ((players[c] != players[id]) && (players[c].currMap == players[id].currMap)){
+            var otherPlayers = players[c].remote;
+
+            //here we call kill() method defined in the client side
+            otherPlayers.kill(id);
+        }
+    }
+
+    if (warpDir === 0){
+        players[id].currMap -= 1;
+
+    }
+    else if (warpDir === 1){
+        players[id].currMap += 1;
+    }
+
+    var spawnLoc = findSpawn(players[id], players[id].currMap);
+
+    remote.setMap(worldMap.floors[players[id].currMap],
+                  spawnLoc,
+                  worldMap.npcs[players[id].currMap],
+                  worldMap.warps[players[id].currMap]);
 }
 
 /**
