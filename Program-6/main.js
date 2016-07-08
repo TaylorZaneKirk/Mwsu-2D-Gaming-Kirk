@@ -139,6 +139,10 @@ function initMultiPlayer(game, globals){
         globals.player.sprite.y = (spawnLoc.y);
     }
 
+    client.exports.testMap = function(thisMap, warps){
+        console.log(thisMap, warps);
+    }
+
     /**
         * Called from server when another player "disconnects"
         */

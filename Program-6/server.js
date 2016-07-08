@@ -9,7 +9,7 @@ var Eureca = require('eureca.io');
 
 
 //create an instance of EurecaServer
-var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap', 'updateNPC']});
+var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap', 'updateNPC', 'testMap']});
 
 var worldMap = {floors : [], warps: [], npcs: []};
 var players = {};
@@ -45,7 +45,8 @@ eurecaServer.onConnect(function (conn) {
     //here we call setId (defined in the client side)
     remote.setId(conn.id);
 
-    remote.setMap(mapData, spawnLoc, npcs)
+    remote.setMap(mapData, spawnLoc, npcs);
+    remote.testMap(worldMap.floors[0], worldMap.warps[0]);
 });
 
 //detect client disconnection
