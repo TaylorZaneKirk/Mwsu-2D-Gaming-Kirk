@@ -31,6 +31,7 @@ game.global = {
     myMap: null,
     map: null,
     walls: null,
+    warps: [],
     easystar: null
 };
 
@@ -136,7 +137,7 @@ function initMultiPlayer(game, globals){
         }
 
         for (var w in warps){
-            game.add.sprite(warps[w].x, warps[w].y, 'portal');
+            globals.warps.push(game.add.sprite(warps[w].x, warps[w].y, 'portal'));
         }
 
         //Player's starting location

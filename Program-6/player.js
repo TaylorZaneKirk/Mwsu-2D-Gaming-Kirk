@@ -58,6 +58,7 @@ var aPlayer = function(index, game, proxyServer){
 
     function update(){
         game.physics.arcade.collide(player, game.global.walls);
+        game.physics.arcade.collide(player, game.global.warps, function(){"It works, yo, go to bed"});
 
         state.x = player.x;
         state.y = player.y;
