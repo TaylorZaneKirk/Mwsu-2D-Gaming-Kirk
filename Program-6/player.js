@@ -63,7 +63,7 @@ var aPlayer = function(index, game, proxyServer){
             game.physics.arcade.overlap(player, game.global.warps[w], function(){
                 player.x = 0;
                 player.y = 0;
-
+                console.log(game.global.warps[w]);
                 proxy.moveMap(player_id, game.global.warps[w].dest);
             });
         }
