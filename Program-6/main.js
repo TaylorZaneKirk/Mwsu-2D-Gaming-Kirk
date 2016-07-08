@@ -150,6 +150,7 @@ function initMultiPlayer(game, globals){
             globals.warps[w] = (game.add.sprite(warps[w].x, warps[w].y, 'portal'));
             globals.warps[w].data = {dest: warps[w].dest};
 
+            console.log(w - 1);
             if (globals.warps[w].data.dest == w - 1)
                 globals.warps[w].tint = 0xffffff;
 
