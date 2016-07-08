@@ -150,14 +150,14 @@ function initMultiPlayer(game, globals){
             globals.warps[w] = (game.add.sprite(warps[w].x, warps[w].y, 'portal'));
             globals.warps[w].data = {dest: warps[w].dest};
 
-            console.log(w - 1);
-            if (globals.warps[w].data.dest == w - 1)
-                globals.warps[w].tint = 0xffffff;
-
             game.physics.arcade.enable(globals.warps[w]);
             globals.warps[w].enableBody = true;
             globals.warps[w].immovable = true;
             globals.warps[w].body.bounce.setTo(0, 0);
+
+            console.log(globals.warps[w].data.dest, w - 1);
+            if (globals.warps[w].data.dest == w - 1)
+                globals.warps[w].tint = 0xffffff;
         }
 
         //Player's starting location
