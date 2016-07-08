@@ -153,7 +153,7 @@ eurecaServer.exports.moveMap = function (id, warpDir){
             otherPlayers.kill(id);
             remote.kill(c);
         }
-        else if((players[c].id != players[id].id) && (players[c].currMap == player[id].currMap)){
+        else if((players[c].id != players[id].id) && (players[c].currMap == players[id].currMap)){
             var otherPlayers = players[c].remote;
 
             otherPlayers.spawnEnemy(players[id].id, players[id].state);
