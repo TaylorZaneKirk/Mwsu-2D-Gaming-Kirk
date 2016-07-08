@@ -145,6 +145,7 @@ function initMultiPlayer(game, globals){
 
         for (var w in warps){
             globals.warps[w] = (game.add.sprite(warps[w].x, warps[w].y, 'portal'));
+            globals.warps[w].data = {dest: warps[w].dest};
             game.physics.arcade.enable(globals.warps[w]);
             globals.warps[w].enableBody = true;
             globals.warps[w].immovable = true;
