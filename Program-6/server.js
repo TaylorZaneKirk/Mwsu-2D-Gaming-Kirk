@@ -119,10 +119,11 @@ eurecaServer.exports.moveMap = function (id, warpDir){
 
     var remote = players[id].remote;
 
+    console.log(players.length);
     for (var c in players)
     {
-        console.log(players[c], players[id], warpDir);
         if ((players[c].id != players[id].id) && (players[c].currMap == players[id].currMap)){
+            console.log(players[c], players[id], warpDir);
             var otherPlayers = players[c].remote;
 
             //here we call kill() method defined in the client side
