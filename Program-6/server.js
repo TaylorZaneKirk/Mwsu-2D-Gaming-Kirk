@@ -115,7 +115,7 @@ eurecaServer.exports.handleNPC = function (id,state, origin) {
 
 }
 
-eurecaServer.explorts.moveMap = function (id, warpDir){
+eurecaServer.exports.moveMap = function (id, warpDir){
 
     var remote = players[id].remote;
 
