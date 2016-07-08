@@ -129,7 +129,7 @@ function initMultiPlayer(game, globals){
     client.exports.setMap = function(thisMap, spawnLoc, npcs, warps){
         //draw our map
         for (var n in globals.npcList){
-            globals.npcList[n].destroy();
+            globals.npcList[n].sprite.destroy();
         }
         for (var w in globals.warps){
             globals.warps[w].destroy();
