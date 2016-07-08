@@ -104,15 +104,19 @@ eurecaServer.exports.handleState = function (id,state) {
 
 eurecaServer.exports.handleNPC = function (id,state, origin) {
 
+    var origin_id;
+
     for (var c in players)
     {
-        if (players[c].id == origin)
+        if (players[c].id == origin){
             worldMap.npcs[players[c].currMap] = state;
+            origin_id = c;
+        }
     }
 
     for (var c in players)
     {
-        if (players[c].currMap == players[id].currMap){
+        if (players[c].currMap == players[origin_id].currMap){
             var remote = players[c].remote;
 
             remote.updateNPC(id, state, origin);
