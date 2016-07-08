@@ -110,7 +110,7 @@ eurecaServer.exports.handleNPC = function (id,state, origin) {
     {
         if (players[c].id == origin){
             console.log(worldMap.npcs[players[c].currMap]);
-            worldMap.npcs[players[c].currMap] = state;
+            worldMap.npcs[players[c].currMap][id] = state;
             console.log(worldMap.npcs[players[c].currMap]);
             origin_id = c;
         }
