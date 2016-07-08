@@ -60,13 +60,6 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //Maps and layers
-    map = game.add.tilemap();
-    walls = game.add.group();
-    tiles = map.addTilesetImage('tileset', null, 20, 20);
-    layer = map.create('level1', COLS, ROWS, 20, 20);
-    layer2 = map.createBlankLayer('collisions', COLS, ROWS, 20, 20);
-    layer2.properties = {'collision' : true};
-    layer.resizeWorld();
 
 }
 
@@ -138,7 +131,9 @@ function initMultiPlayer(game, globals){
         game.global.myMap = null;
         globals.npcList = [];
         globals.warps = [];
-        globals.map = null;
+        if(globals.map){
+            globals.map.destroy();
+        }
 
         game.global.myMap = thisMap;
         drawMap(thisMap);
@@ -233,6 +228,15 @@ function initMultiPlayer(game, globals){
 
 //Convert boolean 2D array into tilemap
 function drawMap(myMap) {
+
+    map = game.add.tilemap();
+    walls = game.add.group();
+    tiles = map.addTilesetImage('tileset', null, 20, 20);
+    layer = map.create('level1', COLS, ROWS, 20, 20);
+    layer2 = map.createBlankLayer('collisions', COLS, ROWS, 20, 20);
+    layer2.properties = {'collision' : true};
+    layer.resizeWorld();
+
     //Based on final map configuration, draw the tiles
     for (var y = 0; y < ROWS; y++)
         for (var x = 0; x < COLS; x++) {
