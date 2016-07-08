@@ -433,7 +433,7 @@ function generateNPCs(){
         thisNPC.startLoc = startLoc;
 
         //Record this NPC
-        npcs[i] = thisNPC;
+        theseNPCs.push(thisNPC);
     }
 
     return (theseNPCs);
