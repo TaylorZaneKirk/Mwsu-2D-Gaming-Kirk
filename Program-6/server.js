@@ -148,7 +148,7 @@ server.listen(process.env.PORT || 55555, function () {
     worldMap.floors.push(mapData_1);
     worldMap.warps.push(mapWarps_1);
 
-    WorldMap.floors.push(mapData_2);
+    worldMap.floors.push(mapData_2);
     worldMap.warps.push(mapWarps_1);
 
     //worldMap.push.npcs
