@@ -380,7 +380,7 @@ function findSpawn(actor, worldIndex) {
     var spawnTile;
     var mapData = worldMap.floors[worldIndex];
 
-
+    console.log(mapData, worldIndex);
     while(found === false) {   //still looking...
 
         //grab random coordintes
