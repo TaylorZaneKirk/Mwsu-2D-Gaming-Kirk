@@ -136,7 +136,7 @@ function initMultiPlayer(game, globals){
         }
 
         for (var w in warps){
-            console.log("hello");
+            game.add.sprite(x, y, 'portal');
         }
 
         //Player's starting location
