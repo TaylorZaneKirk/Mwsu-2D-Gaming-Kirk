@@ -138,9 +138,9 @@ eurecaServer.exports.moveMap = function (id, warpDir){
         console.log("Creating new map...");
         var mapData = generateMap();
         worldMap.floors.push(mapData);
-        var mapWarps = generateWarps(mapData, warpDir);
+        var mapWarps = generateWarps(mapData, warpDir + 1);
         worldMap.warps.push(mapWarps);
-        worldMap.npcs.push(generateNPCs(warpDir));
+        worldMap.npcs.push(generateNPCs(warpDir + 1));
     }
 
     players[id].currMap = warpDir;
