@@ -119,7 +119,7 @@ eurecaServer.exports.moveMap = function (id, warpDir){
 
     var remote = players[id].remote;
 
-    console.log(players.length);
+    console.log(players);
     for (var c in players)
     {
         if ((players[c].id != players[id].id) && (players[c].currMap == players[id].currMap)){
