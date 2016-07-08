@@ -453,9 +453,15 @@ function findSpawn(actor, worldIndex) {
         if (mapData[x][y] === false){    //if this is a walkable-space
             nbs = countAliveNeighbours(mapData, x, y);  //check surroundings
             for (var c in players, worldMap.warps){ //check distance from players
-                console.log(worldMap.warps[c]);
-                if(actor != c && c.state){
-                    distance = Math.sqrt((x - c.state.x) * x + (y - c.state.y) * y);
+
+                for (var w in worldMap.warps[c]){
+                    distance = Math.sqrt((x - worldMap.warps[c][w].x) * x + (y - worldMap.warps[c][w].y) * y);
+                    if (distance < 100)
+                        tooClose = true;
+                }
+
+                if(actor != players[c] && players[c].state){
+                    distance = Math.sqrt((x - players[c].state.x) * x + (y - players[c].state.y) * y);
                     if (distance < 100)
                         tooClose = true;
                 }
