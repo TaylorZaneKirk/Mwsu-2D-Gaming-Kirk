@@ -60,7 +60,7 @@ var aPlayer = function(index, game, proxyServer){
         game.physics.arcade.collide(player, game.global.walls);
 
         for (var w in game.global.warps){
-            game.physics.arcade.collide(player, game.global.warps[w], function(){console.log("hi?");});
+            game.physics.arcade.overlap(player, game.global.warps[w], function(){console.log("hi?");});
         }
 
 
