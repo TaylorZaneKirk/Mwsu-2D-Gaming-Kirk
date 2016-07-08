@@ -284,8 +284,8 @@ function roomDetection (oldMap){
 
     //Get a valid location
     while (found === false){
-        var x = getRandomInt(1, ROWS - 1);
-        var y = getRandomInt(1, COLS - 1);
+        var x = getRandomInt(2, ROWS - 2);
+        var y = getRandomInt(2, COLS - 2);
 
         if (newMap[x][y] === false){
             found = true;
