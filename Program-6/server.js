@@ -460,7 +460,7 @@ function findSpawn(actor, worldIndex) {
                         tooClose = true;
                 }
 
-                if(actor != players[c] && players[c].state){
+                if(players[c] && actor != players[c]){
                     distance = Math.sqrt((x - players[c].state.x) * x + (y - players[c].state.y) * y);
                     if (distance < 100)
                         tooClose = true;
