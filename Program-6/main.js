@@ -60,7 +60,13 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     //Maps and layers
-
+    map = game.add.tilemap();
+    walls = game.add.group();
+    tiles = map.addTilesetImage('tileset', null, 20, 20);
+    layer = map.create('level1', COLS, ROWS, 20, 20);
+    layer2 = map.createBlankLayer('collisions', COLS, ROWS, 20, 20);
+    layer2.properties = {'collision' : true};
+    layer.resizeWorld();
 }
 
 function initMultiPlayer(game, globals){
