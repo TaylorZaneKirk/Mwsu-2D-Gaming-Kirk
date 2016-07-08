@@ -506,7 +506,7 @@ function generateNPCs(worldIndex){
 }
 
 function generateWarps(map, worldIndex){
-    console.log(worldIndex);
+    console.log("world index: ", worldIndex);
     var startLoc;
     var warpList = [];
     var warpPrev = {x: 0,
