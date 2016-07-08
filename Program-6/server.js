@@ -13,7 +13,7 @@ var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'upd
 
 var worldMap = {floors : [], warps: [], npcs: []};
 var players = {};
-var mapData = [];
+//var mapData = [];
 var npcs = {};
 var npcsPerMap = 3;
 
@@ -40,7 +40,7 @@ eurecaServer.onConnect(function (conn) {
     //register the client
     players[conn.id] = {id:conn.id, remote:remote, state:null}
 
-    var spawnLoc = findSpawn(players[conn.id]);
+    var spawnLoc = findSpawn(players[conn.id], 0);
 
     //here we call setId (defined in the client side)
     remote.setId(conn.id);
@@ -73,10 +73,6 @@ eurecaServer.onDisconnect(function (conn) {
 eurecaServer.exports.initPlayer = function (id,state) {
 
     players[id].state=state;
-}
-
-eurecaServer.exports.getMap = function () {
-    return (mapData);
 }
 
 /**
@@ -136,7 +132,7 @@ app.get('/', function (req, res, next) {
 server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     console.log("Beginning Map-generation...");
-    mapData = generateMap();
+    //mapData = generateMap();
     npcs = generateNPCs();
 
     mapData_1 = generateMap();
@@ -377,11 +373,14 @@ function countAliveNeighbours(map, x, y) {
 }
 
 //find a valid location on the map to spawn the thing
-function findSpawn(actor) {
+function findSpawn(actor, worldIndex) {
 
     var found = false;
     var tooClose;
     var spawnTile;
+    var mapData = worldMap.floors[worldIndex];
+
+
     while(found === false) {   //still looking...
 
         //grab random coordintes
@@ -414,7 +413,7 @@ function findSpawn(actor) {
 
 //This function is responsible for creating the NPC
 //  data for the map
-function generateNPCs(){
+function generateNPCs(worldIndex){
     var theseNPCs = [];
 
     for (var i = 0; i < npcsPerMap; i++){
@@ -427,7 +426,7 @@ function generateNPCs(){
         };
 
         //Find a good spot to drop 'em
-        var startLoc = findSpawn(thisNPC)
+        var startLoc = findSpawn(thisNPC, worldIndex)
         thisNPC.x = startLoc.x;
         thisNPC.y = startLoc.y;
         thisNPC.startLoc = startLoc;
@@ -451,14 +450,14 @@ function generateWarps(map, worldIndex){
                     dest: worldIndex + 1};
 
     if (worldIndex > 0){
-        startLoc = findSpawn(warpPrev);
+        startLoc = findSpawn(warpPrev, worldIndex);
         warpPrev.x = startLoc.x;
         warpPrev.y = startLoc.y;
         warpPrev.dest = worldIndex - 1;
         warpList.push(warpPrev);
     }
 
-    startLoc = findSpawn(warpNext);
+    startLoc = findSpawn(warpNext, worldIndex);
     warpNext.x = startLoc.x;
     warpNext.y = startLoc.y;
     warpNext.dest = worldIndex + 1;
