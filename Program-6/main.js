@@ -140,6 +140,7 @@ function initMultiPlayer(game, globals){
     }
 
     client.exports.testMap = function(thisMap, warps){
+        console.log("success");
         console.log(thisMap, warps);
     }
 
