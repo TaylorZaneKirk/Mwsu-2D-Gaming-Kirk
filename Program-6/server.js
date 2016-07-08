@@ -137,7 +137,7 @@ server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     console.log("Beginning Map-generation...");
     mapData = generateMap();
-    generateNPCs();
+    npcs = generateNPCs();
 
     mapData_1 = generateMap();
     mapData_2 = generateMap();
@@ -147,9 +147,11 @@ server.listen(process.env.PORT || 55555, function () {
 
     worldMap.floors.push(mapData_1);
     worldMap.warps.push(mapWarps_1);
+    worldMap.npcs.push(generateNPCs);
 
     worldMap.floors.push(mapData_2);
     worldMap.warps.push(mapWarps_1);
+    worldMap.npcs.push(generateNPCs);
 
     //worldMap.push.npcs
 });
@@ -413,6 +415,8 @@ function findSpawn(actor) {
 //This function is responsible for creating the NPC
 //  data for the map
 function generateNPCs(){
+    var theseNPCs = [];
+
     for (var i = 0; i < npcsPerMap; i++){
         var thisNPC = {
             index: i,
@@ -431,6 +435,8 @@ function generateNPCs(){
         //Record this NPC
         npcs[i] = thisNPC;
     }
+
+    return (theseNPCs);
 }
 
 function generateWarps(map, worldIndex){
