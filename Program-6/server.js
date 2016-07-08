@@ -137,9 +137,6 @@ server.listen(process.env.PORT || 55555, function () {
     mapData_1 = generateMap();
     mapData_2 = generateMap();
 
-    npcs = generateNPCs(0);
-
-
     mapWarps_1 = generateWarps(mapData_1, 0);
     mapWarps_2 = generateWarps(mapData_2, 1);
 
@@ -152,6 +149,7 @@ server.listen(process.env.PORT || 55555, function () {
     worldMap.npcs.push(generateNPCs(1));
 
     //worldMap.push.npcs
+    npcs = generateNPCs(0);
 });
 
 //Based on Cellular Automata
