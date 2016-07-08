@@ -130,20 +130,12 @@ eurecaServer.exports.handleNPC = function (id,state, origin) {
 eurecaServer.exports.moveMap = function (id, warpDir){
 
     var remote = players[id].remote;
+    var prevMap = 0;
 
-    for (var c in players)
-    {
-        if ((players[c].id != players[id].id) && (players[c].currMap == players[id].currMap)){
-            var otherPlayers = players[c].remote;
-
-            //here we call kill() method defined in the client side
-            otherPlayers.kill(id);
-            remote.kill(c);
-        }
-    }
+    if (warpDir < 0)
+        prevMap = warpDir - 1;
 
     players[id].currMap = warpDir;
-    console.log(warpDir);
 
     var spawnLoc = findSpawn(players[id], players[id].currMap);
 
@@ -151,6 +143,23 @@ eurecaServer.exports.moveMap = function (id, warpDir){
                   spawnLoc,
                   worldMap.npcs[players[id].currMap],
                   worldMap.warps[players[id].currMap]);
+
+    for (var c in players)
+    {
+        if ((players[c].id != players[id].id) && (players[c].currMap == prevMap)){
+            var otherPlayers = players[c].remote;
+
+            //here we call kill() method defined in the client side
+            otherPlayers.kill(id);
+            remote.kill(c);
+        }
+        else if((players[c].id != players[id].id) && (players[c].currMap == player[id].currMap)){
+            var otherPlayers = players[c].remote;
+
+            otherPlayers.spawnEnemy(players[id].id, players[id].state);
+            remote.spawnEnemy(players[c].id, players[c].state);
+        }
+    }
 }
 
 /**
