@@ -49,6 +49,7 @@ function preload() {
     game.load.image('tileset', 'assets/tileset.png');
     game.load.image('player', 'assets/images/phaser-dude.png');
     game.load.image('clown', 'assets/images/clown.png');
+    game.load.image('portal', 'assets/images/portal.png');
     game.global.easystar = new EasyStar.js();   //start the pathfinder
 }
 
@@ -124,7 +125,7 @@ function initMultiPlayer(game, globals){
 
     //retrieve necessary data from server containing
     //  map, player spawn location, and npcs on map
-    client.exports.setMap = function(thisMap, spawnLoc, npcs){
+    client.exports.setMap = function(thisMap, spawnLoc, npcs, warps){
         //draw our map
         game.global.myMap = thisMap;
         drawMap(thisMap);
@@ -132,6 +133,10 @@ function initMultiPlayer(game, globals){
         //place NPCs
         for (var c in npcs){
             globals.npcList[c] = new aNPC(npcs[c].index, npcs[c], game, eurecaProxy);
+        }
+
+        for (var w in warps){
+            console.log("hello");
         }
 
         //Player's starting location
