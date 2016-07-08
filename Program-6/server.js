@@ -133,7 +133,16 @@ eurecaServer.exports.moveMap = function (id, warpDir){
     if (warpDir > 0)
         prevMap = warpDir - 1;
 
-    console.log(worldMap.floors.length);
+    if (worldMap.floors.length - 1 == warpDir){
+        //add new map ahead
+        console.log("Creating new map...");
+        var mapData = generateMap();
+        worldMap.floors.push(mapData);
+        var mapWarps = generateWarps(mapData, warpDir);
+        worldMap.warps.push(mapWarps);
+        worldMap.npcs.push(generateNPCs(warpDir));
+    }
+
     players[id].currMap = warpDir;
 
     var spawnLoc = findSpawn(players[id], players[id].currMap);
