@@ -142,8 +142,8 @@ server.listen(process.env.PORT || 55555, function () {
     mapData_1 = generateMap();
     mapData_2 = generateMap();
 
-    mapWarps_1 = generateWarps(mapData_1);
-    mapWarps_2 = generateWarps(mapData_2);
+    mapWarps_1 = generateWarps(mapData_1, 0);
+    mapWarps_2 = generateWarps(mapData_2, 1);
 
     worldMap.floors.push(mapData_1);
     worldMap.warps.push(mapWarps_1);
