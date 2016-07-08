@@ -133,7 +133,7 @@ server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     console.log("Beginning Map-generation...");
     //mapData = generateMap();
-    npcs = generateNPCs();
+    npcs = generateNPCs(0);
 
     mapData_1 = generateMap();
     mapData_2 = generateMap();
@@ -143,11 +143,11 @@ server.listen(process.env.PORT || 55555, function () {
 
     worldMap.floors.push(mapData_1);
     worldMap.warps.push(mapWarps_1);
-    worldMap.npcs.push(generateNPCs);
+    worldMap.npcs.push(generateNPCs(0));
 
     worldMap.floors.push(mapData_2);
     worldMap.warps.push(mapWarps_1);
-    worldMap.npcs.push(generateNPCs);
+    worldMap.npcs.push(generateNPCs(1));
 
     //worldMap.push.npcs
 });
