@@ -141,6 +141,7 @@ function initMultiPlayer(game, globals){
             game.physics.arcade.enable(globals.warps[w]);
             globals.warps[w].enableBody = true;
             globals.warps[w].immovable = true;
+            globals.warps[w].body.bounce.setTo(0, 0);
         }
 
         //Player's starting location
