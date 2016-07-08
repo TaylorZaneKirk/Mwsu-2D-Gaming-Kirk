@@ -94,10 +94,11 @@ eurecaServer.exports.handleState = function (id,state) {
 
     for (var c in players)
     {
-        var remote = players[c].remote;
+        if (players[c].currMap == players[id].currMap){
+            var remote = players[c].remote;
 
-        remote.updateState(id, state);
-
+            remote.updateState(id, state);
+        }
     }
 }
 
@@ -126,6 +127,7 @@ eurecaServer.exports.moveMap = function (id, warpDir){
 
             //here we call kill() method defined in the client side
             otherPlayers.kill(id);
+            remote.kill(c);
         }
     }
 
