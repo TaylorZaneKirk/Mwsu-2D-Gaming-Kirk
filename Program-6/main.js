@@ -128,7 +128,12 @@ function initMultiPlayer(game, globals){
     //  map, player spawn location, and npcs on map
     client.exports.setMap = function(thisMap, spawnLoc, npcs, warps){
         //draw our map
-        console.log(thisMap, npcs, warps);
+        for (var n in globals.npcList){
+            globals.npcList[n].destroy();
+        }
+        for (var w in globals.warps){
+            globals.warps[w].destroy();
+        }
 
         game.global.myMap = null;
         globals.npcList = [];
