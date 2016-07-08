@@ -499,6 +499,7 @@ function generateNPCs(worldIndex){
 }
 
 function generateWarps(map, worldIndex){
+    console.log(worldIndex);
     var startLoc;
     var warpList = [];
     var warpPrev = {x: 0,
