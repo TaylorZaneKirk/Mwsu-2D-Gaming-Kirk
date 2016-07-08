@@ -133,10 +133,12 @@ server.listen(process.env.PORT || 55555, function () {
     console.log('\033[96mlistening on localhost:55555 \033[39m');
     console.log("Beginning Map-generation...");
     //mapData = generateMap();
-    npcs = generateNPCs(0);
 
     mapData_1 = generateMap();
     mapData_2 = generateMap();
+
+    npcs = generateNPCs(0);
+
 
     mapWarps_1 = generateWarps(mapData_1, 0);
     mapWarps_2 = generateWarps(mapData_2, 1);
