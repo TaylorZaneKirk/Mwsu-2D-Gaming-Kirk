@@ -68,7 +68,7 @@ function create() {
 
 }
 
-function initMultiPlayer(game,globals){
+function initMultiPlayer(game, globals){
 
     // Reference to our eureca so we can call functions back on the server
     var eurecaProxy;
@@ -181,7 +181,7 @@ function initMultiPlayer(game,globals){
         * This is called from the server to update a particular players
         * state.
         */
-    client.exports.updateState = function(id,player_state){
+    client.exports.updateState = function(id, player_state){
         // Don't do anything if its me
         if(globals.myId == id){
             return;

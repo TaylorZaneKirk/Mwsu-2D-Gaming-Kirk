@@ -11,6 +11,7 @@ var Eureca = require('eureca.io');
 //create an instance of EurecaServer
 var eurecaServer = new Eureca.Server({allow:['setId', 'spawnEnemy', 'kill', 'updateState', 'setMap', 'updateNPC']});
 
+var worldMap = {floors : [], warps: [], npcs: []};
 var players = {};
 var mapData = [];
 var npcs = {};
@@ -136,6 +137,20 @@ server.listen(process.env.PORT || 55555, function () {
     console.log("Beginning Map-generation...");
     mapData = generateMap();
     generateNPCs();
+
+    mapData_1 = generateMap();
+    mapData_2 = generateMap();
+
+    mapWarps_1 = generateWarps(mapData_1);
+    mapWarps_2 = generateWarps(mapData_2);
+
+    worldMap.floors.push(mapData_1);
+    worldMap.warps.push(mapWarps_1);
+
+    WorldMap.floors.push(mapData_2);
+    worldMap.warps.push(mapWarps_1);
+
+    //worldMap.push.npcs
 });
 
 //Based on Cellular Automata
@@ -415,6 +430,34 @@ function generateNPCs(){
         //Record this NPC
         npcs[i] = thisNPC;
     }
+}
+
+function generateWarps(map, worldIndex){
+    var startLoc;
+    var warpList = [];
+    var warpPrev = {x: 0,
+                    y: 0,
+                    dest: null};
+
+    var warpNext = {x: 0,
+                    y: 0,
+                    dest: worldIndex + 1};
+
+    if (worldIndex > 0){
+        startLoc = findSpawn(warpPrev);
+        warpPrev.x = startLoc.x;
+        warpPrev.y = startLoc.y;
+        warpPrev.dest = worldIndex - 1;
+        warpList.push(warpPrev);
+    }
+
+    startLoc = findSpawn(warpNext);
+    warpNext.x = startLoc.x;
+    warpNext.y = startLoc.y;
+    warpNext.dest = worldIndex + 1;
+    warpList.push(warpNext);
+
+    return (warpList);
 }
 
 //Returns a random integer between min (inclusive) and max (inclusive)
