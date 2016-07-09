@@ -155,7 +155,7 @@ function initMultiPlayer(game, globals){
             globals.warps[w].immovable = true;
             globals.warps[w].body.bounce.setTo(0, 0);
 
-            console.log(globals.warps[w].data.dest, w - 1);
+            console.log(globals.warps[w].data.dest, w, w - 1);
             if (globals.warps[w].data.dest == w - 1)
                 globals.warps[w].tint = 0xffffff;
         }
