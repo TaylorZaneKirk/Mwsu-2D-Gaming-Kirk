@@ -511,7 +511,7 @@ function generateWarps(map, worldIndex){
     var warpList = [];
     var warpPrev = {x: 0,
                     y: 0,
-                    dest: null};
+                    dest: 0};
 
     var warpNext = {x: 0,
                     y: 0,
