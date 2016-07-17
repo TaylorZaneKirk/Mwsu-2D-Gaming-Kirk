@@ -8,16 +8,20 @@
 
     <body>
 
-        What's your name?
-        <input type="text" name="uname" id="uname" size="30">
-        <input type="submit" name="info">
+        <form action ="" method="get">
+            What's your name?
+            <input type="text" name="uname" id="uname" size="30">
+            <input type="submit" name="info">
+        </form>
+
 
         <?php
             echo "hello world";
-            if ( !empty($_POST['uname'])){
-                $name = $_POST['uname'];
+            if ( !empty($_GET['uname'])){
+                $name = $_GET['uname'];
+                echo "Your name is:" + $name;
             }
-            echo "Your name is:" + $name
+
         ?>
 
 
