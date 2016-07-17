@@ -21,6 +21,9 @@
                 $name = $_GET['uname'];
                 echo "Your name is:" . $name;
             }
+            else{
+                echo "Please enter your name above.";
+            }
 
         ?>
 
