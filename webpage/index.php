@@ -19,7 +19,7 @@
             echo "hello world";
             if ( !empty($_GET['uname'])){
                 $name = $_GET['uname'];
-                echo "Your name is:" + $name;
+                echo "Your name is:" . $name;
             }
 
         ?>
