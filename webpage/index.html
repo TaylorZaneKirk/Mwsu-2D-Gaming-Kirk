@@ -18,11 +18,11 @@ Date: 7/25/16
         <script>
 
             Memory  = "0";      // initialise memory variable
-            Current = "0";      //   and value of Display ("current" value)
-            Operation = 0;      // Records code for eg * / etc.
-            MAXLENGTH = 30;     // maximum number of digits before decimal!
+            Current = "0";      //   and value of Display
+            Operation = 0;      // Records code for operation
+            MAXLENGTH = 30;     // maximum number of digits
 
-            function AddDigit(dig){       //ADD A DIGIT TO DISPLAY (kept as 'Current')
+            function AddDigit(dig){       //DIGIT TO DISPLAY (kept as 'Current')
                 if (Current.length > MAXLENGTH){
                     Current = "Aargh! Too long"; //limit length
                 } else if ((eval(Current) == 0) && (Current.indexOf(".") == -1)){
@@ -34,24 +34,23 @@ Date: 7/25/16
                 document.Calculator.Display.value = Current;
             };
 
-            function Operate(oprand){            //STORE OPERATION e.g. + * / etc.
+            function Operate(oprand){            //STORE OPERATION
 
-                if (oprand.indexOf("*") > -1) { Operation = 1; };       //codes for *
-                if (oprand.indexOf("/") > -1) { Operation = 2; };       // slash (divide)
-                if (oprand.indexOf("+") > -1) { Operation = 3; };       // sum
-                if (oprand.indexOf("-") > -1) { Operation = 4; };       // difference
+                if (oprand.indexOf("+") > -1) { Operation = 0; };       // sum
+                if (oprand.indexOf("-") > -1) { Operation = 1; };       // difference
 
                 Memory = Current;                 //store value
-                Current = "";                     //or we could use "0"
+                Current = "";
                 document.Calculator.Display.value = Current;
             };
 
-            function Calculate()            //PERFORM CALCULATION (= button)
+            function Calculate()            //PERFORM CALCULATION
             {
-                if (Operation == 1) { Current = eval(Memory) * eval(Current); };
-                if (Operation == 2) { Current = eval(Memory) / eval(Current); };
-                if (Operation == 3) { Current = eval(Memory) + eval(Current); };
-                if (Operation == 4) { Current = eval(Memory) - eval(Current); };
+                if (Operation == 0)
+                    Current = eval(Memory) + eval(Current);
+                if (Operation == 1)
+                    Current = eval(Memory) - eval(Current);
+
                 Operation = 0;                //clear operation
                 Memory    = "0";              //clear memory
                 document.Calculator.Display.value = Current;
