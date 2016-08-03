@@ -36,21 +36,21 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
 
-            $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
-           if ($preparedQuery->execute($_GET['account']){
+           if (isset($_GET['account']){
                echo 'hello';
-//                foreach($preparedQuery as $item){
-//                    echo 'hi';
-//                }
+               $account = $_GET['account'];
+
+               $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
+               $preparedQuery->bind_param('s', $account);
             }
-//            else{
-//                //Display form
-//                echo '<form action="" method="get">
-//                    Please Enter your Account information:<br>
-//                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
-//                    <input type="submit" value="Check" name="AccountInfo"><br>
-//                </form>';
-//            }
+            else{
+                //Display form
+                echo '<form action="" method="get">
+                    Please Enter your Account information:<br>
+                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
+                    <input type="submit" value="Check" name="AccountInfo"><br>
+                </form>';
+            }
         ?>
 
     </body>
