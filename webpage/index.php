@@ -54,7 +54,7 @@ Date: 7/25/16
             else{
                 if (preg_match("/[a-zA-Z]/", $account, $match)){
                     //Match any alpha-character input
-                    //$errorCodes[1] = true;
+                    $errorCodes[1] = true;
                 }
 //                elseif (preg_match("/[\W]+/", $account, $match)){
 //                    //Match any 'non-word' input (flags special chars)
