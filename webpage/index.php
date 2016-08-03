@@ -15,7 +15,7 @@ Date: 7/25/16
 
     <body>
 
-        <form action="" method="POST">
+        <form action="index.php" method="GET">
             Please Enter your Account information:<br>
             <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
             <input type="submit" value="Check" name="AccountInfo"><br>
@@ -42,18 +42,16 @@ Date: 7/25/16
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
 
-           if (!isset($_POST['account'])){
+           if (!isset($_GET['account'])){
                //Display form
                echo 'Please Enter Account Number Above';
             }
             else{
                 echo 'hello';
-                $account = $_POST['account'];
+                $account = $_GET['account'];
 
                 $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
                 $preparedQuery->bind_param('s', $account);
-
-                echo $preparedQuery;
 
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
