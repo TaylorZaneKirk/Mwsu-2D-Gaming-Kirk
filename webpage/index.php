@@ -58,7 +58,7 @@ Date: 7/25/16
                 $preparedQuery->bind_param('s', $account);
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
-                echo 'Your Result: ' . $result;
+                echo 'Your Result: ';
                 while ($row = $result->fetch_assoc()) {
                     echo $row;
                 }
