@@ -52,7 +52,7 @@ Date: 7/25/16
                echo 'Please Enter Account Number Above';
             }
             else{
-                if (preg_match("[a-zA-Z]", $account)){
+                if (preg_match("[a-zA-Z]", $account, $match)){
                     echo 'Request Refused: No Alpha-Characters Allowed';
                 }
                 else{
