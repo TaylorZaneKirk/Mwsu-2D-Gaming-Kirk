@@ -36,7 +36,7 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
 
-           if (isset($_GET['account']){
+           if (isset($_GET['account'])){
                echo 'hello';
                $account = $_GET['account'];
 
