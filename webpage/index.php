@@ -54,7 +54,7 @@ Date: 7/25/16
             else{
                 echo 'hello, ' . $account;
 
-                $preparedQuery = $pdo->prepare('SELECT * FROM "accounts" WHERE "account_id" = :acct');
+                $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id = :acct');
                 $preparedQuery->bindParam(':acct', $account);
                 echo 'Hi! ' . $preparedQuery->debugDumpParams();
 
