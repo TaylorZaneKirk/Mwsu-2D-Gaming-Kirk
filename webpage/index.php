@@ -41,21 +41,21 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
+            $account = $_GET['account'];
+
             if($pdo->connect_error){
                 echo 'No Server Response';
             }
 
-           if (!empty($_GET['account'])){
+           if (empty($account)){
                //Display form
                echo 'Please Enter Account Number Above';
             }
             else{
                 echo 'hello';
-                $account = $_GET['account'];
 
-                $preparedQuery = $pdo->prepare('SELECT * FROM accounts');
+                $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id = ?');
                 $preparedQuery->bind_param('s', $account);
-
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
 
