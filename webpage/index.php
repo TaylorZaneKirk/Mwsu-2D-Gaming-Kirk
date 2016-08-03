@@ -40,8 +40,12 @@ Date: 7/25/16
                echo 'hello';
                $account = $_GET['account'];
 
-//               $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
-//               $preparedQuery->bind_param('s', $account);
+               $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
+               $preparedQuery->bind_param('s', $account);
+
+               foreach($preparedQuery as $item){
+                   echo $item;
+               }
             }
             else{
                 //Display form
