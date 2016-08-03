@@ -80,9 +80,6 @@ Date: 7/25/16
                     $properInfo = filter_var($account, FILTER_SANITIZE_NUMBER_INT);
                     $account = $properInfo;
 
-                    //List off working-account
-                    echo 'Current Account: ' . $account . '<br>';
-
                     //Use a prepared statement to further limit possibility of attack
                     if($preparedQuery = $dbConnect->prepare('SELECT balance FROM accounts WHERE account_id=?')){
 
@@ -95,13 +92,17 @@ Date: 7/25/16
 
                         //get result of query
                         if($preparedQuery->fetch()){
+                            //fetch was good, do the displays
+
+                            //List working-account
+                            echo 'Current Account: ' . $account . '<br>';
 
                             //Display balance of the account to the user
                             echo 'Your Current Balance: ' . $balance;
                         }
                         else{
-
                             //input was good, but record does not exist in db
+
                             echo 'Request Refused: Please Check your Account Number and Try Again';
                         }
 
