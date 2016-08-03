@@ -82,7 +82,7 @@ Date: 7/25/16
                 }
             }
 
-            //var_dump($errorCodes);
+            var_dump($errorCodes);
 
 //            if(errorCodes[0] == 1){
 //                echo 'Please Enter Account Number Above';
