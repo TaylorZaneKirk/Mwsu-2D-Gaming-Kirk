@@ -43,8 +43,9 @@ Date: 7/25/16
 
             $account = $_GET['AccountQuery'];
 
-            if($pdo->connect_error){
+            if(mysqli_connect_errno()){
                 echo 'No Server Response';
+                exit;
             }
 
            if (empty($account)){
@@ -54,19 +55,19 @@ Date: 7/25/16
             else{
                 echo 'hello, ' . $account . '<br>';
 
-                $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id=?');
-                $preparedQuery->bind_param('s', $account);
+                if($preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id=?')){
+                    $preparedQuery->bind_param('s', $account);
+                    $preparedQuery->execute();
 
-                $preparedQuery->execute();
-                $result = $preparedQuery->get_result();
-                echo 'Your Result: ' . $result;
-                while ($row = $result->fetch_assoc()) {
-                    echo $row;
+                    $result = $preparedQuery->get_result();
+                    echo 'Your Result: ' . $result;
+                    while ($row = $result->fetch_assoc()) {
+                        echo $row;
+                    }
+
                 }
-
-                $preparedQuery->close();
-                $pdo->close();
             }
+            $pdo->close();
         ?>
 
     </body>
