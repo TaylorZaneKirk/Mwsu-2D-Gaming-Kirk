@@ -37,7 +37,7 @@ Date: 7/25/16
 //            ];
 //            $pdo = new PDO($dsn, $user, $pass, $opt);
 
-            $db = new PDO('mysql:host=127.0.0.1; dbname=accounts; charset=utf8', 'root', '1VT2yQtVjX');
+            $db = new PDO('mysql:host=127.0.0.1; dbname=bank; charset=utf8', 'root', '1VT2yQtVjX');
             $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
@@ -52,6 +52,9 @@ Date: 7/25/16
 
                 $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
                 $preparedQuery->bind_param('s', $account);
+
+                echo $preparedQuery;
+
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
 
