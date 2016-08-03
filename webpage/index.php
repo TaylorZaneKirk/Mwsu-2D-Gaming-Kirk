@@ -55,7 +55,8 @@ Date: 7/25/16
                 echo 'hello, ' . $account;
 
                 $preparedQuery = $pdo->prepare('SELECT * FROM accounts');
-                echo $preparedQuery;
+
+                echo 'hi?';
                 //$preparedQuery->bind_param('s', $account);
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
