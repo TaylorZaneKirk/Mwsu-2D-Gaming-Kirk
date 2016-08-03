@@ -71,7 +71,7 @@ Date: 7/25/16
                     echo 'Request Refused: Input must only contain Numerical Characters';
                 }
                 else{
-                    $properInfo = abs((int) filter_var($account, FILTER_SANITIZE_NUMBER_INT));
+                    $properInfo = filter_var($account, FILTER_SANITIZE_NUMBER_INT);
                     $account = $properInfo;
                     echo 'hello, ' . $account . '<br>';
 
