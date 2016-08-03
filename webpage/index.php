@@ -52,20 +52,24 @@ Date: 7/25/16
                echo 'Please Enter Account Number Above';
             }
             else{
-                echo 'hello, ' . $account . '<br>';
-
-                if($preparedQuery = $pdo->prepare('SELECT balance FROM accounts WHERE account_id=?')){
-                    $preparedQuery->bind_param('s', $account);
-                    $preparedQuery->execute();
-                    $preparedQuery->bind_result($balance);
-                    $preparedQuery->fetch();
-
-                    echo 'Your Current Balance: ' . $balance;
-
-                    $preparedQuery->close();
+                if (preg_match("[a-zA-Z]", $account){
+                    echo 'Request Refused: No Alpha-Characters Allowed';
                 }
                 else{
-                    echo 'Invalid';
+                    echo 'hello, ' . $account . '<br>';
+
+                    if($preparedQuery = $pdo->prepare('SELECT balance FROM accounts WHERE account_id=?')){
+                        $preparedQuery->bind_param('s', $account);
+                        $preparedQuery->execute();
+                        $preparedQuery->bind_result($balance);
+                        $preparedQuery->fetch();
+
+
+
+                        echo 'Your Current Balance: ' . $balance;
+
+                        $preparedQuery->close();
+                    }
                 }
             }
             $pdo->close();
