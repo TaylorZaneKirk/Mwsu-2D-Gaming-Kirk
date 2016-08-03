@@ -49,7 +49,6 @@ Date: 7/25/16
             }
 
            if (empty($account)){
-               //Display form
                echo 'Please Enter Account Number Above';
             }
             else{
@@ -61,9 +60,12 @@ Date: 7/25/16
                     $preparedQuery->bind_result($balance);
                     $preparedQuery->fetch();
 
-                    echo 'Your Result: ' . $balance;
+                    echo 'Your Current Balance: ' . $balance;
 
                     $preparedQuery->close();
+                }
+                else{
+                    echo 'Invalid';
                 }
             }
             $pdo->close();
