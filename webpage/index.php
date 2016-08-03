@@ -23,19 +23,19 @@ Date: 7/25/16
 
 
             $preparedQuery = $PDO->prepare('SELECT * FROM bank WHERE account_id = ?');
-            if ($preparedQuery->execute($_GET['account']){
-                foreach($preparedQuery as $item){
-                    echo 'hi';
-                }
-            }
-            else{
-                //Display form
-                echo '<form action="" method="get">
-                    Please Enter your Account information:<br>
-                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
-                    <input type="submit" value="Check" name="AccountInfo"><br>
-                </form>';
-            }
+//            if ($preparedQuery->execute($_GET['account']){
+//                foreach($preparedQuery as $item){
+//                    echo 'hi';
+//                }
+//            }
+//            else{
+//                //Display form
+//                echo '<form action="" method="get">
+//                    Please Enter your Account information:<br>
+//                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
+//                    <input type="submit" value="Check" name="AccountInfo"><br>
+//                </form>';
+//            }
         ?>
 
     </body>
