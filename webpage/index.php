@@ -15,18 +15,16 @@ Date: 7/25/16
 
     <body>
 
-        <form action="" method="post">
-            Please Enter your Account information:<br>
-            <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
-            <input type="submit" value="Check" name="AccountInfo"><br>
-        </form>
-
         <?php
-            if (!empty($_POST['account'])){
+            if (isset($_POST['account'])){
                 $account = $_POST['account'];
             }
             else{
-                echo "Invalid Account Info (no input)";
+                echo '<form action="" method="post">
+                    Please Enter your Account information:<br>
+                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
+                    <input type="submit" value="Check" name="AccountInfo"><br>
+                </form>';
             }
         ?>
 
