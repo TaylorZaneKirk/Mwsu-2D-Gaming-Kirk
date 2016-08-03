@@ -17,7 +17,7 @@ Date: 7/25/16
 
         <?php
             //Just test stuff
-        $db = new PDO('mysql:dbname=bank; host=127.0.0.1; charset=utf8', 'root', '1VT2yQtVjX');
+            $db = new PDO('mysql:dbname=bank; host=127.0.0.1; charset=utf8', 'root', '1VT2yQtVjX');
             $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
