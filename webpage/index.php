@@ -93,15 +93,17 @@ Date: 7/25/16
                         $preparedQuery->bind_result($balance);  //the result of the query can
                                                                 //ONLY be placed in $balance
 
-                        $preparedQuery->fetch();    //get result of query
-
-                        //Display balance of the account to the user
-                        echo 'Your Current Balance: ' . $balance;
+                        //get result of query
+                        if($preparedQuery->fetch()){
+                            //Display balance of the account to the user
+                            echo 'Your Current Balance: ' . $balance;
+                        }
+                        else{
+                            //input was good, but record does not exist in db
+                            echo 'Request Refused: Please Check your Account Number and Try Again';
+                        }
 
                         $preparedQuery->close();    //secure close
-                    }
-                    else{
-                        echo 'hi';
                     }
                 }
             }
