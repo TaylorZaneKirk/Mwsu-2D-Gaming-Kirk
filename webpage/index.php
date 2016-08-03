@@ -15,6 +15,12 @@ Date: 7/25/16
 
     <body>
 
+        <form action="" method="POST">
+            Please Enter your Account information:<br>
+            <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
+            <input type="submit" value="Check" name="AccountInfo"><br>
+        </form>
+
         <?php
             //Just test stuff
 //            $host = '127.0.0.1';
