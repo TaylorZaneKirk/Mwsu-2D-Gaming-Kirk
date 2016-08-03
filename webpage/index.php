@@ -84,7 +84,7 @@ Date: 7/25/16
                     echo 'Current Account: ' . $account . '<br>';
 
                     //Use a prepared statement to further limit possibility of attack
-                    if($preparedQuery = $dbConnect->prepare('SELECT ISNULL((SELECT balance FROM accounts WHERE account_id=?),0)')){
+                    if($preparedQuery = $dbConnect->prepare('SELECT balance FROM accounts WHERE account_id=?)')){
 
                         $preparedQuery->bind_param('s', $account);  //'?' from above query becomes $account
 
@@ -99,6 +99,9 @@ Date: 7/25/16
                         echo 'Your Current Balance: ' . $balance;
 
                         $preparedQuery->close();    //secure close
+                    }
+                    else{
+                        echo 'hi';
                     }
                 }
             }
