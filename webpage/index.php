@@ -2,7 +2,7 @@
 Name: Taylor Kirk
 Professor: Dr. Passos
 Class: Web-App Security
-Date: 7/25/16
+Date: 8/3/16
 -->
 
 <html>
@@ -17,7 +17,7 @@ Date: 7/25/16
 
         <form action="" method="GET">
             Please Enter your Account information:<br>
-            <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
+            <input type="text" maxlength="20" size="30" name="AccountQuery" id="account"><br>
             <input type="submit" name="AccountInfo"><br>
         </form>
 
@@ -30,7 +30,7 @@ Date: 7/25/16
             $host = '127.0.0.1';
             $db   = 'bank';
             $user = 'root';
-            $pass = '1VT2yQtVjX';
+            $pass = '1VT2yQtVjX'; //please do not hack me, Passos
 
             $dbConnect = new mysqli($host, $user, $pass, $db);  //attempt to connect to db
 
@@ -49,24 +49,24 @@ Date: 7/25/16
             if (empty($account)){
                //input is empty
 
-               echo 'Please Enter Account Number Above';
+               echo 'Please enter Account Number above';
             }
             elseif (strlen($account) != 20){
                 //Input is not expected length
 
-                echo 'Request Refused: Your Account Number should be 20 digits in length.';
+                echo 'Request Refused: Your Account Number must be 20 digits in length';
             }
             else{
 
                 if (preg_match("/[a-zA-Z]/", $account, $match)){
                     //Match any alpha-character input
 
-                    echo 'Request Refused: No Alpha-Characters Allowed';
+                    echo 'Request Refused: No Alpha-Characters allowed';
                 }
                 elseif (preg_match("/[\W]+/", $account, $match)){
                     //Match any 'non-word' input (flags special chars)
 
-                    echo 'Request Refused: No Special Characters Allowed';
+                    echo 'Request Refused: No Special Characters allowed';
                 }
                 elseif (!preg_match("/[0-9]/", $account, $match)){
                     //Trigger if any input is explicitly NOT a number
@@ -101,9 +101,9 @@ Date: 7/25/16
                             echo 'Your Current Balance: $' . $balance;
                         }
                         else{
-                            //input was good, but record does not exist in db
 
-                            echo 'Request Refused: Please Check your Account Number and Try Again';
+                            //input was good, but record does not exist in db
+                            echo 'Request Refused: Please check your Account Number and try again';
                         }
 
                         $preparedQuery->close();    //secure close
