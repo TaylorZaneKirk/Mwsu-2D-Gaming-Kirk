@@ -32,7 +32,7 @@ Date: 7/25/16
             //errorCodes[0] = Empty Input
             //errorCodes[1] = Alpha chars
             //errorCodes[2] = Special chars
-            $errorCodes = array(false, false, false, false);
+            $errorCodes = array(0, 0, 0, 0);
 
             $pdo = new mysqli($host, $user, $pass, $db);
 //
@@ -49,20 +49,20 @@ Date: 7/25/16
 
            if (empty($account)){
                //input is empty
-               $errorCodes[0] = true;
+               $errorCodes[0] = 1;
             }
             else{
                 if (preg_match("/[a-zA-Z]/", $account, $match)){
                     //Match any alpha-character input
-                    $errorCodes[1] = true;
+                    $errorCodes[1] = 1;
                 }
                 elseif (preg_match("/[\W]+/", $account, $match)){
                     //Match any 'non-word' input (flags special chars)
-                    $errorCodes[2] = true;
+                    $errorCodes[2] = 1;
                 }
                 elseif (!preg_match("/[0-9]/", $account, $match)){
                     //Trigger if any input is explicitly NOT a number
-                    $errorCodes[3] = true;
+                    $errorCodes[3] = 1;
                 }
                 else{
                     echo 'hello, ' . $account . '<br>';
@@ -82,7 +82,7 @@ Date: 7/25/16
                 }
             }
 
-            if(errorCodes[0] == true){
+            if(errorCodes[0]){
                 echo 'Please Enter Account Number Above';
             }
 //            if(errorCodes[1]){
