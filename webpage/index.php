@@ -46,7 +46,7 @@ Date: 7/25/16
             }
             else{
                 echo 'hello';
-                $account = $_GET['account'];
+                $account = $_POST['account'];
 
                 $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
                 $preparedQuery->bind_param('s', $account);
