@@ -15,7 +15,7 @@ Date: 7/25/16
 
     <body>
 
-        <form action="index.php" method="post">
+        <form action="" method="post">
             Please Enter your Account information:<br>
             <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
             <input type="submit" value="Check" name="AccountInfo"><br>
@@ -26,7 +26,6 @@ Date: 7/25/16
                 $account = $_POST['account'];
             }
             else{
-                document.account = '';
                 echo "Invalid Account Info (no input)";
             }
         ?>
