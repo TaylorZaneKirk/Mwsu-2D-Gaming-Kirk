@@ -41,6 +41,9 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
+            if($pdo->connect_error){
+                echo 'No Server Response';
+            }
 
            if (!isset($_GET['account'])){
                //Display form
@@ -50,7 +53,7 @@ Date: 7/25/16
                 echo 'hello';
                 $account = $_GET['account'];
 
-                $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id = ?');
+                $preparedQuery = $pdo->prepare('SELECT * FROM accounts');
                 $preparedQuery->bind_param('s', $account);
 
                 $preparedQuery->execute();
