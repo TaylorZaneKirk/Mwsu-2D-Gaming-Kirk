@@ -55,16 +55,15 @@ Date: 7/25/16
             else{
                 echo 'hello, ' . $account . '<br>';
 
-                if($preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id=?')){
+                if($preparedQuery = $pdo->prepare('SELECT balance FROM accounts WHERE account_id=?')){
                     $preparedQuery->bind_param('s', $account);
                     $preparedQuery->execute();
+                    $preparedQuery->bind_result($balance);
+                    $preparedQuery->fetch();
 
-                    $result = $preparedQuery->get_result();
-                    echo 'Your Result: ' . $result;
-                    while ($row = $result->fetch_assoc()) {
-                        echo $row;
-                    }
+                    echo 'Your Result: ' . $balance;
 
+                    $preparedQuery->close();
                 }
             }
             $pdo->close();
