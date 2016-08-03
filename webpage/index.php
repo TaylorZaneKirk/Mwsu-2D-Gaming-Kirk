@@ -71,14 +71,14 @@ Date: 7/25/16
                 elseif (!preg_match("/[0-9]/", $account, $match)){
                     //Trigger if any input is explicitly NOT a number
                     //  this is a 'catch-all' for anything that might get through the
-                    //  first two, but message to user will be less specific
+                    //  first two filters, but message-to-user will be less specific
 
                     echo 'Request Refused: Input must only contain Numerical Characters';
                 }
                 else{
                     //Input is valid, one final pass to sanitize input with a filter
-                    $properInfo = filter_var($account, FILTER_SANITIZE_NUMBER_INT);
-                    $account = $properInfo;
+                    $account = filter_var($account, FILTER_SANITIZE_NUMBER_INT); //strip every NOT #
+                    //$account = $properInfo;
 
                     //Use a prepared statement to further limit possibility of attack
                     if($preparedQuery = $dbConnect->prepare('SELECT balance FROM accounts WHERE account_id=?')){
@@ -98,7 +98,7 @@ Date: 7/25/16
                             echo 'Current Account: ' . $account . '<br>';
 
                             //Display balance of the account to the user
-                            echo 'Your Current Balance: ' . $balance;
+                            echo 'Your Current Balance: $' . $balance;
                         }
                         else{
                             //input was good, but record does not exist in db
