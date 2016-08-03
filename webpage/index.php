@@ -32,7 +32,7 @@ Date: 7/25/16
             //errorCodes[0] = Empty Input
             //errorCodes[1] = Alpha chars
             //errorCodes[2] = Special chars
-            $errorCodes = array(0, 0, 0, 0);
+            $errorCodes = array[0, 0, 0, 0];
 
             $pdo = new mysqli($host, $user, $pass, $db);
 //
@@ -82,9 +82,11 @@ Date: 7/25/16
                 }
             }
 
-            if(errorCodes[0] == 1){
-                echo 'Please Enter Account Number Above';
-            }
+            var_dump($errorCodes);
+
+//            if(errorCodes[0] == 1){
+//                echo 'Please Enter Account Number Above';
+//            }
 //            if(errorCodes[1]){
 //                echo 'Request Refused: No Alpha-Characters Allowed';
 //            }
