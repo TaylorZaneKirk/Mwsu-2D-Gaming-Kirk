@@ -41,7 +41,7 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
-            $account = $_GET['account'];
+            $account = $_GET['AccountQuery'];
 
             if($pdo->connect_error){
                 echo 'No Server Response';
