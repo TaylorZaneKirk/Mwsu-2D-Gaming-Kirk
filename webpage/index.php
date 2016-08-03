@@ -44,11 +44,7 @@ Date: 7/25/16
 
            if (!isset($_POST['account'])){
                //Display form
-               echo '<form action="" method="POST">
-                    Please Enter your Account information:<br>
-                    <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
-                    <input type="submit" value="Check" name="AccountInfo"><br>
-                </form>';
+               echo 'Invalid Input';
             }
             else{
                 echo 'hello';
