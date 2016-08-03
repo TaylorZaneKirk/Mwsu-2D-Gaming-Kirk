@@ -55,10 +55,10 @@ Date: 7/25/16
                 echo 'hello, ' . $account;
 
                 $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id = :account');
-                $preparedQuery->bind_param(':account', $account);
-                echo 'Your Result: ' . $preparedQuery;
+                $preparedQuery->bindParam(':account', $account);
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
+                echo 'Your Result: ' . $result;
                 while ($row = $result->fetch_assoc()) {
                     echo $row;
                 }
