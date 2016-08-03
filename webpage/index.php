@@ -84,9 +84,9 @@ Date: 7/25/16
 
             var_dump($errorCodes);
 
-//            if(errorCodes[0] == 1){
-//                echo 'Please Enter Account Number Above';
-//            }
+            if(errorCodes[0] == 1){
+                echo 'Please Enter Account Number Above';
+            }
 //            if(errorCodes[1]){
 //                echo 'Request Refused: No Alpha-Characters Allowed';
 //            }
