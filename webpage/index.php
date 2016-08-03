@@ -43,6 +43,7 @@ Date: 7/25/16
             $account = $_GET['AccountQuery'];
 
             if(mysqli_connect_errno()){
+                //Could not establish a connection to the database
                 echo 'No Server Response';
                 exit;
             }
@@ -50,6 +51,10 @@ Date: 7/25/16
            if (empty($account)){
                //input is empty
                echo 'Please Enter Account Number Above';
+            }
+            elseif (strlen($account) != 20){
+                //Input is not expected length
+                echo 'Request Refused: Your Account Number should be 20 digits in length.';
             }
             else{
 
