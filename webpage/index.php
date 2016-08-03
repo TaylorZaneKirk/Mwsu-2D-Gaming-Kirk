@@ -35,7 +35,7 @@ Date: 7/25/16
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
                 PDO::ATTR_EMULATE_PREPARES   => false,
             ];
-            $pdo = new PDO($dsn, $user, $pass, $opt);
+            $pdo = new mysqli($host, $user, $pass, $db);
 //
 //            $db = new PDO('mysql:host=127.0.0.1; dbname=bank; charset=utf8', 'root', '1VT2yQtVjX');
 //            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); //disable emulation
@@ -54,8 +54,8 @@ Date: 7/25/16
             else{
                 echo 'hello, ' . $account . '<br>';
 
-                $preparedQuery = $pdo->prepare("SELECT * FROM accounts WHERE 'account_id'=:acct");
-                $preparedQuery->bindParam(':acct', $account, PDO::PARAM_STR);
+                $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id=?');
+                $preparedQuery->bind_param('s', $account);
 
                 $preparedQuery->execute();
                 $result = $preparedQuery->get_result();
@@ -63,6 +63,9 @@ Date: 7/25/16
                 while ($row = $result->fetch_assoc()) {
                     echo $row;
                 }
+
+                $preparedQuery->close();
+                $pdo->close();
             }
         ?>
 
