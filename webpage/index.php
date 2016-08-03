@@ -36,24 +36,26 @@ Date: 7/25/16
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
 
-           if (isset($_GET['account'])){
-               echo 'hello';
-               $account = $_GET['account'];
-
-               $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
-               $preparedQuery->bind_param('s', $account);
-
-               foreach($preparedQuery as $item){
-                   echo $item;
-               }
-            }
-            else{
-                //Display form
-                echo '<form action="" method="get">
+           if (!isset($_POST['account'])){
+               //Display form
+               echo '<form action="" method="POST">
                     Please Enter your Account information:<br>
                     <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
                     <input type="submit" value="Check" name="AccountInfo"><br>
                 </form>';
+            }
+            else{
+                echo 'hello';
+                $account = $_GET['account'];
+
+                $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
+                $preparedQuery->bind_param('s', $account);
+                $preparedQuery->execute();
+                $result = $preparedQuery->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    echo $row;
+                }
             }
         ?>
 
