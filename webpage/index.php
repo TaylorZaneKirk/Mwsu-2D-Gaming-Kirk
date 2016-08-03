@@ -52,7 +52,7 @@ Date: 7/25/16
                echo 'Please Enter Account Number Above';
             }
             else{
-                echo 'hello, ' . $account;
+                echo 'hello, ' . $account . '<br>';
 
                 $preparedQuery = $pdo->prepare('SELECT * FROM accounts WHERE account_id = :acct');
                 $preparedQuery->bindParam(':acct', $account, PDO::PARAM_STR);
