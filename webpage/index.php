@@ -60,10 +60,10 @@ Date: 7/25/16
                     //Match any 'non-word' input (flags special chars)
                     $errorCodes[2] = true;
                 }
-//                elseif (!preg_match("/[0-9]/", $account, $match)){
-//                    //Trigger if any input is explicitly NOT a number
-//                    $errorCodes[3] = true;
-//                }
+                elseif (!preg_match("/[0-9]/", $account, $match)){
+                    //Trigger if any input is explicitly NOT a number
+                    $errorCodes[3] = true;
+                }
                 else{
                     echo 'hello, ' . $account . '<br>';
 
