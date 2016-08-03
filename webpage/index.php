@@ -23,12 +23,11 @@ Date: 7/25/16
 
 
             $preparedQuery = $PDO->prepare('SELECT * FROM bank WHERE account_id = ?');
-            if ($preparedQuery->execute($_GET['account']){
-                echo 'hi';
+//            if ($preparedQuery->execute($_GET['account']){
 //                foreach($preparedQuery as $item){
 //                    echo 'hi';
 //                }
-            }
+//            }
 //            else{
 //                //Display form
 //                echo '<form action="" method="get">
