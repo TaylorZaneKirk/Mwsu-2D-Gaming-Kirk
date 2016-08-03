@@ -36,7 +36,7 @@ Date: 7/25/16
 //            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //should turn this off
 
 
-            $preparedQuery = $PDO->prepare('SELECT * FROM bank WHERE account_id = ?');
+            $preparedQuery = $PDO->prepare('SELECT * FROM accounts WHERE account_id = ?');
            if ($preparedQuery->execute($_GET['account']){
                echo 'hello';
 //                foreach($preparedQuery as $item){
