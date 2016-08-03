@@ -15,7 +15,7 @@ Date: 7/25/16
 
     <body>
 
-        <form action="index.php" method="GET">
+        <form action="" method="GET">
             Please Enter your Account information:<br>
             <input type="text" maxlength="40" size="30" name="AccountQuery" id="account"><br>
             <input type="submit" name="AccountInfo"><br>
@@ -45,7 +45,7 @@ Date: 7/25/16
                 echo 'No Server Response';
             }
 
-           if (!isset($_GET['account'])){
+           if (!empty($_GET['account'])){
                //Display form
                echo 'Please Enter Account Number Above';
             }
