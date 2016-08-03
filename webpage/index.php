@@ -82,9 +82,9 @@ Date: 7/25/16
                 }
             }
 
-//            if(errorCodes[0]){
-//                echo 'Please Enter Account Number Above';
-//            }
+            if(errorCodes[0]){
+                echo 'Please Enter Account Number Above';
+            }
 //            if(errorCodes[1]){
 //                echo 'Request Refused: No Alpha-Characters Allowed';
 //            }
