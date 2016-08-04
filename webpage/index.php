@@ -9,7 +9,7 @@ Date: 8/3/16
 
     <head>
 
-        <title>Security Project</title>
+        <title>Taylor Kirk's Security Project</title>
 
     </head>
 
