@@ -43,7 +43,7 @@ Date: 8/3/16
             exit;
         }
 
-        $unsafeQuery = "SELECT * FROM accounts WHERE account_id=" . $account;
+        $unsafeQuery = "SELECT * FROM accounts WHERE account_id='" . $account; ."'"
         $result = mysqli_query($dbConnect, $unsafeQuery);
 
         if(mysqli_num_rows($result) > 0){
