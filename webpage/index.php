@@ -78,7 +78,6 @@ Date: 8/3/16
                 else{
                     //Input is valid, one final pass to sanitize input with a filter
                     $account = filter_var($account, FILTER_SANITIZE_NUMBER_INT); //strip every NOT #
-                    //$account = $properInfo;
 
                     //Use a prepared statement to further limit possibility of attack
                     if($preparedQuery = $dbConnect->prepare('SELECT balance FROM accounts WHERE account_id=?')){
