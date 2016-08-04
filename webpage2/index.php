@@ -2,7 +2,7 @@
 Name: Taylor Kirk
 Professor: Dr. Passos
 Class: Web-App Security
-Date: 8/3/16
+Date: 8/4/16
 -->
 
 <html>
@@ -22,22 +22,18 @@ Date: 8/3/16
         </form>
 
         <?php
-        ////////////////////
-        //Connect to Server
-        ///////////////////
 
         //Server creditials
         $host = '127.0.0.1';
         $db   = 'bank';
         $user = 'root';
-        $pass = '1VT2yQtVjX'; //please do not hack me, Passos
+        $pass = '1VT2yQtVjX';
 
-        $dbConnect = new mysqli($host, $user, $pass, $db);  //attempt to connect to db
+        $dbConnect = new mysqli($host, $user, $pass, $db);
 
-        $account = $_GET['AccountQuery'];   //Account number specified by user
+        $account = $_GET['AccountQuery'];
 
         if(mysqli_connect_errno()){
-            //Could not establish a connection to the database
 
             echo 'No Server Response';
             exit;
@@ -55,7 +51,7 @@ Date: 8/3/16
             echo "table empty";
         }
 
-        $dbConnect->close();  //secure close
+        $dbConnect->close();
         ?>
 
     </body>
