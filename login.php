@@ -1,6 +1,7 @@
 <?php
 	require "conn.php";
     echo 'test';
+    echo $user_name;
 	if($preparedQuery = $conn->prepare('SELECT password FROM userlogin WHERE username=?')){
 		$preparedQuery->bind_param('s', $user_name);  //'?' from above query becomes $account
 		$preparedQuery->execute();  //send the query to db
