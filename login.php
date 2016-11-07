@@ -16,7 +16,7 @@
 			    echo 'login success !!!!! Welcome ' . $user_name;
             else{
                 //User exists, but wrong pass
-                echo 'Request Refused: Please check password and try again';
+                echo 'Request Refused: Please check username or password and try again';
             }
 		}
 		else{
