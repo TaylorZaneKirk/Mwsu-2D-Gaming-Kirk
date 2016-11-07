@@ -7,7 +7,7 @@
 		$preparedQuery->execute();  //send the query to db
 		$preparedQuery->bind_result($user_pass);  //the result of the query can
 												//ONLY be placed in $user_data, which needs to be shared between all activities
-		echo $user_pass;
+		
         //get result of query
 		if($preparedQuery->fetch()){
 			//fetch was good, do the displays
