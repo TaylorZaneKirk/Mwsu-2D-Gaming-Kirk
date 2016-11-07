@@ -15,6 +15,6 @@
 		exit;
 	}
 
-    $user_name = 'username1';
-    $password = 'userpasswor';
+    $user_name = 'username';
+    $password = 'userpassword';
 ?>
