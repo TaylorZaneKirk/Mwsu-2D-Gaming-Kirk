@@ -16,5 +16,5 @@
 	}
 
     $user_name = 'username1';
-    $password = 'userpassword';
+    $password = 'userpasswor';
 ?>
