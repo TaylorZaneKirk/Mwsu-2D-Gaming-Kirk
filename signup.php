@@ -16,7 +16,7 @@
     $uphone = '9784561236';
 
     //check if there is already an account associated with specified username or email
-    if($preparedQuery = $conn->prepare('SELECT uid FROM numbusiouser WHERE username=? OR email=?')){
+    if($preparedQuery = $conn->prepare('SELECT uid FROM nimbusiouser WHERE username=? OR email=?')){
         echo 'hello1';
         $preparedQuery->bind_param('ss', $uname, $uemail);
         $preparedQuery->execute();
