@@ -8,10 +8,10 @@
     //$uemail = $_POST["user_email"];
     //$uphone = $_POST["user_phone"];
 
-    $fname = 'test2';
-    $lname = 'test2';
-    $uname = 'test1';
-    $upass = 'test2';
+    $fname = 'test1';
+    $lname = 'test1';
+    $uname = 'test2';
+    $upass = 'test1';
     $uemail = 'test2@test.com';
     $uphone = '9784561236';
 
