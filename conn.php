@@ -14,7 +14,4 @@
 		echo 'No Server Response';
 		exit;
 	}
-
-    $user_name = 'username1';
-    $password = 'userpassword';
 ?>
