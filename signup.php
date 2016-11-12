@@ -8,16 +8,15 @@
     //$uemail = $_POST["user_email"];
     //$uphone = $_POST["user_phone"];
 
-    $fname = 'test1';
-    $lname = 'test1';
-    $uname = 'test1';
-    $upass = 'test1';
+    $fname = 'test2';
+    $lname = 'test2';
+    $uname = 'test2';
+    $upass = 'test2';
     $uemail = 'test1@test.com';
     $uphone = '9784561236';
 
     //check if there is already an account associated with specified username or email
     if($preparedQuery = $conn->prepare('SELECT uid FROM nimbusiouser WHERE username=? OR email=?')){
-        echo 'hello1';
         $preparedQuery->bind_param('ss', $uname, $uemail);
         $preparedQuery->execute();
         $preparedQuery->bind_result($matches);
