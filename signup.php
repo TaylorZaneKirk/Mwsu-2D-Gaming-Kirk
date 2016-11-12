@@ -10,7 +10,7 @@
 
     $fname = 'test5';
     $lname = 'test5';
-    $uname = 'test5';
+    $uname = 'test6';
     $upass = 'test5';
     $uemail = 'test5@test.com';
     $uphone = '9408867033';
