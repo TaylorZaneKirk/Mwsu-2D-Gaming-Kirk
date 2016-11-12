@@ -10,9 +10,9 @@
 
     $fname = 'test2';
     $lname = 'test2';
-    $uname = 'test2';
+    $uname = 'test1';
     $upass = 'test2';
-    $uemail = 'test1@test.com';
+    $uemail = 'test2@test.com';
     $uphone = '9784561236';
 
     //check if there is already an account associated with specified username or email
