@@ -20,7 +20,7 @@
         echo 'hello1';
         $preparedQuery->bind_param('ss', $uname, $uemail);
         $preparedQuery->execute();
-        $preparedQuery->bind_result($matches_un, $matches_em);
+        //$preparedQuery->bind_result($matches_un, $matches_em);
 
         if($preparedQuery->fetch()){
             //match found, refuse
