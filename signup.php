@@ -19,7 +19,7 @@
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouser WHERE username=? OR email=?')){
         $preparedQuery->bind_param('ss', $uname, $uemail);
         $preparedQuery->execute();
-        $preparedQuery->bind_result($matches);
+        //$preparedQuery->bind_result($matches);
 
         if($preparedQuery->fetch()){
             //match found, refuse
