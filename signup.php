@@ -16,7 +16,7 @@
     $uphone = '9784561236';
 
     //check if there is already an account associated with specified username or email
-    if($preparedQuery = $conn->prepare('SELECT uid FROM nimbusiouser WHERE username=? OR email=?')){
+    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouser WHERE username=? OR email=?')){
         $preparedQuery->bind_param('ss', $uname, $uemail);
         $preparedQuery->execute();
         $preparedQuery->bind_result($matches);
@@ -29,7 +29,6 @@
         else{
             //No record exists, add one...
             if($preparedQuery = $conn->prepare('INSERT into nimbusiouser (username, firstname, lastname, password, email, phone) VALUES (?, ?, ?, ?, ?, ?)')){
-                echo 'hello2';
                 $preparedQuery->bind_param('ssssss', $uname, $fname, $lname, $upass, $uemail, $uphone); 
                 $preparedQuery->execute();
 
@@ -44,6 +43,4 @@
     else{
         echo "Error: ".$conn->error;
     }
-    
-    $conn.close();
 ?>
