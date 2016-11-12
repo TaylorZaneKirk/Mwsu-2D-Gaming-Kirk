@@ -12,7 +12,7 @@
     $lname = 'test5';
     $uname = 'test5';
     $upass = 'test5';
-    $uemail = 'test5';
+    $uemail = 'test5@test.com';
     $uphone = '9408867033';
 
     if(!(filter_var($uemail, FILTER_VALIDATE_EMAIL))){
