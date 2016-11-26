@@ -1,25 +1,15 @@
 <?php
     require "conn.php";
 
-    //$ccuid = $_POST["cc_uid"];
-    //$ccn= $_POST["cc_number"];
-    //$ccun= $_POST["cc_name"];
-    //$cced= $_POST["cc_exp"];
-    //$cci = $_POST["cc_issuer"];
-   // $cccvv = $_POST["cc_security"];
-   // $ccadd1 = $_POST["cc_add1"];
-   // $ccadd2 = $_POST["cc_add2"];
-   // $cczip = $_POST["cc_zip"];
-
-    //$ccuid = 3;
-    $ccn = 1234123412341236;
-    $ccun = 'Taylor';
-    $cced = '02/2017';
-    $cci = 'Visa';
-    $cccvv = 666;
-    $ccadd1 = "1234";
-    $ccadd2 = 'TX';
-    $cczip = 76367;
+    $ccuid = $_POST["cc_uid"]; //REMOVE THIS!!! uid in db table MUST be set to auto-increment
+    $ccn= $_POST["cc_number"];
+    $ccun= $_POST["cc_name"];
+    $cced= $_POST["cc_exp"];
+    $cci = $_POST["cc_issuer"];
+    $cccvv = $_POST["cc_security"];
+    $ccadd1 = $_POST["cc_add1"];
+    $ccadd2 = $_POST["cc_add2"];
+    $cczip = $_POST["cc_zip"];
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE nameoncard=? AND cardnumber=?')){
         $preparedQuery->bind_param('si', $ccun, $ccn);
@@ -36,7 +26,7 @@
                     echo 'Card Added!';
                 }
                 else{
-                    echo "1Error: ".$conn->error;
+                    echo "Error: ".$conn->error;
                 }
             }
             else{
