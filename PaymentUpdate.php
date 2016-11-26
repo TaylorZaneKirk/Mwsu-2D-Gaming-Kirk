@@ -1,8 +1,8 @@
 <?php
     require "conn.php";
 
-    $ccuid = $_POST["cc_uid"];
-    $ccn= $_POST["cc_number"];
+    //$ccuid = $_POST["cc_uid"];
+    //$ccn= $_POST["cc_number"];
     $ccun= $_POST["cc_name"];
     $cced= $_POST["cc_exp"];
     $cci = $_POST["cc_issuer"];
@@ -10,6 +10,9 @@
     $ccadd1 = $_POST["cc_add1"];
     $ccadd2 = $_POST["cc_add2"];
     $cczip = $_POST["cc_zip"];
+
+    $ccuid = 1;
+    $ccn = 1234123412341234;
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
         $preparedQuery->bind_param('ss', $ccuid, $ccn);
