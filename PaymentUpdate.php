@@ -30,13 +30,13 @@
             echo 'Error: This card already exists!';
         }
         else{
-             if($preparedQuery = $conn->prepare('INSERT into nimbusiouserpayment (cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')){
+             if($preparedQuery = $conn->prepare('INSERT into nimbusiouserpayment (cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')){
                 $preparedQuery->bind_param('isssissi', $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
                 if($preparedQuery->execute()){
                     echo 'Card Added!';
                 }
                 else{
-                    echo "Error: ".$conn->error;
+                    echo "1Error: ".$conn->error;
                 }
             }
             else{
