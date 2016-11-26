@@ -19,7 +19,7 @@
     $cccvv = 666;
     $ccadd1 = "1234";
     $ccadd2 = 'TX';
-    $cczip = '76367';
+    $cczip = 76367;
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
         $preparedQuery->bind_param('ii', $ccuid, $ccn);
