@@ -22,7 +22,7 @@
     $cczip = '76367';
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
-        $preparedQuery->bind_param('ss', $ccuid, $ccn);
+        $preparedQuery->bind_param('ii', $ccuid, $ccn);
         $preparedQuery->execute();
 
         if($preparedQuery->fetch()){
@@ -31,7 +31,7 @@
         }
         else{
              if($preparedQuery = $conn->prepare('INSERT into nimbusiouserpayment (uid, cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')){
-                $preparedQuery->bind_param('sssssssss', $ccuid, $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
+                $preparedQuery->bind_param('iisssissi', $ccuid, $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
                 $preparedQuery->execute();
                 echo 'Card Added!';
             }
