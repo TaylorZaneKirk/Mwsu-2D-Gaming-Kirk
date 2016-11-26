@@ -3,16 +3,23 @@
 
     //$ccuid = $_POST["cc_uid"];
     //$ccn= $_POST["cc_number"];
-    $ccun= $_POST["cc_name"];
-    $cced= $_POST["cc_exp"];
-    $cci = $_POST["cc_issuer"];
-    $cccvv = $_POST["cc_security"];
-    $ccadd1 = $_POST["cc_add1"];
-    $ccadd2 = $_POST["cc_add2"];
-    $cczip = $_POST["cc_zip"];
+    //$ccun= $_POST["cc_name"];
+    //$cced= $_POST["cc_exp"];
+    //$cci = $_POST["cc_issuer"];
+   // $cccvv = $_POST["cc_security"];
+   // $ccadd1 = $_POST["cc_add1"];
+   // $ccadd2 = $_POST["cc_add2"];
+   // $cczip = $_POST["cc_zip"];
 
     $ccuid = 1;
     $ccn = 1234123412341235;
+    $ccun = 'Taylor';
+    $cced = '02/2017';
+    $cci = 'Visa';
+    $cccvv = 666;
+    $ccadd1 = "1234";
+    $ccadd2 = 'TX';
+    $cczip = '76367';
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
         $preparedQuery->bind_param('ss', $ccuid, $ccn);
