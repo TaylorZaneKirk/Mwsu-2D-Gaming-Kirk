@@ -1,7 +1,7 @@
 <?php
     require "conn.php";
 
-    $ccuid = $_POST["cc_uid"]; //REMOVE THIS!!! uid in db table MUST be set to auto-increment
+    $ccuid = $_POST["cc_uid"];
     $ccn= $_POST["cc_number"];
     $ccun= $_POST["cc_name"];
     $cced= $_POST["cc_exp"];
@@ -11,8 +11,8 @@
     $ccadd2 = $_POST["cc_add2"];
     $cczip = $_POST["cc_zip"];
 
-    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE nameoncard=? AND cardnumber=?')){
-        $preparedQuery->bind_param('si', $ccun, $ccn);
+    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
+        $preparedQuery->bind_param('ii', $ccuid, $ccn);
         $preparedQuery->execute();
 
         if($preparedQuery->fetch()){
