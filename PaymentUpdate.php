@@ -12,7 +12,7 @@
     $cczip = $_POST["cc_zip"];
 
     $ccuid = 1;
-    $ccn = 1234123412341234;
+    $ccn = 1234123412341235;
 
     if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
         $preparedQuery->bind_param('ss', $ccuid, $ccn);
