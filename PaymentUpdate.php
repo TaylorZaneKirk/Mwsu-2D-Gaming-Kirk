@@ -21,8 +21,8 @@
     $ccadd2 = 'TX';
     $cczip = 76367;
 
-    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
-        $preparedQuery->bind_param('ii', $ccuid, $ccn);
+    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE nameoncard=? AND cardnumber=?')){
+        $preparedQuery->bind_param('si', $ccun, $ccn);
         $preparedQuery->execute();
 
         if($preparedQuery->fetch()){
