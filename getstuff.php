@@ -21,7 +21,7 @@
                 $preparedQuery2->execute();
                 $preparedQuery2->bind_result($r_servicename, $r_servicedesc, $r_serviceprice, $r_Memory, $r_Processor, $r_Storage);
 
-                echo "test3 " . $r_servicedesc;
+                //echo "test3 " . $r_servicedesc;
 
                 if($preparedQuery2->fetch()){
                     $result = array();
