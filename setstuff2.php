@@ -53,7 +53,6 @@
             }
             else{ //No match found, create new type
                 //Get the max value from the serviceid column of the nimbusioservices
-                echo "Test3 " . $newserviceid;
 
                 if($preparedQuery3 = $conn->prepare('SELECT MAX(serviceid) FROM nimbusioservices')){
                     $preparedQuery3->execute();
@@ -61,6 +60,7 @@
                     $preparedQuery3->bind_result($maxType);
 
                     $newserviceid = $maxType + 1;
+                    echo "Test3 " . $newserviceid;
                     $preparedQuery3->close();
                 }
 
