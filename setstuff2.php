@@ -13,7 +13,7 @@
 
     $uid = 2;
     //$IPaddress = $_GET['IPaddress'];
-    $serviceid = 1;
+    $serviceid = 0;
     $servicename = "LAMP";
     $servicedesc = "Linux, Apache, MySQL, PHP";
     $serviceprice = 4.99;
@@ -37,7 +37,6 @@
         //  and then update the serviceid record on the userservers to reflect
         //  the new serviceid
         $preparedQuery->store_result();
-        echo "test1";
     }
         
     if($serviceid == 0){ //Is custom?
