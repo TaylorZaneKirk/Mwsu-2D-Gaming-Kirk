@@ -15,12 +15,12 @@
 
             echo "test2 " . $r_serverid . " " . $r_IPaddress;
 
-            if($preparedQuery = $conn->prepare('SELECT servicename, servicedesc, serviceprice, Memory, Processor, Storage FROM nimbusioservices WHERE serviceid=?')){
+            if($preparedQuery = $conn->prepare('SELECT servicename FROM nimbusioservices WHERE serviceid=?')){
                 $preparedQuery->bind_param('i', $r_serverid);
                 $preparedQuery->execute();
-                $preparedQuery->bind_result($r_servicename, $r_servicedesc, $r_serviceprice, $r_Memory, $r_Processor, $r_Storage);
+                $preparedQuery->bind_result($r_servicename);
 
-                echo "test3 " . $r_servicedesc;
+                echo "test3 " . $r_servicename;
 
                 if($preparedQuery->fetch()){
                     $result = array();
