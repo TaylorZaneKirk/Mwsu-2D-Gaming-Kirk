@@ -13,16 +13,18 @@
         $preparedQuery->bind_result($r_IPaddress, $r_serverid);
         if($preparedQuery->fetch()){
 
-            echo "test2" . $r_serverid;
+            echo "test2 " . $r_serverid . " " . $r_IPaddress;
 
-            if($preparedQuery = $conn->prepare('SELECT serverName, serverDesc, serverRAM, serverProc, serverSpace FROM servicesTable WHERE serverid=?')){
+            if($preparedQuery = $conn->prepare('SELECT servicename, servicedesc, serviceprice, Memory, Processor, Storage FROM nimbusioservices WHERE serviceid=?')){
                 $preparedQuery->bind_param('i', $r_serverid);
                 $preparedQuery->execute();
-                $preparedQuery->bind_result($r_serverName, $r_serverDesc, $r_serverRAM, $r_serverProc, $r_serverSpace);
+                $preparedQuery->bind_result($r_servicename, $r_servicedesc, $r_serviceprice, $r_Memory, $r_Processor, $r_Storage);
+
+                echo "test3 " . $r_servicedesc;
 
                 if($preparedQuery->fetch()){
                     $result = array();
-                    array_push($result, array("IPaddress"=>$r_IPaddress, "serverName"=>$r_serverName, "serverDesc"=>$r_serverDesc, "serverRam"=>$r_serverRAM, "serverProc"=>$r_serverProc, "serverSpace"=>$r_serverSpace));
+                    array_push($result, array("IPaddress"=>$r_IPaddress, "serviceid"=>$r_serverid, "servicename"=>$r_servicename, "servicedesc"=>$r_servicedesc, "serviceprice"=>$r_serviceprice, "Memory"=>$r_Memory, "Processor"=>$r_Processor, "Storage"=>$r_Storage));
                     echo json_encode(array("result"=>$result));
                 }
              }
