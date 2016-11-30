@@ -54,7 +54,7 @@
             else{ //No match found, create new type
                 //Get the max value from the serviceid column of the nimbusioservices
 
-                if($preparedQuery3 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE serviceid=(SELECT MAX(serviceid) from nimbusioservices)')){
+                if($preparedQuery3 = $conn->prepare('SELECT MAX(serviceid) AS Biggest FROM nimbusioservices')){
                     $preparedQuery3->execute();
                     $preparedQuery3->store_result();
                     $preparedQuery3->bind_result($maxType);
