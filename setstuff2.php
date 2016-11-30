@@ -77,15 +77,14 @@
                     echo "test3 " . $newserviceid . " " . $serviceprice;
                     $preparedQuery4->close();
                 }
-
-                //Now we update userservers to reflect changes for custom type
-                //UPDATE userservers SET serviceid=$newserviceid WHERE uid=$uid AND serviceid=serviceid
-                if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serverid=? WHERE IPaddress=?')){
-                    $preparedQuery5->bind_param('is', $newserviceid, $IPaddress);
-                    $preparedQuery5->execute();
-                    $preparedQuery5->store_result();
-                    $preparedQuery5->close();
-                }
+            }
+            //Now we update userservers to reflect changes for custom type
+            //UPDATE userservers SET serviceid=$newserviceid WHERE uid=$uid AND serviceid=serviceid
+            if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serverid=? WHERE IPaddress=?')){
+                $preparedQuery5->bind_param('is', $newserviceid, $IPaddress);
+                $preparedQuery5->execute();
+                $preparedQuery5->store_result();
+                $preparedQuery5->close();
             }
             $preparedQuery2->close();
         }
