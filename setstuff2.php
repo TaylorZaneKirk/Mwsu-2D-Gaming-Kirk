@@ -76,8 +76,8 @@
 
                 //Now we update userservers to reflect changes for custom type
                 //UPDATE userservers SET serviceid=$newserviceid WHERE uid=$uid AND serviceid=serviceid
-                if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serverid=? WHERE uid=? AND serverid=?')){
-                    $preparedQuery5->bind_param('iii', $newserviceid, $uid, $serviceid)
+                if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serverid=? WHERE uid=? AND IPaddress=?')){
+                    $preparedQuery5->bind_param('iis', $newserviceid, $uid, $IPaddress)
                     $preparedQuery5->execute();
                     $preparedQuery5->store_result();
                     $preparedQuery5->close();
