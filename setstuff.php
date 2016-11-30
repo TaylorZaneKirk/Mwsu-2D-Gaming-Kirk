@@ -35,7 +35,7 @@
         //  If there is no match returned, create a new serviceid on the nimbusioservices
         //  and then update the serviceid record on the userservers to reflect
         //  the new serviceid
-
+        $preparedQuery->store_result();
         echo "test1";
         
         if($serviceid == 0){ //Is custom?
@@ -66,7 +66,7 @@
                         if($preparedQuery4 = $conn->prepare('INSERT INTO nimbusioservices (servicename, servicedesc, serviceprice, Processor, Memory, Storage) VALUES (?,?,?,?,?)')){
                             $preparedQuery4->bind_param('ssisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
                             $preparedQuery4->execute();
-
+                            $preparedQuery4->store_result();
                             $preparedQuery4->close();
                         }
                         $preparedQuery3->close();
