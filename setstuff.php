@@ -23,6 +23,7 @@
 
     //generate a random IPaddress string
     $IPaddress = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255);
+    echo "test-1";
     echo "test0 " . $uid . " " . $serviceid . " " . $IPaddress;
     //User just bought a server, add their server to userservers
     if($preparedQuery = $conn->prepare('INSERT INTO userservers (uid, serviceid, IPaddress) VALUES (?,?,?)')){
