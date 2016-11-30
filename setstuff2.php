@@ -42,8 +42,8 @@
     if($serviceid == 0){ //Is custom?
 
         //Check if this custom type already has a record
-        if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND Processor=? AND Memory=? AND Storage=? AND serviceprice=?')){
-            $preparedQuery2->bind_param('sssiid', $servicename, $servicedesc, $Processor, $Memory, $Storage, $serviceprice);
+        if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND Processor=? AND Memory=? AND Storage=?')){
+            $preparedQuery2->bind_param('sssii', $servicename, $servicedesc, $Processor, $Memory, $Storage);
             $preparedQuery2->execute();
             $preparedQuery2->store_result();
             $preparedQuery2->bind_result($newserviceid);
