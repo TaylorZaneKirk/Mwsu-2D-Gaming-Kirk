@@ -28,6 +28,9 @@
                     echo json_encode(array("result"=>$result));
                 }
              }
+             else{
+                 echo "error: services call error";
+             }
         }
         else{
             echo "error: Record does not exist.";
