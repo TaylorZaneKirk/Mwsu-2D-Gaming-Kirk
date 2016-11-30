@@ -69,7 +69,7 @@
                 //  into the table of the nimbusioservices. Ideally, this incremented record should
                 //  match the value of the variable $newserviceid at this point
                 if($preparedQuery4 = $conn->prepare('INSERT INTO nimbusioservices (serviceid, servicename, servicedesc, serviceprice, Processor, Memory, Storage) VALUES (?,?,?,?,?,?,?)')){
-                    $preparedQuery4->bind_param('issisii', $newserviceid, $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
+                    $preparedQuery4->bind_param('issisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
                     $preparedQuery4->execute();
                     $preparedQuery4->store_result();
 
