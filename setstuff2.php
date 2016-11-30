@@ -17,7 +17,7 @@
     $servicename = "LAMP";
     $servicedesc = "Linux, Apache, MySQL, PHP";
     $serviceprice = 4.99;
-    $Memory = 512;
+    $Memory = 1024;
     $Processor = "Xenon";
     $Storage = 10240;
 
