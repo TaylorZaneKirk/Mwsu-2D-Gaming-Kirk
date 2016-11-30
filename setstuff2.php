@@ -59,7 +59,6 @@
                     $preparedQuery3->store_result();
                     $preparedQuery3->bind_result($maxType);
                     $preparedQuery3->fetch();
-                    echo "Test3 " . $maxType;
                     $newserviceid = $maxType + 1;
                     
                     $preparedQuery3->close();
@@ -73,6 +72,8 @@
                     $preparedQuery4->bind_param('ssisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
                     $preparedQuery4->execute();
                     $preparedQuery4->store_result();
+
+                    echo "test3 " . $newserviceid;
                     $preparedQuery4->close();
                 }
 
