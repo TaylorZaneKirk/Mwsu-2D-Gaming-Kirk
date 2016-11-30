@@ -78,6 +78,17 @@
             $preparedQuery2->close();
         }
         
-        
+        //Now we update userservers to reflect changes for custom type
+            //UPDATE userservers SET serviceid=$newserviceid WHERE uid=$uid AND serviceid=serviceid
+        if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serviceid=? WHERE uid=? AND serviceid=?')){
+            $preparedQuery5->bind_param('iii', $newserviceid, $uid, $serviceid)
+            $preparedQuery5->execute();
+            $preparedQuery5->store_result();
+
+            if ($preparedQuery5->errno){
+                echo "FAILURE!!! " . $preparedQuery5->error;
+            }
+            $preparedQuery5->close();
+        }
     }
 ?>
