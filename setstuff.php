@@ -39,52 +39,7 @@
         $preparedQuery->store_result();
         echo "test1";
         
-        if($serviceid == 0){ //Is custom?
-
-            //Check if this custom type already has a record
-            if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND serviceprice=? AND Processor=? AND Memory=? AND Storage=?')){
-                $preparedQuery2->bind_param('ssisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
-                $preparedQuery2->execute();
-                $preparedQuery2->store_result();
-                $preparedQuery2->bind_result($newserviceid);
-
-                if($preparedQuery2->fetch()){ //Found a match, update userservers and use this type instead
-                    //Pretty much do nothing
-                }
-                else{ //No match found, create new type
-                    //Get the max value from the serviceid column of the nimbusioservices
-                    if($preparedQuery3 = $conn->prepare('SELECT MAX(serviceid) FROM nimbusioservices')){
-                        $preparedQuery3->execute();
-                        $preparedQuery3->store_result();
-                        $preparedQuery3->bind_result($maxType);
-
-                        $newserviceid = $maxType + 1;
-
-                        //Insert new type record into nimbusioservices, we want serviceid to be set 
-                        //  to AUTO-INCREMENT on the backend-side for new records that are inserted
-                        //  into the table of the nimbusioservices. Ideally, this incremented record should
-                        //  match the value of the variable $newserviceid at this point
-                        if($preparedQuery4 = $conn->prepare('INSERT INTO nimbusioservices (servicename, servicedesc, serviceprice, Processor, Memory, Storage) VALUES (?,?,?,?,?)')){
-                            $preparedQuery4->bind_param('ssisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
-                            $preparedQuery4->execute();
-                            $preparedQuery4->store_result();
-                            $preparedQuery4->close();
-                        }
-                        $preparedQuery3->close();
-                    }
-                }
-                $preparedQuery2->close();
-
-                //Now we update userservers to reflect changes for custom type
-                    //UPDATE userservers SET serviceid=$newserviceid WHERE uid=$uid AND serviceid=serviceid
-                if($preparedQuery5 = $conn->prepare('UPDATE userservers SET serviceid=? WHERE uid=? AND serviceid=?')){
-                    $preparedQuery5->bind_param('iii', $newserviceid, $uid, $serviceid)
-                    $preparedQuery5->execute();
-
-                    $preparedQuery5->close();
-                }
-            }
-        }
+       
 
         $preparedQuery->close();
     }
