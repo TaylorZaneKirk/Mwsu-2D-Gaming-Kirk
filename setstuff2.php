@@ -43,7 +43,7 @@
 
         //Check if this custom type already has a record
         if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND serviceprice=? AND Processor=? AND Memory=? AND Storage=?')){
-            $preparedQuery2->bind_param('ssdsii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
+            $preparedQuery2->bind_param('ssisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
             $preparedQuery2->execute();
             $preparedQuery2->store_result();
             $preparedQuery2->bind_result($newserviceid);
@@ -69,7 +69,7 @@
                 //  into the table of the nimbusioservices. Ideally, this incremented record should
                 //  match the value of the variable $newserviceid at this point
                 if($preparedQuery4 = $conn->prepare('INSERT INTO nimbusioservices (serviceid, servicename, servicedesc, serviceprice, Processor, Memory, Storage) VALUES (?,?,?,?,?,?,?)')){
-                    $preparedQuery4->bind_param('issdsii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
+                    $preparedQuery4->bind_param('issisii', $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
                     $preparedQuery4->execute();
                     $preparedQuery4->store_result();
 
