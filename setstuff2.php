@@ -42,13 +42,13 @@
     if($serviceid == 0){ //Is custom?
 
         //Check if this custom type already has a record
-        if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND Memory=? AND serviceprice=?')){
-            $preparedQuery2->bind_param('ssid', $servicename, $servicedesc, $Memory, $serviceprice);
+        if($preparedQuery2 = $conn->prepare('SELECT serviceid FROM nimbusioservices WHERE servicename=? AND servicedesc=? AND Processor=? AND Memory=? AND Storage=? AND serviceprice=?')){
+            $preparedQuery2->bind_param('sssii', $servicename, $servicedesc, $Processor, $Memory, $Storage);
+            $preparedQuery2.setFloat(6, $serviceprice);
             $preparedQuery2->execute();
             $preparedQuery2->store_result();
             $preparedQuery2->bind_result($newserviceid);
 
-            echo "test " . $serviceprice;
             if($preparedQuery2->fetch()){ //Found a match, update userservers and use this type instead
                 echo "Test4: We got a match!";
                 //Pretty much do nothing
