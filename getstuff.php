@@ -10,6 +10,7 @@
 
         $preparedQuery->bind_param('i', $uid);
         $preparedQuery->execute();
+        $preparedQuery->store_result();
         $preparedQuery->bind_result($r_IPaddress, $r_serverid);
         if($preparedQuery->fetch()){
 
