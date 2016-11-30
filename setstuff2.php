@@ -26,7 +26,7 @@
     
     echo "test0 " . $uid . " " . $serviceid . " " . $IPaddress;
     //User just bought a server, add their server to userservers
-    if($preparedQuery = $conn->prepare('INSERT INTO userservers (uid, serviceid, IPaddress) VALUES (?, ?, ?)')){
+    if($preparedQuery = $conn->prepare('INSERT INTO userservers (uid, serverid, IPaddress) VALUES (?, ?, ?)')){
         $preparedQuery->bind_param('iis', $uid, $serviceid, $IPaddress);
         $preparedQuery->execute();
         //If using preset types, job is done. If user is using a custom type, first
