@@ -73,7 +73,7 @@
                     $preparedQuery4->execute();
                     $preparedQuery4->store_result();
 
-                    echo "test3 " . $newserviceid;
+                    echo "test3 " . $newserviceid . " " . $serviceprice;
                     $preparedQuery4->close();
                 }
 
