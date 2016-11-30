@@ -48,6 +48,7 @@
             $preparedQuery2->store_result();
             $preparedQuery2->bind_result($newserviceid);
 
+            echo "test " . $serviceprice;
             if($preparedQuery2->fetch()){ //Found a match, update userservers and use this type instead
                 echo "Test4: We got a match!";
                 //Pretty much do nothing
