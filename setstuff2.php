@@ -17,7 +17,7 @@
     $servicename = "PMAL";
     $servicedesc = "Linux, Apache, MySQL, PHP";
     $serviceprice = 4.99;
-    $Memory = 1024;
+    $Memory = 512;
     $Processor = "Xenon";
     $Storage = 15240;
 
