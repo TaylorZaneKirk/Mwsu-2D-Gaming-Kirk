@@ -60,7 +60,7 @@
                     $preparedQuery3->bind_result($maxType);
 
                     $newserviceid = $maxType + 1;
-                    echo "Test3 " . $newserviceid;
+                    echo "Test3 " . $maxType;
                     $preparedQuery3->close();
                 }
 
