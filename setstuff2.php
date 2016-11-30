@@ -14,7 +14,7 @@
     $uid = 2;
     //$IPaddress = $_GET['IPaddress'];
     $serviceid = 0;
-    $servicename = "LAMP";
+    $servicename = "PMAL";
     $servicedesc = "Linux, Apache, MySQL, PHP";
     $serviceprice = 4.99;
     $Memory = 1024;
@@ -53,6 +53,8 @@
             }
             else{ //No match found, create new type
                 //Get the max value from the serviceid column of the nimbusioservices
+                echo "Test3 " . $newserviceid;
+
                 if($preparedQuery3 = $conn->prepare('SELECT MAX(serviceid) FROM nimbusioservices')){
                     $preparedQuery3->execute();
                     $preparedQuery3->store_result();
