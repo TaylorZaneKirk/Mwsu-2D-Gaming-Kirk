@@ -40,5 +40,8 @@
         echo "test1";
     }
         
-    
+    if($serviceid == 0){ //Is custom?
+
+        
+    }
 ?>
