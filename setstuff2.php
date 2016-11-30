@@ -19,7 +19,7 @@
     $serviceprice = 4.99;
     $Memory = 512;
     $Processor = "Xenon";
-    $Storage = 15240;
+    $Storage = 512;
 
     //generate a random IPaddress string
     $IPaddress = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255);
