@@ -1,7 +1,8 @@
 <?php
     require "conn.php";
 
-    $uid = $_GET['uid'];
+    //$uid = $_GET['uid'];
+    $uid = 2;
 
     $result = array();
 
