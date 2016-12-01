@@ -1,30 +1,19 @@
 <?php
     require "conn.php";
-    echo "test-1";
-    //$uid = $_GET['uid'];
-    //$IPaddress = $_GET['IPaddress'];
-    //$serviceid = $_GET['serviceid'];
-    //$servicename = $_GET['servicename'];
-    //$servicedesc = $_GET['servicedesc'];
-    //$serviceprice = $_GET['serviceprice'];
-    //$Memory = $_GET['Memory'];
-    //$Processor = $_GET['Processor'];
-    //$Storage = $_GET['Storage'];
 
-    $uid = 2;
-    //$IPaddress = $_GET['IPaddress'];
-    $serviceid = 0;
-    $servicename = "PMAL";
-    $servicedesc = "Linux, Apache, MySQL, PHP";
-    $serviceprice = 4.99;
-    $Memory = 512;
-    $Processor = "Xenon";
-    $Storage = 512;
+    $uid = $_GET['uid'];
+    $IPaddress = $_GET['IPaddress'];
+    $serviceid = $_GET['serviceid'];
+    $servicename = $_GET['servicename'];
+    $servicedesc = $_GET['servicedesc'];
+    $serviceprice = $_GET['serviceprice'];
+    $Memory = $_GET['Memory'];
+    $Processor = $_GET['Processor'];
+    $Storage = $_GET['Storage'];
 
     //generate a random IPaddress string
     $IPaddress = "".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255).".".mt_rand(0,255);
     
-    echo "test0 " . $uid . " " . $serviceid . " " . $IPaddress;
     //User just bought a server, add their server to userservers
     if($preparedQuery = $conn->prepare('INSERT INTO userservers (uid, serverid, IPaddress) VALUES (?, ?, ?)')){
         $preparedQuery->bind_param('iis', $uid, $serviceid, $IPaddress);
@@ -37,6 +26,7 @@
         //  and then update the serviceid record on the userservers to reflect
         //  the new serviceid
         $preparedQuery->store_result();
+        $preparedQuery->close();
     }
         
     if($serviceid == 0){ //Is custom?
@@ -49,7 +39,6 @@
             $preparedQuery2->bind_result($newserviceid);
 
             if($preparedQuery2->fetch()){ //Found a match, update userservers and use this type instead
-                echo "Test4: We got a match!";
                 //Pretty much do nothing
             }
             else{ //No match found, create new type
@@ -61,7 +50,6 @@
                     $preparedQuery3->bind_result($maxType);
                     $preparedQuery3->fetch();
                     $newserviceid = $maxType + 1;
-                    
                     $preparedQuery3->close();
                 }
 
@@ -73,8 +61,6 @@
                     $preparedQuery4->bind_param('issdsii', $newserviceid, $servicename, $servicedesc, $serviceprice, $Processor, $Memory, $Storage);
                     $preparedQuery4->execute();
                     $preparedQuery4->store_result();
-
-                    echo "test3 " . $newserviceid . " " . $serviceprice;
                     $preparedQuery4->close();
                 }
             }
