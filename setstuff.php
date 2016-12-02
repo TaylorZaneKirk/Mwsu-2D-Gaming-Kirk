@@ -39,6 +39,7 @@
         $preparedQuery4->execute();
         $preparedQuery4->store_result();
         $preparedQuery4->close();
+        echo "test1";
     }
     
     //User just bought a server, add their server to userservers
@@ -53,6 +54,7 @@
         //  and then update the serviceid record on the userservers to reflect
         //  the new serviceid
         $preparedQuery->store_result();
-        $preparedQuery->close();          
+        $preparedQuery->close();
+        echo "Test2 " . $IPaddress . " " . $serviceid;    
     }
 ?>
