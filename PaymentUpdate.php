@@ -11,18 +11,34 @@
     $ccadd2 = $_POST["cc_add2"];
     $cczip = $_POST["cc_zip"];
 
-    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=? AND cardnumber=?')){
-        $preparedQuery->bind_param('ii', $ccuid, $ccn);
+    $ccuid = 2
+    $ccn= 1234123412341234
+    $ccun= "Bob"
+    $cced= "11/2018";
+    $cci = "Visa";
+    $cccvv = 369;
+    $ccadd1 = 4700;
+    $ccadd2 = "WF";
+    $cczip = 76367;
+
+    if($preparedQuery = $conn->prepare('SELECT * FROM nimbusiouserpayment WHERE uid=?')){
+        $preparedQuery->bind_param('i', $ccuid);
         $preparedQuery->execute();
 
         if($preparedQuery->fetch()){
-            //match found, refuse
-            echo 'Error: This card already exists!';
+            echo "test1";
+            if($preparedQuery2 = $conn->prepare('UPDATE nimbusiouserpayment SET ccn=?, ccun=?, cced=?, cci=?, cccvv=?, ccadd1=?, ccadd2=?, cczip=? WHERE uid=?')){
+                $preparedQuery2->bind_param('isssissii', $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip, $ccuid);
+                $preparedQuery2->execute();
+                $preparedQuery2->close();
+                echo "Card Updated!";
+            }
         }
         else{
-             if($preparedQuery = $conn->prepare('INSERT into nimbusiouserpayment (cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')){
-                $preparedQuery->bind_param('isssissi', $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
-                if($preparedQuery->execute()){
+            echo "test2";
+            if($preparedQuery3 = $conn->prepare('INSERT into nimbusiouserpayment (uid, cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')){
+                $preparedQuery3->bind_param('iisssissi', $ccuid, $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
+                if($preparedQuery3->execute()){
                     echo 'Card Added!';
                 }
                 else{
@@ -32,9 +48,8 @@
             else{
                 echo "Error: ".$conn->error;
             }
+            $preparedQuery3->close();
         }
         $preparedQuery->close();
     }
-
-    $conn.close();
 ?>
