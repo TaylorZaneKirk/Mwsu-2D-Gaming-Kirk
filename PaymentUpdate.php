@@ -11,9 +11,9 @@
     $ccadd2 = $_POST["cc_add2"];
     $cczip = $_POST["cc_zip"];
 
-    $ccuid = 2
-    $ccn= 1234123412341234
-    $ccun= "Bob"
+    $ccuid = 2;
+    $ccn= 1234123412341234;
+    $ccun= "Bob";
     $cced= "11/2018";
     $cci = "Visa";
     $cccvv = 369;
@@ -38,7 +38,20 @@
             }
         }
         else{
-            
+            echo "test2";
+            if($preparedQuery3 = $conn->prepare('INSERT into nimbusiouserpayment (uid, cardnumber, nameoncard, expdate, ccissuer, cvv, addressl1, addressl2, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)')){
+                $preparedQuery3->bind_param('iisssissi', $ccuid, $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip); 
+                if($preparedQuery3->execute()){
+                    echo 'Card Added!';
+                }
+                else{
+                    echo "Error: ".$conn->error;
+                }
+            }
+            else{
+                echo "Error: ".$conn->error;
+            }
+            $preparedQuery3->close();
         }
         $preparedQuery->close();
     }
