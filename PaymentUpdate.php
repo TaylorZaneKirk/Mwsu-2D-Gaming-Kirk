@@ -33,6 +33,9 @@
                 $preparedQuery2->close();
                 echo "Card Updated!";
             }
+            else{
+                echo "Error: ".$conn->error;
+            }
         }
         else{
             echo "test2";
