@@ -28,7 +28,7 @@
         if($preparedQuery->fetch()){
             echo "test1";
             $preparedQuery->close();
-            if($preparedQuery2 = $conn->prepare('UPDATE nimbusiouserpayment SET ccn=?, ccun=?, cced=?, cci=?, cccvv=?, ccadd1=?, ccadd2=?, cczip=? WHERE uid=?')){
+            if($preparedQuery2 = $conn->prepare('UPDATE nimbusiouserpayment SET cardnumber=?, nameoncard=?, expdate=?, ccissuer=?, cvv=?, addressl1=?, addressl2=?, zipcode=? WHERE uid=?')){
                 $preparedQuery2->bind_param('isssissii', $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip, $ccuid);
                 $preparedQuery2->execute();
                 $preparedQuery2->close();
