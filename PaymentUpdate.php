@@ -26,16 +26,7 @@
         $preparedQuery->execute();
 
         if($preparedQuery->fetch()){
-            echo "test1";
-            if($preparedQuery2 = $conn->prepare('UPDATE nimbusiouserpayment SET ccn=?, ccun=?, cced=?, cci=?, cccvv=?, ccadd1=?, ccadd2=?, cczip=? WHERE uid=?')){
-                $preparedQuery2->bind_param('isssissii', $ccn, $ccun, $cced, $cci, $cccvv, $ccadd1, $ccadd2, $cczip, $ccuid);
-                $preparedQuery2->execute();
-                $preparedQuery2->close();
-                echo "Card Updated!";
-            }
-            else{
-                echo "Error: ".$conn->error;
-            }
+            
         }
         else{
             echo "test2";
